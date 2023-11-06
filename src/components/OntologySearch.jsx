@@ -53,8 +53,11 @@ return <>
     <div>
        {searchResults?.docs?.map((d)=>{
         return <>
-       <div>
-        {d.ontology_prefix}
+       <div className="search_result">
+        <div>{d.label}</div>
+        <div>{d.obo_id}</div>
+        <div>{d.description}</div>
+        <div>Ontology: {d.ontology_prefix}</div>
         </div>
         </>
        })}
