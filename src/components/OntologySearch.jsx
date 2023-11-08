@@ -6,13 +6,17 @@ export const OntologySearch = () => {
   const [searchResults, setSearchResults] = useState({});
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(20);
+  const [current, setCurrent] = useState(1);
 
   const searchBar = useRef();
+
   const onChange = page => {
+    setCurrent(page);
     setPage(page);
   };
 
   const onShowSizeChange = (current, rows) => {
+    setCurrent(current);
     setRows(rows);
   };
 
@@ -20,7 +24,7 @@ export const OntologySearch = () => {
 
   useEffect(() => {
     displayResults(rows, page);
-  }, [searchTerm, page, rows]);
+  }, [searchTerm, rows, page]);
 
   const displayResults = (rows, page) => {
     return requestSearch(rows, (page - 1) * rows);
@@ -53,37 +57,44 @@ export const OntologySearch = () => {
 
           <button
             className="search_button"
-            onClick={() => setSearchTerm(searchBar.current.value)}
+            onClick={() => {
+              setSearchTerm(searchBar.current.value), setPage(1), setCurrent(1);
+            }}
           >
             Search
           </button>
         </div>
         <div className="search_results">
-          {searchResults?.docs?.map((d, index) => {
-            return (
-              <>
-                <div key={index} className="search_result">
-                  <div>
-                    <div>
-                      <b>{d.label}</b>
+          <div className="search_results_header">
+            Search results for: {searchTerm}
+          </div>
+          {searchResults?.docs?.length > 0
+            ? searchResults?.docs.map((d, index) => {
+                return (
+                  <>
+                    <div key={index} className="search_result">
+                      <div>
+                        <div>
+                          <b>{d.label}</b>
+                        </div>
+                        <div>{d.obo_id}</div>
+                      </div>
+                      <div>{d.description}</div>
+                      <div>Ontology: {d.ontology_prefix}</div>
                     </div>
-                    <div>{d.obo_id}</div>
-                  </div>
-                  <div>{d.description}</div>
-                  <div>Ontology: {d.ontology_prefix}</div>
-                </div>
-              </>
-            );
-          })}
+                  </>
+                );
+              })
+            : 'No results found.'}
         </div>
-        {console.log(searchTerm)}
-        {searchTerm !== '' ? (
+        {searchTerm !== '' && searchResults?.docs.length > 0 ? (
           <div>
             <Pagination
-              defaultCurrent={0}
-              defaultPageSize={20}
+              defaultCurrent={1}
+              defaultPageSize={rows}
               total={searchResults?.numFound}
               onChange={onChange}
+              current={current}
               onShowSizeChange={onShowSizeChange}
               showTotal={(total, range) =>
                 `${range[0]}-${range[1]} of ${total} items`
