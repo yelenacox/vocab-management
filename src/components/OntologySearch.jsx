@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 
 export const OntologySearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -7,6 +7,7 @@ export const OntologySearch = () => {
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(20);
   const [current, setCurrent] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const searchBar = useRef();
 
@@ -23,6 +24,7 @@ export const OntologySearch = () => {
   const URL = import.meta.env.VITE_API_ENDPOINT;
 
   useEffect(() => {
+    setLoading(true);
     displayResults(rows, page);
   }, [searchTerm, rows, page]);
 
@@ -41,7 +43,10 @@ export const OntologySearch = () => {
       },
     )
       .then(res => res.json())
-      .then(data => setSearchResults(data.response));
+      .then(data => setSearchResults(data.response))
+      .then(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -64,30 +69,45 @@ export const OntologySearch = () => {
             Search
           </button>
         </div>
-        <div className="search_results">
-          <div className="search_results_header">
-            Search results for: {searchTerm}
-          </div>
-          {searchResults?.docs?.length > 0
-            ? searchResults?.docs.map((d, index) => {
-                return (
-                  <>
-                    <div key={index} className="search_result">
-                      <div>
-                        <div>
-                          <b>{d.label}</b>
-                        </div>
-                        <div>{d.obo_id}</div>
-                      </div>
-                      <div>{d.description}</div>
-                      <div>Ontology: {d.ontology_prefix}</div>
-                    </div>
-                  </>
-                );
-              })
-            : 'No results found.'}
-        </div>
-        {searchTerm !== '' && searchResults?.docs.length > 0 ? (
+        {loading === true ? (
+          <Spin size="large" />
+        ) : (
+          <>
+            {searchTerm ? (
+              <>
+                {' '}
+                <div className="search_results">
+                  <div className="search_results_header">
+                    Search results for: {searchTerm}
+                  </div>
+                  {searchResults?.docs?.length > 0
+                    ? searchResults?.docs.map((d, index) => {
+                        return (
+                          <>
+                            <div key={index} className="search_result">
+                              <div>
+                                <div>
+                                  <b>{d.label}</b>
+                                </div>
+                                <div>{d.obo_id}</div>
+                              </div>
+                              <div>{d.description}</div>
+                              <div>Ontology: {d.ontology_prefix}</div>
+                            </div>
+                          </>
+                        );
+                      })
+                    : 'No results found.'}
+                </div>
+              </>
+            ) : (
+              ''
+            )}
+          </>
+        )}
+        {searchTerm !== '' &&
+        loading === false &&
+        searchResults?.docs.length > 0 ? (
           <div>
             <Pagination
               defaultCurrent={1}
