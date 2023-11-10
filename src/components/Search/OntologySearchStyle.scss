@@ -1,41 +1,102 @@
-@mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 40%) {
+$buttonColor: #080705;
+$borderColor: #fffc31;
+
+@mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 50%) {
   background: {
     image: url('./assets/Background.png');
     size: 100vw;
     repeat: no-repeat;
     position: calc($percent - $pixels) $bottom_percent;
   }
-}
-
-.search_container {
-  width: 100vw;
-  margin: 0;
-  background-color: wheat;
-}
-
-.search_bar {
-  height: 83vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  z-index: -1;
 }
 
 .search_page {
-  margin: 0px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   @include background_image;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.search_field {
+  display: flex;
+  flex-direction: row;
+  margin: 40px 0;
+}
+
+.text_input {
+  grid-column-start: 2;
 }
 
 #search_input {
+  background-image: url('./assets/magnifying_glass_search.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 30px;
   height: 50px;
   width: 400px;
+  font-size: 1.3rem;
+  padding-left: 5px;
+}
+
+#search_input::placeholder {
+  font-size: 1.3rem;
+  padding: 5px;
+}
+
+.search_button {
+  background-color: $buttonColor;
+  border: 2px $borderColor solid;
+  color: white;
+  padding: 15px 30px;
+  font: {
+    size: 0.7rem;
+    weight: 800;
+  }
+  margin-left: 20px;
+  grid-column-start: 3;
+}
+
+.text_above_search {
+  font: {
+    size: 2rem;
+    weight: 800;
+  }
+}
+
+.display_none {
+  display: none;
+}
+
+.results_page {
+  @include background_image($pixels: -680px, $bottom_percent: 90%);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  margin-top: 17vh;
 }
 
 .search_results {
-  // @include background_image(
-  //   $percent: -550%,
-  //   $pixels: -500px,
-  //   $bottom_percent: -420%
-  // );
+  background-color: none;
+  min-height: 86.1vh;
+}
+
+.search_result {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.term_ontology {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.pagination {
+  text-align: center;
+  margin: 0 0 10vh 10vh;
 }

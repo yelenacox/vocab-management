@@ -1,14 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import { Pagination, Spin } from 'antd';
 import './OntologySearchStyle.scss';
+import { myContext } from '../../App';
 
 export const OntologySearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState({});
-  const [page, setPage] = useState(1);
-  const [rows, setRows] = useState(20);
-  const [current, setCurrent] = useState(1);
   const [loading, setLoading] = useState(false);
+  const {
+    results,
+    setResults,
+    searchTerm,
+    setSearchTerm,
+    page,
+    setPage,
+    rows,
+    setRows,
+    current,
+    setCurrent,
+  } = useContext(myContext);
 
   const searchBar = useRef();
 
@@ -44,7 +52,7 @@ export const OntologySearch = () => {
       },
     )
       .then(res => res.json())
-      .then(data => setSearchResults(data.response))
+      .then(data => setResults(data.response))
       .then(() => {
         setLoading(false);
       });
@@ -57,22 +65,32 @@ export const OntologySearch = () => {
           className={`search_page_bg_image ${searchTerm ? 'results' : ''}`}
         ></div>
       </div>
-      <div className="search_bar">
-        <input
-          id="search_input"
-          type="text"
-          placeholder="Search"
-          ref={searchBar}
-        />
+      <div className={searchTerm ? 'results_page' : 'search_page'}>
+        <div className={searchTerm ? 'display_none' : 'text_above_search'}>
+          Text about something...
+        </div>
+        <div className="search_field">
+          <div className="text_input">
+            <input
+              id="search_input"
+              type="text"
+              placeholder="Search"
+              ref={searchBar}
+            />
+          </div>
 
-        <button
-          className="search_button"
-          onClick={() => {
-            setSearchTerm(searchBar.current.value), setPage(1), setCurrent(1);
-          }}
-        >
-          Search
-        </button>
+          <button
+            className="search_button"
+            onClick={() => {
+              setSearchTerm(searchBar.current.value), setPage(1), setCurrent(1);
+            }}
+          >
+            SEARCH
+          </button>
+        </div>
+        <div className={searchTerm ? 'display_none' : 'text_below_search'}>
+          More text about something else...
+        </div>
       </div>
 
       <>
@@ -84,12 +102,12 @@ export const OntologySearch = () => {
                 <div className="search_results_header">
                   Search results for: {searchTerm}
                 </div>
-                {searchResults?.docs?.length > 0
-                  ? searchResults?.docs.map((d, index) => {
+                {results?.docs?.length > 0
+                  ? results?.docs.map((d, index) => {
                       return (
                         <>
                           <div key={index} className="search_result">
-                            <div>
+                            <div className="term_ontology">
                               <div>
                                 <b>{d.label}</b>
                               </div>
@@ -112,14 +130,12 @@ export const OntologySearch = () => {
         )}
       </>
 
-      {searchTerm !== '' &&
-      loading === false &&
-      searchResults?.docs.length > 0 ? (
-        <div>
+      {searchTerm !== '' && loading === false && results?.docs.length > 0 ? (
+        <div className="pagination">
           <Pagination
             defaultCurrent={1}
             defaultPageSize={rows}
-            total={searchResults?.numFound}
+            total={results?.numFound}
             onChange={onChange}
             current={current}
             onShowSizeChange={onShowSizeChange}
