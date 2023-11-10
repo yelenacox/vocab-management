@@ -1,0 +1,41 @@
+@mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 40%) {
+  background: {
+    image: url('./assets/Background.png');
+    size: 100vw;
+    repeat: no-repeat;
+    position: calc($percent - $pixels) $bottom_percent;
+  }
+}
+
+.search_container {
+  width: 100vw;
+  margin: 0;
+  background-color: wheat;
+}
+
+.search_bar {
+  height: 83vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.search_page {
+  margin: 0px;
+  height: 100vh;
+  @include background_image;
+}
+
+#search_input {
+  height: 50px;
+  width: 400px;
+}
+
+.search_results {
+  // @include background_image(
+  //   $percent: -550%,
+  //   $pixels: -500px,
+  //   $bottom_percent: -420%
+  // );
+}

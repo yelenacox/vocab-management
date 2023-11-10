@@ -1,0 +1,64 @@
+$navColor: #080705;
+$linkColor: #fffc31;
+$myFont: 'Noto Sans', sans-serif;
+
+nav {
+  width: 100vw;
+  background-color: $navColor;
+  height: 17vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: $myFont;
+  li {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+    color: $navColor;
+    font: {
+      size: 1.2rem;
+      weight: 800;
+    }
+  }
+}
+
+.nav_body {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.logo_container {
+  left: 0;
+  padding-left: 8vw;
+}
+
+.nav_logo {
+  width: 81px;
+  color: white;
+  font: {
+    weight: 800;
+    size: 1.7rem;
+  }
+  text-align: left;
+}
+
+.nav_links {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  grid-column-start: 2;
+}
+
+.nav_link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: $linkColor;
+  height: 3.3rem;
+  width: 7.9rem;
+  border-radius: 10px;
+}
