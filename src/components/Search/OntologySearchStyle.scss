@@ -1,5 +1,6 @@
 $buttonColor: #080705;
 $borderColor: #fffc31;
+$buttonEffect: rgb(39, 36, 33);
 
 @mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 50%) {
   background: {
@@ -57,9 +58,18 @@ $borderColor: #fffc31;
     weight: 800;
   }
   margin-left: 20px;
-  grid-column-start: 3;
+  box-shadow: 0 9px #999;
+}
+.search_button:hover {
+  background-color: $buttonEffect;
+  // color: $buttonColor;
 }
 
+.search_button:active {
+  background-color: $buttonEffect;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 .text_above_search {
   font: {
     size: 2rem;
