@@ -5,6 +5,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import { NavBar } from './components/Nav/NavBar';
 import { Switch } from 'antd';
 import { Footer } from './components/Nav/Footer';
+import { SearchResults } from './components/Search/SearchResults';
 
 export const myContext = createContext();
 
@@ -14,6 +15,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(20);
   const [current, setCurrent] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   return (
     <myContext.Provider
@@ -28,6 +30,8 @@ function App() {
         setRows,
         current,
         setCurrent,
+        loading,
+        setLoading,
       }}
     >
       <Routes>
@@ -42,6 +46,7 @@ function App() {
           }
         >
           <Route index element={<OntologySearch />} />
+          <Route path="/search/:query" element={<SearchResults />} />
         </Route>
       </Routes>
     </myContext.Provider>

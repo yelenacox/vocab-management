@@ -26,6 +26,7 @@ $buttonEffect: rgb(39, 36, 33);
   display: flex;
   flex-direction: row;
   margin: 40px 0;
+  height: fit-content;
 }
 
 .text_input {
@@ -37,10 +38,10 @@ $buttonEffect: rgb(39, 36, 33);
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 30px;
-  height: 50px;
-  width: 400px;
+  height: 60px;
+  width: 500px;
   font-size: 1.3rem;
-  padding-left: 5px;
+  padding-left: 10px;
 }
 
 #search_input::placeholder {
@@ -52,13 +53,14 @@ $buttonEffect: rgb(39, 36, 33);
   background-color: $buttonColor;
   border: 2px $borderColor solid;
   color: white;
-  padding: 15px 30px;
+  padding: 18px 36px;
   font: {
     size: 0.7rem;
     weight: 800;
   }
   margin-left: 20px;
   box-shadow: 0 9px #999;
+  cursor: pointer;
 }
 .search_button:hover {
   background-color: $buttonEffect;
@@ -75,38 +77,4 @@ $buttonEffect: rgb(39, 36, 33);
     size: 2rem;
     weight: 800;
   }
-}
-
-.display_none {
-  display: none;
-}
-
-.results_page {
-  @include background_image($pixels: -680px, $bottom_percent: 90%);
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  margin-top: 17vh;
-}
-
-.search_results {
-  background-color: none;
-  min-height: 86.1vh;
-}
-
-.search_result {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.term_ontology {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.pagination {
-  text-align: center;
-  margin: 0 0 10vh 10vh;
 }

@@ -1,11 +1,10 @@
+import { useEffect, useRef, useState, useContext } from 'react';
 import { Pagination, Spin } from 'antd';
-import { useState, useContext } from 'react';
 import { myContext } from '../../App';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import './SearchResults.scss';
 
 export const SearchResults = () => {
-  const [loading, setLoading] = useState(false);
-
   const {
     results,
     setResults,
@@ -17,25 +16,96 @@ export const SearchResults = () => {
     setRows,
     current,
     setCurrent,
+    loading,
+    setLoading,
   } = useContext(myContext);
-  const { searchQuery } = useParams();
+
+  const { query } = useParams();
+  const navigate = useNavigate();
+  const ref = useRef();
+
+  const onChange = page => {
+    setCurrent(page);
+    setPage(page);
+  };
+
+  const onShowSizeChange = (current, rows) => {
+    setCurrent(current);
+    setRows(rows);
+  };
+
+  const URL = import.meta.env.VITE_API_ENDPOINT;
+
+  useEffect(() => {
+    displayResults(rows, page);
+  }, [rows, page, query]);
+
+  const displayResults = (rows, page) => {
+    return requestSearch(rows, (page - 1) * rows);
+  };
+
+  const requestSearch = (rowCount, firstRowDisplayed) => {
+    setLoading(true);
+    fetch(
+      `${URL}q=${query}&ontology=mondo,hp&rows=${rowCount}&start=${firstRowDisplayed}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+      .then(res => res.json())
+      .then(data => setResults(data.response))
+      .then(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <>
-      {searchTerm !== '' ? (
-        loading === false ? (
+      <div className="search_page_bg">
+        <div className="results_image"></div>
+      </div>
+      <div className="search_field_container">
+        <div className="search_field_results">
+          <div className="text_input_results">
+            <input
+              id="search_input_results"
+              type="text"
+              placeholder="Search"
+              defaultValue={query}
+              ref={ref}
+            />
+          </div>
+
+          <button
+            className="search_button_results"
+            onClick={e => {
+              setPage(1),
+                setCurrent(1),
+                navigate(`/search/${ref.current.value}`);
+            }}
+          >
+            SEARCH
+          </button>
+        </div>
+      </div>
+
+      <>
+        {loading === false ? (
           <>
             {' '}
             <div className="search_results">
               <div className="search_results_header">
-                Search results for: {searchTerm}
+                <h2>Search results for: {query}</h2>
               </div>
               {results?.docs?.length > 0
                 ? results?.docs.map((d, index) => {
                     return (
                       <>
                         <div key={index} className="search_result">
-                          <div>
+                          <div className="term_ontology">
                             <div>
                               <b>{d.label}</b>
                             </div>
@@ -52,13 +122,11 @@ export const SearchResults = () => {
           </>
         ) : (
           <Spin />
-        )
-      ) : (
-        ''
-      )}
+        )}
+      </>
 
       {searchTerm !== '' && loading === false && results?.docs.length > 0 ? (
-        <div>
+        <div className="pagination">
           <Pagination
             defaultCurrent={1}
             defaultPageSize={rows}
