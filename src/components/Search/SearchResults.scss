@@ -1,0 +1,108 @@
+$buttonColor: #080705;
+$borderColor: #fffc31;
+$buttonEffect: rgb(39, 36, 33);
+
+// @mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 50%) {
+//   background: {
+//   image: url('./assets/Background.png');
+//   size: 100vw;
+//   repeat: no-repeat;
+//   position: calc($percent - $pixels) $bottom_percent;
+// }
+// z-index: -1;
+// }
+.image_container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: -1;
+}
+
+.background_image_results {
+  position: fixed;
+  // top: 50%;
+  // left: 50%;
+  transform: translate(41%, -40%);
+  width: 100vw;
+}
+
+.search_button_results {
+  background-color: $buttonColor;
+  border: 2px $borderColor solid;
+  color: white;
+  padding: 15px 30px;
+  font: {
+    size: 0.7rem;
+    weight: 800;
+  }
+  margin-left: 20px;
+  box-shadow: 0 9px #999;
+  cursor: pointer;
+}
+
+.search_button_results :hover {
+  background-color: $buttonEffect;
+  // color: $buttonColor;
+}
+
+.search_button_results :active {
+  background-color: $buttonEffect;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.search_field_container {
+  padding: 0 0 10px 50px;
+  margin-top: 17vh;
+}
+
+// .search_page_bg {
+//   @include background_image($pixels: -680px, $bottom_percent: 90%);
+//   background-attachment: fixed;
+// }
+
+.search_results {
+  background-color: none;
+  padding-left: 50px;
+  min-height: 86.1vh;
+  z-index: 1;
+  // margin-top: -1000px;
+}
+
+.search_field_results {
+  display: flex;
+  flex-direction: row;
+}
+
+#search_input_results {
+  background-image: url('./assets/magnifying_glass_search.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 30px;
+  height: 50px;
+  width: 300px;
+  font-size: 1.3rem;
+  padding-left: 5px;
+}
+
+#search_input_results ::placeholder {
+  font-size: 1.3rem;
+  padding: 5px;
+}
+
+.search_result {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.term_ontology {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.pagination {
+  text-align: center;
+  margin: 0 0 10vh 10vh;
+}
