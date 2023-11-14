@@ -1,6 +1,8 @@
+// @import 'Variables';
+
 $buttonColor: #080705;
 $borderColor: #fffc31;
-$buttonEffect: rgb(39, 36, 33);
+$buttonEffect: #232323;
 
 @mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 50%) {
   background: {
@@ -19,18 +21,14 @@ $buttonEffect: rgb(39, 36, 33);
   align-items: center;
   justify-content: center;
   @include background_image;
-  grid-template-columns: 1fr auto 1fr;
 }
 
 .search_field {
-  display: flex;
+  display: grid;
   flex-direction: row;
   margin: 40px 0;
   height: fit-content;
-}
-
-.text_input {
-  grid-column-start: 2;
+  grid-template-columns: 1fr auto 1fr;
 }
 
 #search_input {
@@ -42,6 +40,7 @@ $buttonEffect: rgb(39, 36, 33);
   width: 500px;
   font-size: 1.3rem;
   padding-left: 10px;
+  grid-column-start: 2;
 }
 
 #search_input::placeholder {
@@ -59,17 +58,18 @@ $buttonEffect: rgb(39, 36, 33);
     weight: 800;
   }
   margin-left: 20px;
-  box-shadow: 0 9px #999;
+
   cursor: pointer;
+  grid-column-start: 3;
 }
 .search_button:hover {
-  background-color: $buttonEffect;
-  // color: $buttonColor;
+  box-shadow: 0 5px 15px rgba(103, 103, 103, 0.8);
+  border: 3px $borderColor solid;
 }
 
 .search_button:active {
   background-color: $buttonEffect;
-  box-shadow: 0 5px #666;
+  box-shadow: 0 5px 15px rgb(103, 103, 103);
   transform: translateY(4px);
 }
 .text_above_search {

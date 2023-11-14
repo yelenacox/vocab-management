@@ -63,44 +63,47 @@ export const SearchResults = () => {
 
   return (
     <>
-      <div className="search_field_container">
-        <div className="image_container">
-          <img className="background_image_results" src={Background} />
-        </div>
-        <div className="search_field_results">
-          <div className="text_input_results">
-            <input
-              id="search_input_results"
-              type="text"
-              placeholder="Search"
-              defaultValue={query}
-              ref={ref}
-            />
+      <div className="results_page_container">
+        <div className="search_field_container">
+          <div className="image_container">
+            <img className="background_image_results" src={Background} />
           </div>
+          <div className="search_field_results">
+            <div className="text_input_results">
+              <input
+                id="search_input_results"
+                type="text"
+                placeholder="Search"
+                defaultValue={query}
+                ref={ref}
+              />
+            </div>
 
-          <button
-            className="search_button_results"
-            onClick={e => {
-              setPage(1),
-                setCurrent(1),
-                navigate(`/search/${ref.current.value}`);
-            }}
-          >
-            SEARCH
-          </button>
+            <div>
+              <button
+                className="search_button_results"
+                onClick={e => {
+                  setPage(1),
+                    setCurrent(1),
+                    navigate(`/search/${ref.current.value}`);
+                }}
+              >
+                SEARCH
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <>
-        {loading === false ? (
-          <>
-            {' '}
-            <div className="search_results">
-              <div className="search_results_header">
-                <h2>Search results for: {query}</h2>
-              </div>
-              {results?.docs?.length > 0
-                ? results?.docs.map((d, index) => {
+        <>
+          {loading === false ? (
+            <>
+              {' '}
+              <div className="search_results">
+                <div className="search_results_header">
+                  <h2>Search results for: {query}</h2>
+                </div>
+                {results?.docs?.length > 0 ? (
+                  results?.docs.map((d, index) => {
                     return (
                       <>
                         <div key={index} className="search_result">
@@ -116,31 +119,36 @@ export const SearchResults = () => {
                       </>
                     );
                   })
-                : 'No results found.'}
+                ) : (
+                  <h4>No results found.</h4>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="loading_spinner">
+              <Spin />
             </div>
-          </>
-        ) : (
-          <Spin />
-        )}
-      </>
+          )}
+        </>
 
-      {/* {loading === false && results?.docs.length > 0 ? (
-        <div className="pagination">
-          <Pagination
-            defaultCurrent={1}
-            defaultPageSize={rows}
-            total={results?.numFound}
-            onChange={onChange}
-            current={current}
-            onShowSizeChange={onShowSizeChange}
-            showTotal={(total, range) =>
-              `${range[0]}-${range[1]} of ${total} items`
-            }
-          />
-        </div>
-      ) : (
-        ''
-      )} */}
+        {loading === false && results?.numFound > 0 ? (
+          <div className="pagination">
+            <Pagination
+              defaultCurrent={1}
+              defaultPageSize={rows}
+              total={results?.numFound}
+              onChange={onChange}
+              current={current}
+              onShowSizeChange={onShowSizeChange}
+              showTotal={(total, range) =>
+                `${range[0]}-${range[1]} of ${total} items`
+              }
+            />
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
     </>
   );
 };
