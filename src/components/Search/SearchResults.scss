@@ -2,14 +2,28 @@ $buttonColor: #080705;
 $borderColor: #fffc31;
 $buttonEffect: rgb(39, 36, 33);
 
-@mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 50%) {
-  background: {
-    image: url('./assets/Background.png');
-    size: 100vw;
-    repeat: no-repeat;
-    position: calc($percent - $pixels) $bottom_percent;
-  }
+// @mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 50%) {
+//   background: {
+//   image: url('./assets/Background.png');
+//   size: 100vw;
+//   repeat: no-repeat;
+//   position: calc($percent - $pixels) $bottom_percent;
+// }
+// z-index: -1;
+// }
+.image_container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
   z-index: -1;
+}
+
+.background_image_results {
+  position: fixed;
+  // top: 50%;
+  // left: 50%;
+  transform: translate(41%, -40%);
+  width: 100vw;
 }
 
 .search_button_results {
@@ -42,15 +56,17 @@ $buttonEffect: rgb(39, 36, 33);
   margin-top: 17vh;
 }
 
-.search_page_bg {
-  @include background_image($pixels: -680px, $bottom_percent: 90%);
-  background-attachment: fixed;
-}
+// .search_page_bg {
+//   @include background_image($pixels: -680px, $bottom_percent: 90%);
+//   background-attachment: fixed;
+// }
 
 .search_results {
   background-color: none;
   padding-left: 50px;
   min-height: 86.1vh;
+  z-index: 1;
+  // margin-top: -1000px;
 }
 
 .search_field_results {

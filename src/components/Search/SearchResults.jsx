@@ -3,13 +3,12 @@ import { Pagination, Spin } from 'antd';
 import { myContext } from '../../App';
 import { useNavigate, useParams } from 'react-router-dom';
 import './SearchResults.scss';
+import Background from '../../../assets/Background.png';
 
 export const SearchResults = () => {
   const {
     results,
     setResults,
-    searchTerm,
-    setSearchTerm,
     page,
     setPage,
     rows,
@@ -64,10 +63,10 @@ export const SearchResults = () => {
 
   return (
     <>
-      <div className="search_page_bg">
-        <div className="results_image"></div>
-      </div>
       <div className="search_field_container">
+        <div className="image_container">
+          <img className="background_image_results" src={Background} />
+        </div>
         <div className="search_field_results">
           <div className="text_input_results">
             <input
@@ -125,7 +124,7 @@ export const SearchResults = () => {
         )}
       </>
 
-      {searchTerm !== '' && loading === false && results?.docs.length > 0 ? (
+      {/* {loading === false && results?.docs.length > 0 ? (
         <div className="pagination">
           <Pagination
             defaultCurrent={1}
@@ -141,7 +140,7 @@ export const SearchResults = () => {
         </div>
       ) : (
         ''
-      )}
+      )} */}
     </>
   );
 };

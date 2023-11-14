@@ -31,35 +31,8 @@ export const OntologySearch = () => {
 
   const URL = import.meta.env.VITE_API_ENDPOINT;
 
-  // useEffect(() => {
-  //   displayResults(rows, page);
-  // }, [rows, page]);
-
-  // const displayResults = (rows, page) => {
-  //   return requestSearch(rows, (page - 1) * rows);
-  // };
-
-  // const requestSearch = (rowCount, firstRowDisplayed) => {
-  //   setLoading(true);
-  //   fetch(
-  //     `${URL}q=${searchTerm}&ontology=mondo,hp&rows=${rowCount}&start=${firstRowDisplayed}`,
-  //     {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     },
-  //   )
-  //     .then(res => res.json())
-  //     .then(data => setResults(data.response))
-  //     .then(() => {
-  //       setLoading(false);
-  //     });
-  // };
-
   return (
     <>
-      <div className="search_page_bg"></div>
       <div className="search_page">
         <div className="text_above_search">Text about something...</div>
         <div className="search_field">
@@ -72,16 +45,18 @@ export const OntologySearch = () => {
             />
           </div>
 
-          <button
-            className="search_button"
-            onClick={e => {
-              setPage(1),
-                setCurrent(1),
-                navigate(`/search/${ref.current.value}`);
-            }}
-          >
-            SEARCH
-          </button>
+          <div className="button_container">
+            <button
+              className="search_button"
+              onClick={e => {
+                setPage(1),
+                  setCurrent(1),
+                  navigate(`/search/${ref.current.value}`);
+              }}
+            >
+              SEARCH
+            </button>
+          </div>
         </div>
         <div className="text_below_search">
           More text about something else...
