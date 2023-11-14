@@ -6,16 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const OntologySearch = () => {
   const [loading, setLoading] = useState(false);
-  const {
-    results,
-    setResults,
-    page,
-    setPage,
-    rows,
-    setRows,
-    current,
-    setCurrent,
-  } = useContext(myContext);
+  const { setPage, setRows, setCurrent } = useContext(myContext);
 
   const navigate = useNavigate();
   const ref = useRef();
@@ -44,7 +35,6 @@ export const OntologySearch = () => {
               ref={ref}
             />
           </div>
-
           <div className="button_container">
             <button
               className="search_button"

@@ -64,6 +64,11 @@ nav {
   border-radius: 10px;
 }
 
+.nav_link:hover {
+  color: rgb(45, 42, 34);
+  box-shadow: 0 5px 15px rgba(178, 182, 92, 0.8);
+}
+
 footer {
   margin-top: auto;
   bottom: 0;

@@ -14,15 +14,17 @@ export const NavBar = () => {
             </li>
           </div>
           <div className="nav_links">
-            <li className="nav_link">
-              <NavLink to="/projects">Projects</NavLink>
-            </li>
-            <li className="nav_link">
-              <NavLink to="/help">Help</NavLink>
-            </li>
-            <li className="nav_link">
-              <NavLink to="/about">About</NavLink>
-            </li>
+            <NavLink to="/projects">
+              {' '}
+              <li className="nav_link">Projects</li>
+            </NavLink>
+            <NavLink to="/help">
+              <li className="nav_link">Help</li>
+            </NavLink>
+
+            <NavLink to="/about">
+              <li className="nav_link">About</li>
+            </NavLink>
           </div>
         </ul>
       </nav>
