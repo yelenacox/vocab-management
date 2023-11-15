@@ -1,0 +1,25 @@
+$buttonColor: #080705;
+$borderColor: #fffc31;
+$buttonEffect: #232323;
+
+@mixin button($padding: 16px 32px) {
+  background-color: $buttonColor;
+  border: 2px $borderColor solid;
+  color: white;
+  padding: $padding;
+  font: {
+    size: 0.7rem;
+    weight: 800;
+  }
+}
+
+@mixin button_hover {
+  box-shadow: 0 5px 15px rgba(103, 103, 103, 0.8);
+  border: 3px $borderColor solid;
+}
+
+@mixin button_active {
+  background-color: $buttonEffect;
+  box-shadow: 0 5px 15px rgb(103, 103, 103);
+  transform: translateY(4px);
+}
