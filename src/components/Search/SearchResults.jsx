@@ -15,6 +15,8 @@ export const SearchResults = () => {
     setRows,
     current,
     setCurrent,
+    buttonDisabled,
+    setButtonDisabled,
     loading,
     setLoading,
   } = useContext(myContext);
@@ -76,16 +78,25 @@ export const SearchResults = () => {
                 placeholder="Search"
                 defaultValue={query}
                 ref={ref}
+                onChange={e => {
+                  e.target.value === ''
+                    ? setButtonDisabled(true)
+                    : setButtonDisabled(false);
+                }}
               />
             </div>
 
             <div>
               <button
-                className="search_button_results"
+                className={`search_button_results ${
+                  buttonDisabled ? 'disabled_results' : ''
+                }`}
                 onClick={e => {
-                  setPage(1),
-                    setCurrent(1),
-                    navigate(`/search/${ref.current.value}`);
+                  if (ref.current.value) {
+                    setPage(1),
+                      setCurrent(1),
+                      navigate(`/search/${ref.current.value}`);
+                  }
                 }}
               >
                 SEARCH
