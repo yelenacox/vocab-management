@@ -45,7 +45,7 @@
 }
 
 .search_button {
-  @include button;
+  @include button($padding: 18px 36px);
   margin-left: 20px;
   cursor: pointer;
   &.disabled {
