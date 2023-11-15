@@ -15,6 +15,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(20);
   const [current, setCurrent] = useState(1);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -30,6 +31,8 @@ function App() {
         setRows,
         current,
         setCurrent,
+        buttonDisabled,
+        setButtonDisabled,
         loading,
         setLoading,
       }}

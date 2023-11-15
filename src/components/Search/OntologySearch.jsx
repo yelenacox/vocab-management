@@ -6,21 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 export const OntologySearch = () => {
   const [loading, setLoading] = useState(false);
-  const { setPage, setRows, setCurrent } = useContext(myContext);
+
+  const { buttonDisabled, setButtonDisabled } = useContext(myContext);
 
   const navigate = useNavigate();
   const ref = useRef();
-  const onChange = page => {
-    setCurrent(page);
-    setPage(page);
-  };
-
-  const onShowSizeChange = (current, rows) => {
-    setCurrent(current);
-    setRows(rows);
-  };
-
-  const URL = import.meta.env.VITE_API_ENDPOINT;
 
   return (
     <>
@@ -33,15 +23,20 @@ export const OntologySearch = () => {
               type="text"
               placeholder="Search"
               ref={ref}
+              onChange={e => {
+                e.target.value === ''
+                  ? setButtonDisabled(true)
+                  : setButtonDisabled(false);
+              }}
             />
           </div>
           <div className="button_container">
             <button
-              className="search_button"
+              className={`search_button ${buttonDisabled ? 'disabled' : ''}`}
               onClick={e => {
-                setPage(1),
-                  setCurrent(1),
+                if (ref.current.value) {
                   navigate(`/search/${ref.current.value}`);
+                }
               }}
             >
               SEARCH

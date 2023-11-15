@@ -25,12 +25,17 @@ $buttonEffect: #232323;
 
 .search_field {
   display: grid;
-  flex-direction: row;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
   margin: 40px 0;
   height: fit-content;
-  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
 }
 
+.text_input {
+  grid-column: 2;
+}
 #search_input {
   background-image: url('./assets/magnifying_glass_search.png');
   background-repeat: no-repeat;
@@ -40,7 +45,6 @@ $buttonEffect: #232323;
   width: 500px;
   font-size: 1.3rem;
   padding-left: 10px;
-  grid-column-start: 2;
 }
 
 #search_input::placeholder {
@@ -58,16 +62,17 @@ $buttonEffect: #232323;
     weight: 800;
   }
   margin-left: 20px;
-
   cursor: pointer;
-  grid-column-start: 3;
+  &.disabled {
+    cursor: default;
+  }
 }
-.search_button:hover {
+.search_button:hover:not(.disabled) {
   box-shadow: 0 5px 15px rgba(103, 103, 103, 0.8);
   border: 3px $borderColor solid;
 }
 
-.search_button:active {
+.search_button:active:not(.disabled) {
   background-color: $buttonEffect;
   box-shadow: 0 5px 15px rgb(103, 103, 103);
   transform: translateY(4px);
