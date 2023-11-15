@@ -1,18 +1,4 @@
-// @import 'Variables';
-
-$buttonColor: #080705;
-$borderColor: #fffc31;
-$buttonEffect: #232323;
-
-@mixin background_image($percent: 50%, $pixels: 50px, $bottom_percent: 50%) {
-  background: {
-    image: url('./assets/Background.png');
-    size: 100vw;
-    repeat: no-repeat;
-    position: calc($percent - $pixels) $bottom_percent;
-  }
-  z-index: -1;
-}
+@import 'Variables';
 
 .search_page {
   height: 100vh;
@@ -20,7 +6,13 @@ $buttonEffect: #232323;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @include background_image;
+  background: {
+    image: url('./assets/Background.png');
+    size: 100vw;
+    repeat: no-repeat;
+    position: calc(50% - 50px) 50%;
+  }
+  z-index: -1;
 }
 
 .search_field {
@@ -53,14 +45,7 @@ $buttonEffect: #232323;
 }
 
 .search_button {
-  background-color: $buttonColor;
-  border: 2px $borderColor solid;
-  color: white;
-  padding: 18px 36px;
-  font: {
-    size: 0.7rem;
-    weight: 800;
-  }
+  @include button;
   margin-left: 20px;
   cursor: pointer;
   &.disabled {
@@ -68,15 +53,13 @@ $buttonEffect: #232323;
   }
 }
 .search_button:hover:not(.disabled) {
-  box-shadow: 0 5px 15px rgba(103, 103, 103, 0.8);
-  border: 3px $borderColor solid;
+  @include button_hover;
 }
 
 .search_button:active:not(.disabled) {
-  background-color: $buttonEffect;
-  box-shadow: 0 5px 15px rgb(103, 103, 103);
-  transform: translateY(4px);
+  @include button_active;
 }
+
 .text_above_search {
   font: {
     size: 2rem;
