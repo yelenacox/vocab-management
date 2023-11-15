@@ -1,6 +1,7 @@
-$buttonColor: #080705;
-$borderColor: #fffc31;
+$buttonColor: #080705; //black
+$borderColor: #fffc31; //yellow
 $buttonEffect: #232323;
+$darkBlue: #336699; //dark blue
 
 @mixin button($padding: 16px 32px) {
   background-color: $buttonColor;
