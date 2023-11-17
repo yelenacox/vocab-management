@@ -14,8 +14,10 @@ export const NavBar = () => {
             </li>
           </div>
           <div className="nav_links">
+            <NavLink to="/">
+              <li className="nav_link">Search</li>
+            </NavLink>
             <NavLink to="/projects">
-              {' '}
               <li className="nav_link" to="/projects">
                 Projects
               </li>

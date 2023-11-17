@@ -42,7 +42,7 @@ export const Projects = () => {
                 return (
                   <>
                     <tr>
-                      <td>{r?.name}</td>
+                      <td>{r?.name ? r?.name : r?.id}</td>
                       <td>{r?.description}</td>
                     </tr>
                   </>
