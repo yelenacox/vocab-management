@@ -1,11 +1,11 @@
-$buttonColor: #080705; //black
-$borderColor: #fffc31; //yellow
+$blackColor: #080705; //black
+$yellowColor: #fffc31; //yellow
 $buttonEffect: #232323;
 $darkBlue: #336699; //dark blue
 
 @mixin button($padding: 16px 32px) {
-  background-color: $buttonColor;
-  border: 2px $borderColor solid;
+  background-color: $blackColor;
+  border: 2px $yellowColor solid;
   color: white;
   padding: $padding;
   font: {
@@ -16,7 +16,7 @@ $darkBlue: #336699; //dark blue
 
 @mixin button_hover {
   box-shadow: 0 5px 15px rgba(103, 103, 103, 0.8);
-  border: 3px $borderColor solid;
+  border: 3px $yellowColor solid;
 }
 
 @mixin button_active {

@@ -1,0 +1,1715 @@
+{
+  "tables": [
+    {
+      "id": "INCLUDE:participant",
+      "name": "participant",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant",
+      "variables": [
+        {
+          "description": "Unique identifer for the study, assigned by DCC",
+          "data-type": "string",
+          "name": "Study Code"
+        },
+        {
+          "description": "Unique INCLUDE global identifier for the participant, assigned by DCC",
+          "data-type": "string",
+          "name": "Participant Global ID"
+        },
+        {
+          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records.",
+          "data-type": "string",
+          "name": "Participant External ID"
+        },
+        {
+          "description": "Unique identifer for family to which Participant belongs, assigned by data contributor",
+          "data-type": "string",
+          "name": "Family ID"
+        },
+        {
+          "description": "Structure of family members participating in the study",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Control-only",
+              "description": "Control-only"
+            },
+            {
+              "code": "Duo",
+              "description": "Duo"
+            },
+            {
+              "code": "Other",
+              "description": "Other"
+            },
+            {
+              "code": "Proband-only",
+              "description": "Proband-only"
+            },
+            {
+              "code": "Trio",
+              "description": "Trio"
+            },
+            {
+              "code": "Trio+",
+              "description": "Trio+"
+            }
+          ],
+          "values-details": {
+            "table-name": "participant",
+            "name": "Family Type"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/family_type",
+          "name": "Family Type"
+        },
+        {
+          "description": "Participant External ID for Participant's father (NA if Participant is not the proband)",
+          "data-type": "string",
+          "name": "Father ID"
+        },
+        {
+          "description": "Participant External ID for Participant's mother (NA if Participant is not the proband)",
+          "data-type": "string",
+          "name": "Mother ID"
+        },
+        {
+          "description": "Participant External ID for Participant's sibling(s) (NA if Participant is not the proband)",
+          "data-type": "string",
+          "name": "Sibling ID"
+        },
+        {
+          "description": "Participant External ID for Participant's other family members (NA if Participant is not the proband)",
+          "data-type": "string",
+          "name": "Other Family Member ID"
+        },
+        {
+          "description": "Relationship of Participant to proband",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Proband",
+              "description": "Proband"
+            },
+            {
+              "code": "Father",
+              "description": "Father"
+            },
+            {
+              "code": "Mother",
+              "description": "Mother"
+            },
+            {
+              "code": "Sibling",
+              "description": "Sibling"
+            },
+            {
+              "code": "Other relative",
+              "description": "Other relative"
+            },
+            {
+              "code": "Unrelated control",
+              "description": "Unrelated control"
+            }
+          ],
+          "values-details": {
+            "table-name": "participant",
+            "name": "Family Relationship"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/family_relationship",
+          "name": "Family Relationship"
+        },
+        {
+          "description": "Sex of Participant",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Female",
+              "description": "Female"
+            },
+            {
+              "code": "Male",
+              "description": "Male"
+            },
+            {
+              "code": "Other",
+              "description": "Other"
+            },
+            {
+              "code": "Unknown",
+              "description": "Unknown"
+            }
+          ],
+          "values-details": {
+            "table-name": "participant",
+            "name": "Sex"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/sex",
+          "name": "Sex"
+        },
+        {
+          "description": "Race of Participant",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "American Indian or Alaska Native",
+              "description": "American Indian or Alaska Native"
+            },
+            {
+              "code": "Asian",
+              "description": "Asian"
+            },
+            {
+              "code": "Black or African American",
+              "description": "Black or African American"
+            },
+            {
+              "code": "More than one race",
+              "description": "More than one race"
+            },
+            {
+              "code": "Native Hawaiian or Other Pacific Islander",
+              "description": "Native Hawaiian or Other Pacific Islander"
+            },
+            {
+              "code": "Other",
+              "description": "Other"
+            },
+            {
+              "code": "White",
+              "description": "White"
+            },
+            {
+              "code": "Prefer not to answer",
+              "description": "Prefer not to answer"
+            },
+            {
+              "code": "Unknown",
+              "description": "Unknown"
+            },
+            {
+              "code": "East Asian",
+              "description": "East Asian"
+            },
+            {
+              "code": "Latin American",
+              "description": "Latin American"
+            },
+            {
+              "code": "Middle Eastern or North African",
+              "description": "Middle Eastern or North African"
+            },
+            {
+              "code": "South Asian",
+              "description": "South Asian"
+            }
+          ],
+          "values-details": {
+            "table-name": "participant",
+            "name": "Race"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/race",
+          "name": "Race"
+        },
+        {
+          "description": "Ethnicity of Participant",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Hispanic or Latino",
+              "description": "Hispanic or Latino"
+            },
+            {
+              "code": "Not Hispanic or Latino",
+              "description": "Not Hispanic or Latino"
+            },
+            {
+              "code": "Prefer not to answer",
+              "description": "Prefer not to answer"
+            },
+            {
+              "code": "Unknown",
+              "description": "Unknown"
+            }
+          ],
+          "values-details": {
+            "table-name": "participant",
+            "name": "Ethnicity"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/ethnicity",
+          "name": "Ethnicity"
+        },
+        {
+          "description": "Down Syndrome status of participant",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "D21",
+              "description": "Disomy 21 (euploid)"
+            },
+            {
+              "code": "T21",
+              "description": "Trisomy 21 (Down syndrome)"
+            }
+          ],
+          "values-details": {
+            "table-name": "participant",
+            "name": "Down Syndrome Status"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/down_syndrome_status",
+          "name": "Down Syndrome Status"
+        },
+        {
+          "description": "Age in days of Participant at first recorded study event (enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available.",
+          "data-type": "int",
+          "name": "Age at First Patient Engagement"
+        },
+        {
+          "description": "Event for which Age at First Patient Engagement is given (e.g. enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available.",
+          "data-type": "string",
+          "name": "First Patient Engagement Event"
+        },
+        {
+          "description": "Whether participant is alive or dead",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Dead",
+              "description": "Dead"
+            },
+            {
+              "code": "Alive",
+              "description": "Alive"
+            },
+            {
+              "code": "Unknown or not available",
+              "description": "Unknown or not available"
+            }
+          ],
+          "values-details": {
+            "table-name": "participant",
+            "name": "Outcomes Vital Status"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/outcomes_vital_status",
+          "name": "Outcomes Vital Status"
+        },
+        {
+          "description": "Age in days when participant's vital status was last recorded",
+          "data-type": "int",
+          "name": "Age at Last Vital Status"
+        }
+      ]
+    },
+    {
+      "id": "INCLUDE:condition",
+      "name": "condition",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition",
+      "variables": [
+        {
+          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records.",
+          "data-type": "string",
+          "name": "Participant External ID"
+        },
+        {
+          "description": "Identifier for event (Visit, Survey completion, Sample collection, etc.) to which the Condition data are linked, if applicable. There may be multiple events linked to a Participant.",
+          "data-type": "string",
+          "name": "Event ID"
+        },
+        {
+          "description": "Type of event for which Event ID is given (Visit, Survey completion, Sample collection, etc.)",
+          "data-type": "string",
+          "name": "Event Type"
+        },
+        {
+          "description": "Co-occurring Condition (phenotype or diagnosis) or Measure (observation with numeric value), as described by data contributor. The Down Syndrome Genetic Diagnosis will be rolled into this field.",
+          "data-type": "string",
+          "name": "Condition or Measure Source Text"
+        },
+        {
+          "description": "Age in days at which Condition or Measure was observed, recorded, or diagnosed",
+          "data-type": "int",
+          "name": "Age At Condition or Measure Observation"
+        },
+        {
+          "description": "Whether Condition was observed or not",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Observed",
+              "description": "Observed"
+            },
+            {
+              "code": "Not Observed",
+              "description": "Not Observed"
+            }
+          ],
+          "values-details": {
+            "table-name": "condition",
+            "name": "Condition Interpretation"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition/condition_interpretation",
+          "name": "Condition Interpretation"
+        },
+        {
+          "description": "Whether the Condition is ongoing, has been resolved, or this is a general history of the condition without known dates",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Current",
+              "description": "Current"
+            },
+            {
+              "code": "Resolved",
+              "description": "Resolved"
+            },
+            {
+              "code": "History Of",
+              "description": "History Of"
+            }
+          ],
+          "values-details": {
+            "table-name": "condition",
+            "name": "Condition Status"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition/condition_status",
+          "name": "Condition Status"
+        },
+        {
+          "description": "Whether Condition information was obtained by the investigator or reported by participant/family member",
+          "data-type": "enumeration",
+          "enumerations": [
+            {
+              "code": "Clinical",
+              "description": "Clinical"
+            },
+            {
+              "code": "Self-reported",
+              "description": "Self-reported"
+            }
+          ],
+          "values-details": {
+            "table-name": "condition",
+            "name": "Condition Data Source"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition/condition_data_source",
+          "name": "Condition Data Source"
+        },
+        {
+          "description": "Label for Condition in the Human Phenotype Ontology (HPO)",
+          "data-type": "string",
+          "name": "HPO Label"
+        },
+        {
+          "description": "Code for Condition in the Human Phenotype Ontology (HPO)",
+          "data-type": "string",
+          "name": "HPO Code"
+        },
+        {
+          "description": "Label for Condition in the Mondo Disease Ontology (MONDO)",
+          "data-type": "string",
+          "name": "MONDO Label"
+        },
+        {
+          "description": "Code for Condition in the Mondo Disease Ontology (Mondo)",
+          "data-type": "string",
+          "name": "MONDO Code"
+        },
+        {
+          "description": "Label for Condition in the Medical Action Ontology (MAXO)",
+          "data-type": "string",
+          "name": "MAXO Label"
+        },
+        {
+          "description": "Code for condition in the Medical Action Ontology (MAXO)",
+          "data-type": "string",
+          "name": "MAXO Code"
+        },
+        {
+          "description": "Label for Condition in another ontology (if no match in HPO, MONDO, or MAXO)",
+          "data-type": "string",
+          "name": "Other Label"
+        },
+        {
+          "description": "Code for Condition in another ontology (if no match in HPO, MONDO, or MAXO)",
+          "data-type": "string",
+          "name": "Other Code"
+        },
+        {
+          "description": "Numeric value of Measure",
+          "data-type": "int",
+          "name": "Measure Value"
+        },
+        {
+          "description": "Unit that is associated with Measure Value (e.g. kg, cm, %, x10^9/L, etc.)",
+          "data-type": "string",
+          "name": "Measure Unit"
+        }
+      ]
+    },
+    {
+      "id": "INCLUDE:specimen",
+      "name": "specimen",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen",
+      "variables": [
+        {
+          "description": "Unique INCLUDE global identifier for the participant, assigned by DCC",
+          "data-type": "string",
+          "name": "Participant Global ID"
+        },
+        {
+          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records.",
+          "data-type": "string",
+          "name": "Participant External ID"
+        },
+        {
+          "description": "Age in days of participant at time of biospecimen collection",
+          "data-type": "int",
+          "name": "Age at Biospecimen Collection"
+        },
+        {
+          "description": "INCLUDE global identifier for sample, assigned by DCC",
+          "data-type": "string",
+          "name": "Sample Global ID"
+        },
+        {
+          "description": "Unique identifier for sample, assigned by data contributor. A sample is a unique biological material; two samples with two different IDs are biologically distinct.",
+          "data-type": "string",
+          "name": "Sample External ID"
+        },
+        {
+          "description": "Type of biological material comprising the Sample (e.g. Plasma, White blood cells, Red blood cells, DNA, RNA, Peripheral blood mononuclear cells, CD4+ Tconv cells, NK cells, Monocytes, CD8+ T cells, B cells, Granulocytes, Treg cells)",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "ATACseq",
+              "description": "ATACseq"
+            },
+            {
+              "code": "B cells Cryo",
+              "description": "B cells Cryo"
+            },
+            {
+              "code": "Blood Smear Slide",
+              "description": "Blood Smear Slide"
+            },
+            {
+              "code": "Buffy Coat",
+              "description": "Buffy Coat"
+            },
+            {
+              "code": "CD4+ Tconv cells",
+              "description": "CD4+ Tconv cells"
+            },
+            {
+              "code": "CD8+ T cells",
+              "description": "CD8+ T cells"
+            },
+            {
+              "code": "CYTOF Ready White Blood Cells",
+              "description": "CYTOF Ready White Blood Cells"
+            },
+            {
+              "code": "DNA",
+              "description": "DNA"
+            },
+            {
+              "code": "Granulocytes",
+              "description": "Granulocytes"
+            },
+            {
+              "code": "Monocytes",
+              "description": "Monocytes"
+            },
+            {
+              "code": "NK cells",
+              "description": "NK cells"
+            },
+            {
+              "code": "PAXgene Whole Blood DNA",
+              "description": "PAXgene Whole Blood DNA"
+            },
+            {
+              "code": "PAXgene Whole Blood DNA Tube",
+              "description": "PAXgene Whole Blood DNA Tube"
+            },
+            {
+              "code": "PAXgene Whole Blood RNA",
+              "description": "PAXgene Whole Blood RNA"
+            },
+            {
+              "code": "PAXgene Whole Blood RNA Tube",
+              "description": "PAXgene Whole Blood RNA Tube"
+            },
+            {
+              "code": "PBMC",
+              "description": "PBMC"
+            },
+            {
+              "code": "Peripheral Blood Mononuclear Cells",
+              "description": "Peripheral Blood Mononuclear Cells"
+            },
+            {
+              "code": "Peripheral Whole Blood",
+              "description": "Peripheral Whole Blood"
+            },
+            {
+              "code": "Plasma",
+              "description": "Plasma"
+            },
+            {
+              "code": "Red Blood Cells",
+              "description": "Red Blood Cells"
+            },
+            {
+              "code": "RNA",
+              "description": "RNA"
+            },
+            {
+              "code": "Saliva",
+              "description": "Saliva"
+            },
+            {
+              "code": "Salivette",
+              "description": "Salivette"
+            },
+            {
+              "code": "Skin Tape",
+              "description": "Skin Tape"
+            },
+            {
+              "code": "Tongue Swab",
+              "description": "Tongue Swab"
+            },
+            {
+              "code": "Tregs",
+              "description": "Tregs"
+            },
+            {
+              "code": "White Blood Cells",
+              "description": "White Blood Cells"
+            },
+            {
+              "code": "White Blood Cells Cryo",
+              "description": "White Blood Cells Cryo"
+            },
+            {
+              "code": "White Blood Cells DNA",
+              "description": "White Blood Cells DNA"
+            },
+            {
+              "code": "White Blood Cells Protein",
+              "description": "White Blood Cells Protein"
+            },
+            {
+              "code": "White Blood Cells RNA",
+              "description": "White Blood Cells RNA"
+            },
+            {
+              "code": "Whole Blood",
+              "description": "Whole Blood"
+            },
+            {
+              "code": "Whole Blood EDTA",
+              "description": "Whole Blood EDTA"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Sample Type"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/sample_type",
+          "name": "Sample Type"
+        },
+        {
+          "description": "Whether or not the sample is potentially available for sharing through\n      the Virtual Biorepository",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "Available",
+              "description": "Available"
+            },
+            {
+              "code": "Unavailable",
+              "description": "Unavailable"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Sample Availability"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/sample_availability",
+          "name": "Sample Availability"
+        },
+        {
+          "description": "INCLUDE global identifier for the eldest sample in a lineage, assigned by DCC",
+          "data-type": "string",
+          "name": "Collection Global ID"
+        },
+        {
+          "description": "Identifier for the eldest sample in a lineage of processed, pooled,\n      or aliquoted samples - typically the material actually collected from the Participant. This may be the same as Parent Sample ID or Sample ID\n      (if no processing was performed). Assigned by data contributor.",
+          "data-type": "string",
+          "name": "Collection External ID"
+        },
+        {
+          "description": "Type of biological material comprising the Collected Sample (e.g. Whole blood, Not reported, Saliva, Derived cell line)",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "Saliva",
+              "description": "Saliva"
+            },
+            {
+              "code": "Skin Tape",
+              "description": "Skin Tape"
+            },
+            {
+              "code": "Tongue Swab",
+              "description": "Tongue Swab"
+            },
+            {
+              "code": "Whole Blood",
+              "description": "Whole Blood"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Collection Sample Type"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/collection_sample_type",
+          "name": "Collection Sample Type"
+        },
+        {
+          "description": "INCLUDE global identifier for specific container/aliquot of sample, assigned by DCC",
+          "data-type": "string",
+          "name": "Container Global ID"
+        },
+        {
+          "description": "Identifier for specific container/aliquot of sample, assigned by data contributor.\n      For example, distinct aliquots of a sample will have the same Sample ID but\n      different Container IDs.",
+          "data-type": "int",
+          "name": "Container External ID"
+        },
+        {
+          "description": "Container Availability",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "Available",
+              "description": "Available"
+            },
+            {
+              "code": "Unavailable",
+              "description": "Unavailable"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Container Availability"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/container_availability",
+          "name": "Container Availability"
+        },
+        {
+          "description": "INCLUDE global identifier for the direct parent from which Sample was derived, assigned by DCC",
+          "data-type": "string",
+          "name": "Parent Sample Global ID"
+        },
+        {
+          "description": "Unique identifier for the parent sample, assigned by data contributor",
+          "data-type": "string",
+          "name": "Parent Sample External ID"
+        },
+        {
+          "description": "Type of biological material comprising the Parent Sample (e.g. Peripheral Whole Blood, Derived Cell Line, Saliva, Whole blood, WBCs) ",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "Monocytes",
+              "description": "Monocytes"
+            },
+            {
+              "code": "NA",
+              "description": "NA"
+            },
+            {
+              "code": "PAXgene Whole Blood DNA Tube",
+              "description": "PAXgene Whole Blood DNA Tube"
+            },
+            {
+              "code": "PAXgene Whole Blood RNA Tube",
+              "description": "PAXgene Whole Blood RNA Tube"
+            },
+            {
+              "code": "Saliva",
+              "description": "Saliva"
+            },
+            {
+              "code": "White Blood Cells",
+              "description": "White Blood Cells"
+            },
+            {
+              "code": "Whole Blood",
+              "description": "Whole Blood"
+            },
+            {
+              "code": "Whole Blood EDTA",
+              "description": "Whole Blood EDTA"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Parent Sample Type"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/parent_sample_type",
+          "name": "Parent Sample Type"
+        },
+        {
+          "description": "Procedure by which Sample was derived from Parent Sample (e.g. Centrifugation, RBC lysis, Lyse/fix buffer, FACS, PAXgene DNA, PAXgene RNA, Qiagen Allprep, Ficoll)",
+          "data-type": "string",
+          "name": "Laboratory Procedure"
+        },
+        {
+          "description": "Sample Availability where In indcates available and Out indicates Unavailable",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "NA",
+              "description": "NA"
+            },
+            {
+              "code": "In",
+              "description": "In"
+            },
+            {
+              "code": "Out",
+              "description": "Out"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "In/Out"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/in_out",
+          "name": "In/Out"
+        },
+        {
+          "description": "Method by which Container is stored (e.g. Minus 80 degrees Celsius, Liquid nitrogen storage)",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "-80C Freezer",
+              "description": "-80C Freezer"
+            },
+            {
+              "code": "Liquid Nitrogen Storage",
+              "description": "Liquid Nitrogen Storage"
+            },
+            {
+              "code": "Other",
+              "description": "Other"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Biospecimen Storage"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/biospecimen_storage",
+          "name": "Biospecimen Storage"
+        },
+        {
+          "description": "Concentration of sample in container",
+          "data-type": "number",
+          "name": "Concentration"
+        },
+        {
+          "description": "Unit of sample concentration",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "Cells/mL",
+              "description": "Cells/mL"
+            },
+            {
+              "code": "NA",
+              "description": "NA"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Concentration_Unit"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/concentration_unit",
+          "name": "Concentration_Unit"
+        },
+        {
+          "description": "Amount of sample in container",
+          "data-type": "number",
+          "name": "Volume"
+        },
+        {
+          "description": "Unit of sample volume",
+          "data-type": "string",
+          "enumerations": [
+            {
+              "code": "each",
+              "description": "each"
+            },
+            {
+              "code": "mL",
+              "description": "mL"
+            },
+            {
+              "code": "NA",
+              "description": "NA"
+            },
+            {
+              "code": "uL",
+              "description": "uL"
+            }
+          ],
+          "values-details": {
+            "table-name": "specimen",
+            "name": "Volume Unit"
+          },
+          "values-url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/volume_unit",
+          "name": "Volume Unit"
+        }
+      ]
+    }
+  ],
+  "data-dictionaries": [
+    {
+      "id": "INCLUDE"
+    },
+    {
+      "name": "include-dd"
+    },
+    {
+      "tables": [
+        {
+          "reference": "table/INCLUDE:participant"
+        },
+        {
+          "reference": "table/INCLUDE:condition"
+        },
+        {
+          "reference": "table/INCLUDE:specimen"
+        }
+      ]
+    }
+  ],
+  "study": {
+    "id": "HTP",
+    "url-prefix": "https://includedcc.org/fhir/CodeSystem/data-dictionary/",
+    "data-dictionary": {
+      "reference": "data-dictionary/INCLUDE"
+    },
+    "description": "The Crnic Institute Human Trisome Project\u00ae (HTP) is an in-depth study of people with Down syndrome using the latest technologies in precision medicine.",
+    "identifier-prefix": "https://includedcc.org/fhir/htp",
+    "publisher": "NCPI FHIR Working Group",
+    "title": "Crnic Institute Human Trisome Project",
+    "url": "https://includedcc.org/studies/human-trisome-project"
+  },
+  "terminologies": [
+    {
+      "codes": [
+        {
+          "code": "Study Code",
+          "description": "Unique identifer for the study, assigned by DCC"
+        },
+        {
+          "code": "Participant Global ID",
+          "description": "Unique INCLUDE global identifier for the participant, assigned by DCC"
+        },
+        {
+          "code": "Participant External ID",
+          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
+        },
+        {
+          "code": "Family ID",
+          "description": "Unique identifer for family to which Participant belongs, assigned by data contributor"
+        },
+        {
+          "code": "Family Type",
+          "description": "Structure of family members participating in the study"
+        },
+        {
+          "code": "Father ID",
+          "description": "Participant External ID for Participant's father (NA if Participant is not the proband)"
+        },
+        {
+          "code": "Mother ID",
+          "description": "Participant External ID for Participant's mother (NA if Participant is not the proband)"
+        },
+        {
+          "code": "Sibling ID",
+          "description": "Participant External ID for Participant's sibling(s) (NA if Participant is not the proband)"
+        },
+        {
+          "code": "Other Family Member ID",
+          "description": "Participant External ID for Participant's other family members (NA if Participant is not the proband)"
+        },
+        {
+          "code": "Family Relationship",
+          "description": "Relationship of Participant to proband"
+        },
+        {
+          "code": "Sex",
+          "description": "Sex of Participant"
+        },
+        {
+          "code": "Race",
+          "description": "Race of Participant"
+        },
+        {
+          "code": "Ethnicity",
+          "description": "Ethnicity of Participant"
+        },
+        {
+          "code": "Down Syndrome Status",
+          "description": "Down Syndrome status of participant"
+        },
+        {
+          "code": "Age at First Patient Engagement",
+          "description": "Age in days of Participant at first recorded study event (enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available."
+        },
+        {
+          "code": "First Patient Engagement Event",
+          "description": "Event for which Age at First Patient Engagement is given (e.g. enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available."
+        },
+        {
+          "code": "Outcomes Vital Status",
+          "description": "Whether participant is alive or dead"
+        },
+        {
+          "code": "Age at Last Vital Status",
+          "description": "Age in days when participant's vital status was last recorded"
+        }
+      ],
+      "id": "INCLUDE:participant",
+      "name": "Participant",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant"
+    },
+    {
+      "codes": [
+        {
+          "code": "Control-only",
+          "description": "Control-only"
+        },
+        {
+          "code": "Duo",
+          "description": "Duo"
+        },
+        {
+          "code": "Other",
+          "description": "Other"
+        },
+        {
+          "code": "Proband-only",
+          "description": "Proband-only"
+        },
+        {
+          "code": "Trio",
+          "description": "Trio"
+        },
+        {
+          "code": "Trio+",
+          "description": "Trio+"
+        }
+      ],
+      "id": "INCLUDE:participant:family_type",
+      "name": "Family Type",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/family_type"
+    },
+    {
+      "codes": [
+        {
+          "code": "Proband",
+          "description": "Proband"
+        },
+        {
+          "code": "Father",
+          "description": "Father"
+        },
+        {
+          "code": "Mother",
+          "description": "Mother"
+        },
+        {
+          "code": "Sibling",
+          "description": "Sibling"
+        },
+        {
+          "code": "Other relative",
+          "description": "Other relative"
+        },
+        {
+          "code": "Unrelated control",
+          "description": "Unrelated control"
+        }
+      ],
+      "id": "INCLUDE:participant:family_relationship",
+      "name": "Family Relationship",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/family_relationship"
+    },
+    {
+      "codes": [
+        {
+          "code": "Female",
+          "description": "Female"
+        },
+        {
+          "code": "Male",
+          "description": "Male"
+        },
+        {
+          "code": "Other",
+          "description": "Other"
+        },
+        {
+          "code": "Unknown",
+          "description": "Unknown"
+        }
+      ],
+      "id": "INCLUDE:participant:sex",
+      "name": "Sex",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/sex"
+    },
+    {
+      "codes": [
+        {
+          "code": "American Indian or Alaska Native",
+          "description": "American Indian or Alaska Native"
+        },
+        {
+          "code": "Asian",
+          "description": "Asian"
+        },
+        {
+          "code": "Black or African American",
+          "description": "Black or African American"
+        },
+        {
+          "code": "More than one race",
+          "description": "More than one race"
+        },
+        {
+          "code": "Native Hawaiian or Other Pacific Islander",
+          "description": "Native Hawaiian or Other Pacific Islander"
+        },
+        {
+          "code": "Other",
+          "description": "Other"
+        },
+        {
+          "code": "White",
+          "description": "White"
+        },
+        {
+          "code": "Prefer not to answer",
+          "description": "Prefer not to answer"
+        },
+        {
+          "code": "Unknown",
+          "description": "Unknown"
+        },
+        {
+          "code": "East Asian",
+          "description": "East Asian"
+        },
+        {
+          "code": "Latin American",
+          "description": "Latin American"
+        },
+        {
+          "code": "Middle Eastern or North African",
+          "description": "Middle Eastern or North African"
+        },
+        {
+          "code": "South Asian",
+          "description": "South Asian"
+        }
+      ],
+      "id": "INCLUDE:participant:race",
+      "name": "Race",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/race"
+    },
+    {
+      "codes": [
+        {
+          "code": "Hispanic or Latino",
+          "description": "Hispanic or Latino"
+        },
+        {
+          "code": "Not Hispanic or Latino",
+          "description": "Not Hispanic or Latino"
+        },
+        {
+          "code": "Prefer not to answer",
+          "description": "Prefer not to answer"
+        },
+        {
+          "code": "Unknown",
+          "description": "Unknown"
+        }
+      ],
+      "id": "INCLUDE:participant:ethnicity",
+      "name": "Ethnicity",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/ethnicity"
+    },
+    {
+      "codes": [
+        {
+          "code": "D21",
+          "description": "Disomy 21 (euploid)"
+        },
+        {
+          "code": "T21",
+          "description": "Trisomy 21 (Down syndrome)"
+        }
+      ],
+      "id": "INCLUDE:participant:down_syndrome_status",
+      "name": "Down Syndrome Status",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/down_syndrome_status"
+    },
+    {
+      "codes": [
+        {
+          "code": "Dead",
+          "description": "Dead"
+        },
+        {
+          "code": "Alive",
+          "description": "Alive"
+        },
+        {
+          "code": "Unknown or not available",
+          "description": "Unknown or not available"
+        }
+      ],
+      "id": "INCLUDE:participant:outcomes_vital_status",
+      "name": "Outcomes Vital Status",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/participant/outcomes_vital_status"
+    },
+    {
+      "codes": [
+        {
+          "code": "Participant External ID",
+          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
+        },
+        {
+          "code": "Event ID",
+          "description": "Identifier for event (Visit, Survey completion, Sample collection, etc.) to which the Condition data are linked, if applicable. There may be multiple events linked to a Participant."
+        },
+        {
+          "code": "Event Type",
+          "description": "Type of event for which Event ID is given (Visit, Survey completion, Sample collection, etc.)"
+        },
+        {
+          "code": "Condition or Measure Source Text",
+          "description": "Co-occurring Condition (phenotype or diagnosis) or Measure (observation with numeric value), as described by data contributor. The Down Syndrome Genetic Diagnosis will be rolled into this field."
+        },
+        {
+          "code": "Age At Condition or Measure Observation",
+          "description": "Age in days at which Condition or Measure was observed, recorded, or diagnosed"
+        },
+        {
+          "code": "Condition Interpretation",
+          "description": "Whether Condition was observed or not"
+        },
+        {
+          "code": "Condition Status",
+          "description": "Whether the Condition is ongoing, has been resolved, or this is a general history of the condition without known dates"
+        },
+        {
+          "code": "Condition Data Source",
+          "description": "Whether Condition information was obtained by the investigator or reported by participant/family member"
+        },
+        {
+          "code": "HPO Label",
+          "description": "Label for Condition in the Human Phenotype Ontology (HPO)"
+        },
+        {
+          "code": "HPO Code",
+          "description": "Code for Condition in the Human Phenotype Ontology (HPO)"
+        },
+        {
+          "code": "MONDO Label",
+          "description": "Label for Condition in the Mondo Disease Ontology (MONDO)"
+        },
+        {
+          "code": "MONDO Code",
+          "description": "Code for Condition in the Mondo Disease Ontology (Mondo)"
+        },
+        {
+          "code": "MAXO Label",
+          "description": "Label for Condition in the Medical Action Ontology (MAXO)"
+        },
+        {
+          "code": "MAXO Code",
+          "description": "Code for condition in the Medical Action Ontology (MAXO)"
+        },
+        {
+          "code": "Other Label",
+          "description": "Label for Condition in another ontology (if no match in HPO, MONDO, or MAXO)"
+        },
+        {
+          "code": "Other Code",
+          "description": "Code for Condition in another ontology (if no match in HPO, MONDO, or MAXO)"
+        },
+        {
+          "code": "Measure Value",
+          "description": "Numeric value of Measure"
+        },
+        {
+          "code": "Measure Unit",
+          "description": "Unit that is associated with Measure Value (e.g. kg, cm, %, x10^9/L, etc.)"
+        }
+      ],
+      "id": "INCLUDE:condition",
+      "name": "Condition",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition"
+    },
+    {
+      "codes": [
+        {
+          "code": "Observed",
+          "description": "Observed"
+        },
+        {
+          "code": "Not Observed",
+          "description": "Not Observed"
+        }
+      ],
+      "id": "INCLUDE:condition:condition_interpretation",
+      "name": "Condition Interpretation",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition/condition_interpretation"
+    },
+    {
+      "codes": [
+        {
+          "code": "Current",
+          "description": "Current"
+        },
+        {
+          "code": "Resolved",
+          "description": "Resolved"
+        },
+        {
+          "code": "History Of",
+          "description": "History Of"
+        }
+      ],
+      "id": "INCLUDE:condition:condition_status",
+      "name": "Condition Status",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition/condition_status"
+    },
+    {
+      "codes": [
+        {
+          "code": "Clinical",
+          "description": "Clinical"
+        },
+        {
+          "code": "Self-reported",
+          "description": "Self-reported"
+        }
+      ],
+      "id": "INCLUDE:condition:condition_data_source",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/condition/condition_data_source"
+    },
+    {
+      "codes": [
+        {
+          "code": "Participant Global ID",
+          "description": "Unique INCLUDE global identifier for the participant, assigned by DCC"
+        },
+        {
+          "code": "Participant External ID",
+          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
+        },
+        {
+          "code": "Age at Biospecimen Collection",
+          "description": "Age in days of participant at time of biospecimen collection"
+        },
+        {
+          "code": "Sample Global ID",
+          "description": "INCLUDE global identifier for sample, assigned by DCC"
+        },
+        {
+          "code": "Sample External ID",
+          "description": "Unique identifier for sample, assigned by data contributor. A sample is a unique biological material; two samples with two different IDs are biologically distinct."
+        },
+        {
+          "code": "Sample Type",
+          "description": "Type of biological material comprising the Sample (e.g. Plasma, White blood cells, Red blood cells, DNA, RNA, Peripheral blood mononuclear cells, CD4+ Tconv cells, NK cells, Monocytes, CD8+ T cells, B cells, Granulocytes, Treg cells)"
+        },
+        {
+          "code": "Sample Availability",
+          "description": "Whether or not the sample is potentially available for sharing through\n      the Virtual Biorepository"
+        },
+        {
+          "code": "Collection Global ID",
+          "description": "INCLUDE global identifier for the eldest sample in a lineage, assigned by DCC"
+        },
+        {
+          "code": "Collection External ID",
+          "description": "Identifier for the eldest sample in a lineage of processed, pooled,\n      or aliquoted samples - typically the material actually collected from the Participant. This may be the same as Parent Sample ID or Sample ID\n      (if no processing was performed). Assigned by data contributor."
+        },
+        {
+          "code": "Collection Sample Type",
+          "description": "Type of biological material comprising the Collected Sample (e.g. Whole blood, Not reported, Saliva, Derived cell line)"
+        },
+        {
+          "code": "Container Global ID",
+          "description": "INCLUDE global identifier for specific container/aliquot of sample, assigned by DCC"
+        },
+        {
+          "code": "Container External ID",
+          "description": "Identifier for specific container/aliquot of sample, assigned by data contributor.\n      For example, distinct aliquots of a sample will have the same Sample ID but\n      different Container IDs."
+        },
+        {
+          "code": "Container Availability",
+          "description": "Container Availability"
+        },
+        {
+          "code": "Parent Sample Global ID",
+          "description": "INCLUDE global identifier for the direct parent from which Sample was derived, assigned by DCC"
+        },
+        {
+          "code": "Parent Sample External ID",
+          "description": "Unique identifier for the parent sample, assigned by data contributor"
+        },
+        {
+          "code": "Parent Sample Type",
+          "description": "Type of biological material comprising the Parent Sample (e.g. Peripheral Whole Blood, Derived Cell Line, Saliva, Whole blood, WBCs) "
+        },
+        {
+          "code": "Laboratory Procedure",
+          "description": "Procedure by which Sample was derived from Parent Sample (e.g. Centrifugation, RBC lysis, Lyse/fix buffer, FACS, PAXgene DNA, PAXgene RNA, Qiagen Allprep, Ficoll)"
+        },
+        {
+          "code": "In/Out",
+          "description": "Sample Availability where In indcates available and Out indicates Unavailable"
+        },
+        {
+          "code": "Biospecimen Storage",
+          "description": "Method by which Container is stored (e.g. Minus 80 degrees Celsius, Liquid nitrogen storage)"
+        },
+        {
+          "code": "Concentration",
+          "description": "Concentration of sample in container"
+        },
+        {
+          "code": "Concentration_Unit",
+          "description": "Unit of sample concentration"
+        },
+        {
+          "code": "Volume",
+          "description": "Amount of sample in container"
+        },
+        {
+          "code": "Volume Unit",
+          "description": "Unit of sample volume"
+        }
+      ],
+      "id": "INCLUDE:specimen",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen"
+    },
+    {
+      "codes": [
+        {
+          "code": "ATACseq",
+          "description": "ATACseq"
+        },
+        {
+          "code": "B cells Cryo",
+          "description": "B cells Cryo"
+        },
+        {
+          "code": "Blood Smear Slide",
+          "description": "Blood Smear Slide"
+        },
+        {
+          "code": "Buffy Coat",
+          "description": "Buffy Coat"
+        },
+        {
+          "code": "CD4+ Tconv cells",
+          "description": "CD4+ Tconv cells"
+        },
+        {
+          "code": "CD8+ T cells",
+          "description": "CD8+ T cells"
+        },
+        {
+          "code": "CYTOF Ready White Blood Cells",
+          "description": "CYTOF Ready White Blood Cells"
+        },
+        {
+          "code": "DNA",
+          "description": "DNA"
+        },
+        {
+          "code": "Granulocytes",
+          "description": "Granulocytes"
+        },
+        {
+          "code": "Monocytes",
+          "description": "Monocytes"
+        },
+        {
+          "code": "NK cells",
+          "description": "NK cells"
+        },
+        {
+          "code": "PAXgene Whole Blood DNA",
+          "description": "PAXgene Whole Blood DNA"
+        },
+        {
+          "code": "PAXgene Whole Blood DNA Tube",
+          "description": "PAXgene Whole Blood DNA Tube"
+        },
+        {
+          "code": "PAXgene Whole Blood RNA",
+          "description": "PAXgene Whole Blood RNA"
+        },
+        {
+          "code": "PAXgene Whole Blood RNA Tube",
+          "description": "PAXgene Whole Blood RNA Tube"
+        },
+        {
+          "code": "PBMC",
+          "description": "PBMC"
+        },
+        {
+          "code": "Peripheral Blood Mononuclear Cells",
+          "description": "Peripheral Blood Mononuclear Cells"
+        },
+        {
+          "code": "Peripheral Whole Blood",
+          "description": "Peripheral Whole Blood"
+        },
+        {
+          "code": "Plasma",
+          "description": "Plasma"
+        },
+        {
+          "code": "Red Blood Cells",
+          "description": "Red Blood Cells"
+        },
+        {
+          "code": "RNA",
+          "description": "RNA"
+        },
+        {
+          "code": "Saliva",
+          "description": "Saliva"
+        },
+        {
+          "code": "Salivette",
+          "description": "Salivette"
+        },
+        {
+          "code": "Skin Tape",
+          "description": "Skin Tape"
+        },
+        {
+          "code": "Tongue Swab",
+          "description": "Tongue Swab"
+        },
+        {
+          "code": "Tregs",
+          "description": "Tregs"
+        },
+        {
+          "code": "White Blood Cells",
+          "description": "White Blood Cells"
+        },
+        {
+          "code": "White Blood Cells Cryo",
+          "description": "White Blood Cells Cryo"
+        },
+        {
+          "code": "White Blood Cells DNA",
+          "description": "White Blood Cells DNA"
+        },
+        {
+          "code": "White Blood Cells Protein",
+          "description": "White Blood Cells Protein"
+        },
+        {
+          "code": "White Blood Cells RNA",
+          "description": "White Blood Cells RNA"
+        },
+        {
+          "code": "Whole Blood",
+          "description": "Whole Blood"
+        },
+        {
+          "code": "Whole Blood EDTA",
+          "description": "Whole Blood EDTA"
+        }
+      ],
+      "id": "INCLUDE:specimen:sample_type",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/sample_type"
+    },
+    {
+      "codes": [
+        {
+          "code": "Available",
+          "description": "Available"
+        },
+        {
+          "code": "Unavailable",
+          "description": "Unavailable"
+        }
+      ],
+      "id": "INCLUDE:specimen:sample_availability",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/sample_availability"
+    },
+    {
+      "codes": [
+        {
+          "code": "Saliva",
+          "description": "Saliva"
+        },
+        {
+          "code": "Skin Tape",
+          "description": "Skin Tape"
+        },
+        {
+          "code": "Tongue Swab",
+          "description": "Tongue Swab"
+        },
+        {
+          "code": "Whole Blood",
+          "description": "Whole Blood"
+        }
+      ],
+      "id": "INCLUDE:specimen:collection_sample_type",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/collection_sample_type"
+    },
+    {
+      "codes": [
+        {
+          "code": "Available",
+          "description": "Available"
+        },
+        {
+          "code": "Unavailable",
+          "description": "Unavailable"
+        }
+      ],
+      "id": "INCLUDE:specimen:container_availability",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/container_availability"
+    },
+    {
+      "codes": [
+        {
+          "code": "Monocytes",
+          "description": "Monocytes"
+        },
+        {
+          "code": "NA",
+          "description": "NA"
+        },
+        {
+          "code": "PAXgene Whole Blood DNA Tube",
+          "description": "PAXgene Whole Blood DNA Tube"
+        },
+        {
+          "code": "PAXgene Whole Blood RNA Tube",
+          "description": "PAXgene Whole Blood RNA Tube"
+        },
+        {
+          "code": "Saliva",
+          "description": "Saliva"
+        },
+        {
+          "code": "White Blood Cells",
+          "description": "White Blood Cells"
+        },
+        {
+          "code": "Whole Blood",
+          "description": "Whole Blood"
+        },
+        {
+          "code": "Whole Blood EDTA",
+          "description": "Whole Blood EDTA"
+        }
+      ],
+      "id": "INCLUDE:specimen:parent_sample_type",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/parent_sample_type"
+    },
+    {
+      "codes": [
+        {
+          "code": "NA",
+          "description": "NA"
+        },
+        {
+          "code": "In",
+          "description": "In"
+        },
+        {
+          "code": "Out",
+          "description": "Out"
+        }
+      ],
+      "id": "INCLUDE:specimen:in/out",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/in/out"
+    },
+    {
+      "codes": [
+        {
+          "code": "-80C Freezer",
+          "description": "-80C Freezer"
+        },
+        {
+          "code": "Liquid Nitrogen Storage",
+          "description": "Liquid Nitrogen Storage"
+        },
+        {
+          "code": "Other",
+          "description": "Other"
+        }
+      ],
+      "id": "INCLUDE:specimen:biospecimen_storage",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/biospecimen_storage"
+    },
+    {
+      "codes": [
+        {
+          "code": "Cells/mL",
+          "description": "Cells/mL"
+        },
+        {
+          "code": "NA",
+          "description": "NA"
+        }
+      ],
+      "id": "INCLUDE:specimen:concentration_unit",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/concentration_unit"
+    },
+    {
+      "codes": [
+        {
+          "code": "each",
+          "description": "each"
+        },
+        {
+          "code": "mL",
+          "description": "mL"
+        },
+        {
+          "code": "NA",
+          "description": "NA"
+        },
+        {
+          "code": "uL",
+          "description": "uL"
+        }
+      ],
+      "id": "INCLUDE:specimen:volume_unit",
+      "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/volume_unit"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import { NavBar } from './components/Nav/NavBar';
 import { Switch } from 'antd';
 import { Footer } from './components/Nav/Footer';
 import { SearchResults } from './components/Search/SearchResults';
+import { Projects } from './components/Projects/Projects';
 
 export const myContext = createContext();
 
@@ -50,6 +51,7 @@ function App() {
         >
           <Route index element={<OntologySearch />} />
           <Route path="/search/:query" element={<SearchResults />} />
+          <Route path="/projects" element={<Projects />} />
         </Route>
       </Routes>
     </myContext.Provider>
