@@ -7,6 +7,7 @@ import { Switch } from 'antd';
 import { Footer } from './components/Nav/Footer';
 import { SearchResults } from './components/Search/SearchResults';
 import { Projects } from './components/Projects/Projects';
+import { Terminology } from './components/Projects/Terminology';
 
 export const myContext = createContext();
 
@@ -18,6 +19,9 @@ function App() {
   const [current, setCurrent] = useState(1);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
+
+  const URL = import.meta.env.VITE_API_ENDPOINT;
+  const vocabUrl = import.meta.env.VITE_VOCAB_ENDPOINT;
 
   return (
     <myContext.Provider
@@ -36,6 +40,8 @@ function App() {
         setButtonDisabled,
         loading,
         setLoading,
+        URL,
+        vocabUrl,
       }}
     >
       <Routes>
@@ -52,6 +58,10 @@ function App() {
           <Route index element={<OntologySearch />} />
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/projects" element={<Projects />} />
+          <Route
+            path="/terminologies/:terminologyId"
+            element={<Terminology />}
+          />
         </Route>
       </Routes>
     </myContext.Provider>

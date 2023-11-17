@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import './Projects.scss';
 import { myContext } from '../../App';
+import { Spinner } from '../Manager/Spinner';
+import { Link } from 'react-router-dom';
 
 export const Projects = () => {
   const [terminologies, setTerminologies] = useState([]);
-  const { loading, setLoading } = useContext(myContext);
+  const { loading, setLoading, vocabUrl } = useContext(myContext);
 
   useEffect(() => {
     getTerminologies();
@@ -12,7 +14,7 @@ export const Projects = () => {
 
   const getTerminologies = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/terminologies`, {
+    fetch(`${vocabUrl}/terminologies`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -29,28 +31,36 @@ export const Projects = () => {
     <>
       <div className="projects_container">
         <h1>Terminologies</h1>
-        <div className="table_container">
-          <table className="table">
-            <thead className="header">
-              <tr className="header_row">
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {terminologies?.map(r => {
-                return (
-                  <>
-                    <tr>
-                      <td>{r?.name ? r?.name : r?.id}</td>
-                      <td>{r?.description}</td>
-                    </tr>
-                  </>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="table_container">
+            <table className="table">
+              <thead className="header">
+                <tr className="header_row">
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {terminologies?.map((r, index) => {
+                  return (
+                    <>
+                      <tr key={index}>
+                        <td>
+                          <Link to={`/terminologies/${r?.id}`}>
+                            {r?.name ? r?.name : r?.id}
+                          </Link>
+                        </td>
+                        <td>{r?.description}</td>
+                      </tr>
+                    </>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </>
   );
