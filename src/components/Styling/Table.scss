@@ -1,0 +1,29 @@
+table,
+td {
+  border: 1px solid $blackColor;
+  border-collapse: collapse;
+}
+
+table:first-child {
+  border: none;
+}
+
+table {
+  width: 60vw;
+}
+
+.header_row {
+  border-left: transparent;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px 12px;
+  overflow-wrap: break-word;
+}
+
+th:first-of-type,
+td:first-of-type {
+  width: 15vw;
+}

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, useContext } from 'react';
-import { Pagination, Spin } from 'antd';
+import { Pagination } from 'antd';
 import { myContext } from '../../App';
 import { useNavigate, useParams } from 'react-router-dom';
 import './SearchResults.scss';
 import Background from '../../../assets/Background.png';
+import { Spinner } from '../Manager/Spinner';
 
 export const SearchResults = () => {
   const {
@@ -19,6 +20,7 @@ export const SearchResults = () => {
     setButtonDisabled,
     loading,
     setLoading,
+    URL,
   } = useContext(myContext);
 
   const { query } = useParams();
@@ -34,8 +36,6 @@ export const SearchResults = () => {
     setCurrent(current);
     setRows(rows);
   };
-
-  const URL = import.meta.env.VITE_API_ENDPOINT;
 
   useEffect(() => {
     displayResults(rows, page);
@@ -137,7 +137,7 @@ export const SearchResults = () => {
             </>
           ) : (
             <div className="loading_spinner">
-              <Spin />
+              <Spinner />
             </div>
           )}
         </>
