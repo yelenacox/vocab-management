@@ -1,0 +1,29 @@
+@import '../Search/Variables';
+
+.projects_container {
+  margin: 20vh 0 10vh 5vw;
+  min-height: 100vh;
+}
+
+table,
+td,
+th {
+  border: 1px solid $blackColor;
+  border-collapse: collapse;
+}
+
+table {
+  width: 50vw;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px 12px;
+  overflow-wrap: break-word;
+}
+
+th:first-of-type,
+td:first-of-type {
+  width: 15vw;
+}
