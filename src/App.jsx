@@ -8,6 +8,7 @@ import { Footer } from './components/Nav/Footer';
 import { SearchResults } from './components/Search/SearchResults';
 import { Projects } from './components/Projects/Projects';
 import { Terminology } from './components/Projects/Terminology';
+import { AddTerminology } from './components/Projects/AddTerminology';
 
 export const myContext = createContext();
 
@@ -20,7 +21,7 @@ function App() {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const URL = import.meta.env.VITE_API_ENDPOINT;
+  const URL = import.meta.env.VITE_SEARCH_ENDPOINT;
   const vocabUrl = import.meta.env.VITE_VOCAB_ENDPOINT;
 
   return (
@@ -62,6 +63,7 @@ function App() {
             path="/terminologies/:terminologyId"
             element={<Terminology />}
           />
+          <Route path="/add" element={<AddTerminology />} />
         </Route>
       </Routes>
     </myContext.Provider>

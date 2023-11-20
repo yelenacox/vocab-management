@@ -5,3 +5,14 @@
   margin: 20vh 0 10vh 5vw;
   min-height: 100vh;
 }
+
+.projects_sub_nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu_buttons_container {
+  margin-left: auto;
+  margin-right: 30vw;
+}
