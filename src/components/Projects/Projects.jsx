@@ -30,7 +30,12 @@ export const Projects = () => {
   return (
     <>
       <div className="projects_container">
-        <h1>Terminologies</h1>
+        <div className="projects_sub_nav">
+          <h1>Terminologies</h1>
+          <div className="menu_buttons_container">
+            <Link to="/add">Add Terminology</Link>
+          </div>
+        </div>
         {loading ? (
           <Spinner />
         ) : (
