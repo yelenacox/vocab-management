@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { myContext } from '../../App';
 import './Terminology.scss';
 import { Spinner } from '../Manager/Spinner';
+import Background from '../../../assets/Background.png';
 
 export const Terminology = () => {
   const [terminology, setTerminology] = useState({});
@@ -34,7 +35,11 @@ export const Terminology = () => {
         <Spinner />
       ) : (
         <div className="terminology_container">
+          <div className="image_container">
+            <img className="background_image_results" src={Background} />
+          </div>
           <h1>{terminology?.name ? terminology?.name : terminology?.id}</h1>
+          <h4>{terminology.description}</h4>
           <div className="table_container">
             <table className="table">
               <thead className="header">
@@ -56,6 +61,7 @@ export const Terminology = () => {
                 })}
               </tbody>
             </table>
+            {terminology.url}
           </div>
         </div>
       )}

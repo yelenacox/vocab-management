@@ -5,8 +5,14 @@ import { myContext } from '../../App';
 import { AdditionalCodeInput } from './AdditionalCodeInput';
 
 export const AddTerminology = () => {
-  const { loading, setLoading, vocabUrl, terminology, setTerminology } =
-    useContext(myContext);
+  const {
+    loading,
+    setLoading,
+    vocabUrl,
+    terminology,
+    setTerminology,
+    initialTerminology,
+  } = useContext(myContext);
   const [codeId, setCodeId] = useState(0);
 
   const handleCodeAdd = () => {
@@ -19,6 +25,13 @@ export const AddTerminology = () => {
     });
   };
 
+  useEffect(
+    () => () => {
+      setTerminology(initialTerminology);
+    },
+    [],
+  );
+
   useEffect(() => {
     console.log('ADD FIRST CODE', terminology.codes.length);
     if (terminology?.codes?.length === 0) {
@@ -30,13 +43,11 @@ export const AddTerminology = () => {
   console.log('TERMINOLOGY: ', JSON.stringify(terminology));
   const navigate = useNavigate();
 
-  const newTerminology = {
-    name: terminology.name,
-    description: terminology.description,
-    url: terminology.url,
-    codes: terminology.codes.map(code => {
+  let terminologyDTO = () => {
+    const codesDTO = terminology.codes.map(code => {
       return { code: code.code, description: code.description };
-    }),
+    });
+    return { ...terminology, codes: codesDTO };
   };
 
   const handleSubmit = event => {
@@ -46,7 +57,7 @@ export const AddTerminology = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newTerminology),
+      body: JSON.stringify(terminologyDTO()),
     })
       .then(res => res.json())
       .then(() => navigate('/projects'));

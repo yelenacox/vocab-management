@@ -19,12 +19,8 @@ function App() {
   const [rows, setRows] = useState(20);
   const [current, setCurrent] = useState(1);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [terminology, setTerminology] = useState({
-    url: '',
-    description: '',
-    name: '',
-    codes: [],
-  });
+  const initialTerminology = { url: '', description: '', name: '', codes: [] };
+  const [terminology, setTerminology] = useState(initialTerminology);
 
   const [loading, setLoading] = useState(false);
 
@@ -52,6 +48,7 @@ function App() {
         vocabUrl,
         terminology,
         setTerminology,
+        initialTerminology,
       }}
     >
       <Routes>
