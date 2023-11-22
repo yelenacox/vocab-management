@@ -3,6 +3,7 @@ import './Projects.scss';
 import { myContext } from '../../App';
 import { Spinner } from '../Manager/Spinner';
 import { Link } from 'react-router-dom';
+import Background from '../../../assets/Background.png';
 
 export const Projects = () => {
   const [terminologies, setTerminologies] = useState([]);
@@ -30,6 +31,9 @@ export const Projects = () => {
   return (
     <>
       <div className="projects_container">
+        <div className="image_container">
+          <img className="background_image_results" src={Background} />
+        </div>
         <div className="projects_sub_nav">
           <h1>Terminologies</h1>
           <div className="menu_buttons_container">
