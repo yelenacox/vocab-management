@@ -19,6 +19,13 @@ function App() {
   const [rows, setRows] = useState(20);
   const [current, setCurrent] = useState(1);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [terminology, setTerminology] = useState({
+    url: '',
+    description: '',
+    name: '',
+    codes: [],
+  });
+
   const [loading, setLoading] = useState(false);
 
   const URL = import.meta.env.VITE_SEARCH_ENDPOINT;
@@ -43,6 +50,8 @@ function App() {
         setLoading,
         URL,
         vocabUrl,
+        terminology,
+        setTerminology,
       }}
     >
       <Routes>
