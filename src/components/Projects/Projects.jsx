@@ -4,6 +4,7 @@ import { myContext } from '../../App';
 import { Spinner } from '../Manager/Spinner';
 import { Link } from 'react-router-dom';
 import Background from '../../../assets/Background.png';
+import { DeleteTerminology } from './DeleteTerminology';
 
 export const Projects = () => {
   const [terminologies, setTerminologies] = useState([]);
@@ -62,6 +63,12 @@ export const Projects = () => {
                           </Link>
                         </td>
                         <td>{r?.description}</td>
+                        <td className="delete_cell">
+                          <DeleteTerminology
+                            terminology={r}
+                            setTerminologies={setTerminologies}
+                          />
+                        </td>
                       </tr>
                     </>
                   );

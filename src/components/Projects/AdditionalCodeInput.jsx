@@ -27,7 +27,6 @@ export const AdditionalCodeInput = props => {
         <label htmlFor="terminology_code">Code</label>
         <input
           required
-          autoFocus
           id="code"
           className="code_input"
           type="text"

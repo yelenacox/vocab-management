@@ -1,5 +1,5 @@
 table,
-td {
+td:not(.delete_cell) {
   border: 1px solid $blackColor;
   border-collapse: collapse;
 }
@@ -27,4 +27,9 @@ td {
 th:first-of-type,
 td:first-of-type {
   width: 15vw;
+}
+
+.delete_image {
+  width: 0.9vw;
+  cursor: pointer;
 }
