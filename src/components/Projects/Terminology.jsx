@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { myContext } from '../../App';
 import './Terminology.scss';
 import { Spinner } from '../Manager/Spinner';
 import Background from '../../../assets/Background.png';
+import BackArrow from '../../../assets/back_arrow.png';
 
 export const Terminology = () => {
   const [terminology, setTerminology] = useState({});
@@ -37,6 +38,12 @@ export const Terminology = () => {
         <div className="terminology_container">
           <div className="image_container">
             <img className="background_image_results" src={Background} />
+          </div>
+          <div className="terminology_back_wrapper">
+            <Link to="/projects">
+              <img className="terminology_back" src={BackArrow} />
+              Back
+            </Link>
           </div>
           <h1>{terminology?.name ? terminology?.name : terminology?.id}</h1>
           <h4>{terminology.description}</h4>

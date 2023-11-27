@@ -8,18 +8,18 @@ export const AdditionalCodeInput = props => {
   useEffect(() => {
     let codeIndex;
     terminology.codes.forEach((code, index) => {
-      console.log('THIS CODE ID: ', code.id === props.code.id);
+      // console.log('THIS CODE ID: ', code.id === props.code.id);
       if (code.id === props.code.id) {
-        console.log('FOUND IT', index);
+        // console.log('FOUND IT', index);
         codeIndex = index;
       }
     });
-    console.log('EXISTING CODE INDEX:', codeIndex);
+    // console.log('EXISTING CODE INDEX:', codeIndex);
     let newTerminology = terminology;
     newTerminology.codes[codeIndex] = thisCode;
     setTerminology(newTerminology);
   }, [thisCode]);
-  console.log('THISCODE ', thisCode);
+  // console.log('THISCODE ', thisCode);
 
   return (
     <>
@@ -42,7 +42,7 @@ export const AdditionalCodeInput = props => {
       </div>
       <div className="code_description">
         <label htmlFor="terminology_code_description">Code Description</label>
-        <input
+        <textarea
           required
           id="code_description"
           className="code_description_input"

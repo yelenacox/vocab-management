@@ -1,8 +1,9 @@
 import { React, useContext, useEffect, useState } from 'react';
-import { useAsyncError, useNavigate } from 'react-router-dom';
+import { Link, useAsyncError, useNavigate } from 'react-router-dom';
 import './AddTerminology.scss';
 import { myContext } from '../../App';
 import { AdditionalCodeInput } from './AdditionalCodeInput';
+import BackArrow from '../../../assets/back_arrow.png';
 
 export const AddTerminology = () => {
   const {
@@ -33,14 +34,14 @@ export const AddTerminology = () => {
   );
 
   useEffect(() => {
-    console.log('ADD FIRST CODE', terminology.codes.length);
+    // console.log('ADD FIRST CODE', terminology.codes.length);
     if (terminology?.codes?.length === 0) {
-      console.log('ADD FIRST CODE PLZ', terminology.codes.length);
+      // console.log('ADD FIRST CODE PLZ', terminology.codes.length);
       handleCodeAdd();
     }
   });
 
-  console.log('TERMINOLOGY: ', JSON.stringify(terminology));
+  // console.log('TERMINOLOGY: ', JSON.stringify(terminology));
   const navigate = useNavigate();
 
   let terminologyDTO = () => {
@@ -60,10 +61,10 @@ export const AddTerminology = () => {
       body: JSON.stringify(terminologyDTO()),
     })
       .then(res => res.json())
-      .then(() => navigate('/projects'));
+      .then(data => navigate(`/terminologies/${data?.id}`));
   };
 
-  console.log('code id', codeId);
+  // console.log('code id', codeId);
   const getCodeId = () => {
     const current = codeId;
     setCodeId(codeId + 1);
@@ -73,6 +74,12 @@ export const AddTerminology = () => {
   return (
     <>
       <article className="form_container">
+        <div className="terminology_back_wrapper back_margin">
+          <Link to="/projects">
+            <img className="terminology_back" src={BackArrow} />
+            Back
+          </Link>
+        </div>
         <div className="name">
           <label htmlFor="terminology_name">Name</label>
           <input
@@ -91,7 +98,7 @@ export const AddTerminology = () => {
 
         <div className="description">
           <label htmlFor="terminology_description">Description</label>
-          <input
+          <textarea
             id="description"
             className="description_input"
             type="text"
