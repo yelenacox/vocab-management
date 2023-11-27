@@ -83,6 +83,7 @@ export const AddTerminology = () => {
         <div className="name">
           <label htmlFor="terminology_name">Name</label>
           <input
+            autoFocus
             id="name"
             className="name_input"
             type="text"

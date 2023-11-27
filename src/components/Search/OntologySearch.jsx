@@ -19,6 +19,7 @@ export const OntologySearch = () => {
         <div className="search_field">
           <div className="text_input">
             <input
+              autoFocus
               id="search_input"
               type="text"
               placeholder="Search"

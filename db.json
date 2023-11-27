@@ -1712,18 +1712,6 @@
       "url": "https://includedcc.org/fhir/CodeSystem/data-dictionary/specimen/volume_unit"
     },
     {
-      "codes": [
-        {
-          "code": "test",
-          "description": "code test"
-        }
-      ],
-      "name": "Name Test",
-      "description": "Description test",
-      "url": "http://example.org",
-      "id": "wRaPh66"
-    },
-    {
       "name": "Beans",
       "description": "Jellies",
       "url": "http://example.org",
@@ -1734,22 +1722,6 @@
         }
       ],
       "id": "wl7NqtR"
-    },
-    {
-      "name": "Test Name",
-      "description": "Description test",
-      "url": "url.com",
-      "codes": [
-        {
-          "code": "fddasdf",
-          "description": "poo"
-        },
-        {
-          "code": "",
-          "description": ""
-        }
-      ],
-      "id": "drkzF8u"
     },
     {
       "url": "http://example.com",
@@ -1766,6 +1738,18 @@
         }
       ],
       "id": "SMEZfD9"
+    },
+    {
+      "url": "www.example.com",
+      "description": "I'm going to see if I can still add a terminology after adding delete functionality",
+      "name": "Post-delete test",
+      "codes": [
+        {
+          "code": "post-delete",
+          "description": "codey code"
+        }
+      ],
+      "id": "pMbxCXr"
     }
   ]
 }
