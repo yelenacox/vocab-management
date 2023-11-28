@@ -1738,18 +1738,6 @@
         }
       ],
       "id": "SMEZfD9"
-    },
-    {
-      "url": "www.example.com",
-      "description": "I'm going to see if I can still add a terminology after adding delete functionality",
-      "name": "Post-delete test",
-      "codes": [
-        {
-          "code": "post-delete",
-          "description": "codey code"
-        }
-      ],
-      "id": "pMbxCXr"
     }
   ]
 }
