@@ -1722,22 +1722,6 @@
         }
       ],
       "id": "wl7NqtR"
-    },
-    {
-      "url": "http://example.com",
-      "description": "The butters",
-      "name": "PBJ",
-      "codes": [
-        {
-          "code": "Jelly",
-          "description": "Do shake"
-        },
-        {
-          "code": "Jam",
-          "description": "Don't shake"
-        }
-      ],
-      "id": "SMEZfD9"
     }
   ]
 }

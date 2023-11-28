@@ -1,13 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { myContext } from '../../App';
 import './Terminology.scss';
 import { Spinner } from '../Manager/Spinner';
 import Background from '../../../assets/Background.png';
 import BackArrow from '../../../assets/back_arrow.png';
+import DeleteTrash from '../../../assets/delete_icon_trash.png';
 
 export const Terminology = () => {
   const [terminology, setTerminology] = useState({});
+  const [updatedTerminology, setUpdatedTerminology] = useState({});
   const { terminologyId } = useParams();
   const { vocabUrl, loading, setLoading } = useContext(myContext);
 
@@ -27,6 +29,27 @@ export const Terminology = () => {
       .then(data => setTerminology(data))
       .then(() => {
         setLoading(false);
+      });
+  };
+  console.log('CODES', terminology);
+
+  const handleDelete = index => {
+    terminology.codes.splice(index, 1);
+    console.log('HERE', index, terminology);
+    fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(terminology),
+    })
+      //   //   .then(response => response.json())
+      //   //   .then(() => {
+      //   //     return fetch(`${vocabUrl}/terminologies/${terminologyId}`);
+      //   //   })
+      .then(response => response.json())
+      .then(updatedTerminology => {
+        setTerminology(updatedTerminology);
       });
   };
 
@@ -62,6 +85,13 @@ export const Terminology = () => {
                       <tr key={index}>
                         <td>{r?.code}</td>
                         <td>{r?.description}</td>
+                        <td className="delete_cell">
+                          <img
+                            className="delete_image"
+                            onClick={() => handleDelete(index)}
+                            src={DeleteTrash}
+                          />
+                        </td>
                       </tr>
                     </>
                   );
