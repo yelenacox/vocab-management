@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { myContext } from '../../App';
+import { myContext } from '../../../App';
 
 export const AdditionalCodeInput = props => {
   const { terminology, setTerminology } = useContext(myContext);

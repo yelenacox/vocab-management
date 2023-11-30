@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { myContext } from '../../App';
+import { myContext } from '../../../App';
 import './AddCode.scss';
 
 export const AddCode = props => {
   const { terminology, setTerminology } = useContext(myContext);
+  const [thisCode, setThisCode] = useState(props.code);
 
   return (
     <>

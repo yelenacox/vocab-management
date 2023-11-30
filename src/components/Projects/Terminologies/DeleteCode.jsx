@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import { myContext } from '../../App';
-import DeleteTrash from '../../../assets/delete_icon_trash.png';
+import { myContext } from '../../../App';
+import DeleteTrash from '../../../../assets/delete_icon_trash.png';
 
 export const DeleteCode = ({
   index,

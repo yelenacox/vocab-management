@@ -1,11 +1,11 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { myContext } from '../../App';
+import { myContext } from '../../../App';
 import './Terminology.scss';
-import { Spinner } from '../Manager/Spinner';
-import Background from '../../../assets/Background.png';
-import BackArrow from '../../../assets/back_arrow.png';
-import DeleteTrash from '../../../assets/delete_icon_trash.png';
+import { Spinner } from '../../Manager/Spinner';
+import Background from '../../../../assets/Background.png';
+import BackArrow from '../../../../assets/back_arrow.png';
+import DeleteTrash from '../../../../assets/delete_icon_trash.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 
@@ -115,7 +115,7 @@ export const Terminology = () => {
                   );
                 })}
                 {newCodes?.map((newCode, index) => (
-                  <AddCode />
+                  <AddCode newCode={newCode} index={index} />
                 ))}
               </tbody>
             </table>

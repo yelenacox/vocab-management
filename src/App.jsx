@@ -7,8 +7,8 @@ import { Switch } from 'antd';
 import { Footer } from './components/Nav/Footer';
 import { SearchResults } from './components/Search/SearchResults';
 import { Projects } from './components/Projects/Projects';
-import { Terminology } from './components/Projects/Terminology';
-import { AddTerminology } from './components/Projects/AddTerminology';
+import { Terminology } from './components/Projects/Terminologies/Terminology';
+import { AddTerminology } from './components/Projects/Terminologies/AddTerminology';
 
 export const myContext = createContext();
 
