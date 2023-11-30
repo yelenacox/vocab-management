@@ -7,12 +7,20 @@ import Background from '../../../assets/Background.png';
 import BackArrow from '../../../assets/back_arrow.png';
 import DeleteTrash from '../../../assets/delete_icon_trash.png';
 import { DeleteCode } from './DeleteCode';
+import { AddCode } from './AddCode';
 
 export const Terminology = () => {
-  const [terminology, setTerminology] = useState({});
   const { terminologyId } = useParams();
-  const { vocabUrl, loading, setLoading } = useContext(myContext);
-
+  const {
+    terminology,
+    setTerminology,
+    vocabUrl,
+    loading,
+    setLoading,
+    codeId,
+    setCodeId,
+  } = useContext(myContext);
+  const [newCodes, setNewCodes] = useState([]);
   useEffect(() => {
     getTerminologyById();
   }, []);
@@ -32,6 +40,31 @@ export const Terminology = () => {
       });
   };
 
+  const handleInputAdd = () => {
+    setNewCodes([...newCodes, { code: '', description: '', id: getCodeId() }]);
+  };
+
+  const getCodeId = () => {
+    const current = codeId;
+    setCodeId(codeId + 1);
+    return current;
+  };
+
+  const handleAddCode = newCode => {
+    terminology.codes.push(newCode);
+    fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(terminology),
+    })
+      .then(response => response.json())
+      .then(updatedTerminology => {
+        setTerminology(updatedTerminology);
+      });
+  };
+
   return (
     <>
       {loading ? (
@@ -47,7 +80,12 @@ export const Terminology = () => {
               Back
             </Link>
           </div>
-          <h1>{terminology?.name ? terminology?.name : terminology?.id}</h1>
+          <div className="terminology_sub_nav">
+            <h1>{terminology?.name ? terminology?.name : terminology?.id}</h1>
+            <div className="add_code_link">
+              <button onClick={handleInputAdd}>Add New Code</button>
+            </div>
+          </div>
           <h4>{terminology.description}</h4>
           <div className="table_container">
             <table className="table">
@@ -76,8 +114,16 @@ export const Terminology = () => {
                     </>
                   );
                 })}
+                {newCodes?.map((newCode, index) => (
+                  <AddCode />
+                ))}
               </tbody>
             </table>
+            {newCodes?.length > 0 ? (
+              <button onClick={handleAddCode}>Save</button>
+            ) : (
+              ''
+            )}
             {terminology.url}
           </div>
         </div>

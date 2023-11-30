@@ -12,7 +12,6 @@ export const DeleteCode = ({
 
   const handleDelete = index => {
     terminology.codes.splice(index, 1);
-    console.log('HERE', index, terminology);
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'PUT',
       headers: {

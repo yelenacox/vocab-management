@@ -9,7 +9,7 @@ export const AdditionalCodeInput = props => {
     let codeIndex;
     terminology.codes.forEach((code, index) => {
       // console.log('THIS CODE ID: ', code.id === props.code.id);
-      if (code.id === props.code.id) {
+      if (code.id === thisCode.id) {
         // console.log('FOUND IT', index);
         codeIndex = index;
       }

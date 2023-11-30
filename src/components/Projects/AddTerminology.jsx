@@ -13,8 +13,9 @@ export const AddTerminology = () => {
     terminology,
     setTerminology,
     initialTerminology,
+    codeId,
+    setCodeId,
   } = useContext(myContext);
-  const [codeId, setCodeId] = useState(0);
 
   const handleCodeAdd = () => {
     setTerminology({

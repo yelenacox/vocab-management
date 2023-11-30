@@ -20,6 +20,8 @@ function App() {
   const [current, setCurrent] = useState(1);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const initialTerminology = { url: '', description: '', name: '', codes: [] };
+  const [codeId, setCodeId] = useState(0);
+
   const [terminology, setTerminology] = useState(initialTerminology);
 
   const [loading, setLoading] = useState(false);
@@ -49,6 +51,8 @@ function App() {
         terminology,
         setTerminology,
         initialTerminology,
+        codeId,
+        setCodeId,
       }}
     >
       <Routes>
