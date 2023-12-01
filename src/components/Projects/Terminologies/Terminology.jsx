@@ -21,6 +21,7 @@ export const Terminology = () => {
     setCodeId,
   } = useContext(myContext);
   const [newCodes, setNewCodes] = useState([]);
+
   useEffect(() => {
     getTerminologyById();
   }, []);
@@ -41,7 +42,8 @@ export const Terminology = () => {
   };
 
   const handleInputAdd = () => {
-    setNewCodes([...newCodes, { code: '', description: '', id: getCodeId() }]);
+    const newCode = { code: '', description: '', id: getCodeId() };
+    setNewCodes([...newCodes, newCode]);
   };
 
   const getCodeId = () => {
@@ -50,20 +52,28 @@ export const Terminology = () => {
     return current;
   };
 
-  const handleAddCode = newCode => {
-    terminology.codes.push(newCode);
+  const handleAddCode = () => {
+    const newCodesDTO = newCodes.map(code => {
+      return { description: code.description, code: code.code };
+    });
+    const newTerminology = {
+      ...terminology,
+      codes: [...terminology.codes, ...newCodesDTO],
+    };
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(terminology),
+      body: JSON.stringify(newTerminology),
     })
       .then(response => response.json())
       .then(updatedTerminology => {
         setTerminology(updatedTerminology);
+        setNewCodes([]);
       });
   };
+  console.log(newCodes);
 
   return (
     <>
@@ -98,24 +108,28 @@ export const Terminology = () => {
               <tbody>
                 {terminology?.codes?.map((r, index) => {
                   return (
-                    <>
-                      <tr key={index}>
-                        <td>{r?.code}</td>
-                        <td>{r?.description}</td>
-                        <td className="delete_cell">
-                          <DeleteCode
-                            index={index}
-                            terminology={terminology}
-                            setTerminology={setTerminology}
-                            terminologyId={terminologyId}
-                          />
-                        </td>
-                      </tr>
-                    </>
+                    <tr key={index}>
+                      <td>{r?.code}</td>
+                      <td>{r?.description}</td>
+                      <td className="delete_cell">
+                        <DeleteCode
+                          index={index}
+                          terminology={terminology}
+                          setTerminology={setTerminology}
+                          terminologyId={terminologyId}
+                        />
+                      </td>
+                    </tr>
                   );
                 })}
-                {newCodes?.map((newCode, index) => (
-                  <AddCode newCode={newCode} index={index} />
+                {newCodes?.map(newCode => (
+                  <tr key={`newCode${newCode.id}`}>
+                    <AddCode
+                      code={newCode}
+                      newCodes={newCodes}
+                      setNewCodes={setNewCodes}
+                    />
+                  </tr>
                 ))}
               </tbody>
             </table>
