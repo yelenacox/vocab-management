@@ -7,8 +7,8 @@ import { Switch } from 'antd';
 import { Footer } from './components/Nav/Footer';
 import { SearchResults } from './components/Search/SearchResults';
 import { Projects } from './components/Projects/Projects';
-import { Terminology } from './components/Projects/Terminology';
-import { AddTerminology } from './components/Projects/AddTerminology';
+import { Terminology } from './components/Projects/Terminologies/Terminology';
+import { AddTerminology } from './components/Projects/Terminologies/AddTerminology';
 
 export const myContext = createContext();
 
@@ -20,6 +20,8 @@ function App() {
   const [current, setCurrent] = useState(1);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const initialTerminology = { url: '', description: '', name: '', codes: [] };
+  const [codeId, setCodeId] = useState(0);
+
   const [terminology, setTerminology] = useState(initialTerminology);
 
   const [loading, setLoading] = useState(false);
@@ -49,6 +51,8 @@ function App() {
         terminology,
         setTerminology,
         initialTerminology,
+        codeId,
+        setCodeId,
       }}
     >
       <Routes>

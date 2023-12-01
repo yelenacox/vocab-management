@@ -4,7 +4,7 @@ import { myContext } from '../../App';
 import { Spinner } from '../Manager/Spinner';
 import { Link } from 'react-router-dom';
 import Background from '../../../assets/Background.png';
-import { DeleteTerminology } from './DeleteTerminology';
+import { DeleteTerminology } from './Terminologies/DeleteTerminology';
 
 export const Projects = () => {
   const [terminologies, setTerminologies] = useState([]);

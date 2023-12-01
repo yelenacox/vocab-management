@@ -1,9 +1,9 @@
 import { React, useContext, useEffect, useState } from 'react';
 import { Link, useAsyncError, useNavigate } from 'react-router-dom';
 import './AddTerminology.scss';
-import { myContext } from '../../App';
+import { myContext } from '../../../App';
 import { AdditionalCodeInput } from './AdditionalCodeInput';
-import BackArrow from '../../../assets/back_arrow.png';
+import BackArrow from '../../../../assets/back_arrow.png';
 
 export const AddTerminology = () => {
   const {
@@ -13,8 +13,9 @@ export const AddTerminology = () => {
     terminology,
     setTerminology,
     initialTerminology,
+    codeId,
+    setCodeId,
   } = useContext(myContext);
-  const [codeId, setCodeId] = useState(0);
 
   const handleCodeAdd = () => {
     setTerminology({

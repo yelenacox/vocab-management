@@ -1,0 +1,18 @@
+@import '../../Styling/Variables';
+@import '../../Styling/Table';
+@import '../../Styling/Form';
+.terminology_container {
+  margin: 20vh 0 10vh 5vw;
+  min-height: 70vh;
+  width: 60vw;
+}
+
+.terminology_sub_nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.add_code_link {
+  margin-left: 50px;
+}

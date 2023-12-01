@@ -1722,6 +1722,38 @@
         }
       ],
       "id": "wl7NqtR"
+    },
+    {
+      "url": "www.addcode.com",
+      "description": "Test terminology to test add code functionality",
+      "name": "Add code test",
+      "codes": [
+        {
+          "code": "1",
+          "description": "1st code"
+        },
+        {
+          "code": "2",
+          "description": "2nd code"
+        },
+        {
+          "description": "red",
+          "code": "a"
+        },
+        {
+          "description": "blue",
+          "code": "b"
+        },
+        {
+          "description": "pink",
+          "code": "c"
+        },
+        {
+          "description": "yelllow",
+          "code": "d"
+        }
+      ],
+      "id": "9L0KWPf"
     }
   ]
 }

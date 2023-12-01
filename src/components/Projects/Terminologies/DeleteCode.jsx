@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import { myContext } from '../../App';
-import DeleteTrash from '../../../assets/delete_icon_trash.png';
+import { myContext } from '../../../App';
+import DeleteTrash from '../../../../assets/delete_icon_trash.png';
 
 export const DeleteCode = ({
   index,
@@ -12,7 +12,6 @@ export const DeleteCode = ({
 
   const handleDelete = index => {
     terminology.codes.splice(index, 1);
-    console.log('HERE', index, terminology);
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'PUT',
       headers: {

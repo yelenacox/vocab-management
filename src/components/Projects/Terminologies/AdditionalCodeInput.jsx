@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { myContext } from '../../App';
+import { myContext } from '../../../App';
 
 export const AdditionalCodeInput = props => {
   const { terminology, setTerminology } = useContext(myContext);
@@ -9,7 +9,7 @@ export const AdditionalCodeInput = props => {
     let codeIndex;
     terminology.codes.forEach((code, index) => {
       // console.log('THIS CODE ID: ', code.id === props.code.id);
-      if (code.id === props.code.id) {
+      if (code.id === thisCode.id) {
         // console.log('FOUND IT', index);
         codeIndex = index;
       }
