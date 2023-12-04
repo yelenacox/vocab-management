@@ -1729,14 +1729,6 @@
       "name": "Add code test",
       "codes": [
         {
-          "code": "1",
-          "description": "1st code"
-        },
-        {
-          "code": "2",
-          "description": "2nd code"
-        },
-        {
           "description": "red",
           "code": "a"
         },
