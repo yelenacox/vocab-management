@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './AddCode.scss';
 
-export const AddCode = ({ code, newCodes, setNewCodes, terminologyId }) => {
+export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
   const { terminology, setTerminology, vocabUrl } = useContext(myContext);
   const [thisCode, setThisCode] = useState(code);
   useEffect(() => {
@@ -19,17 +19,24 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId }) => {
   }, [thisCode]);
   // console.log('THISCODE ', thisCode);
 
-  const handleAddCode = () => {
-    const filterEmpty = newCodes.filter(
-      r => r.code !== '' || r.description !== '',
-    );
-    const newCodesDTO = filterEmpty.map(code => {
+  const removeInputField = i => {
+    let newInput = [...newCodes];
+    newInput.splice(i, 1);
+    setNewCodes(newInput);
+  };
+
+  const handleAddCode = e => {
+    // const filterEmpty = newCodes.filter(
+    //   r => r.code !== '' || r.description !== '',
+    // );
+    const newCodesDTO = newCodes.map(code => {
       return { code: code.code, description: code.description };
     });
     const newTerminology = {
       ...terminology,
       codes: [...terminology.codes, ...newCodesDTO],
     };
+
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'PUT',
       headers: {
@@ -76,7 +83,17 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId }) => {
           }}
         />
       </td>
-      <button onClick={handleAddCode}>Save</button>
+
+      <button
+        onClick={e =>
+          thisCode.code !== '' && thisCode.description !== ''
+            ? handleAddCode(e)
+            : window.alert('Code and description cannot be blank.')
+        }
+      >
+        Save
+      </button>
+      <button onClick={() => removeInputField(i)}>Remove</button>
     </>
   );
 };
