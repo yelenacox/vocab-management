@@ -52,7 +52,10 @@ export const Terminology = () => {
   };
 
   const handleAddCode = () => {
-    const newCodesDTO = newCodes.map(code => {
+    const filterEmpty = newCodes.filter(
+      r => r.code !== '' || r.description !== '',
+    );
+    const newCodesDTO = filterEmpty.map(code => {
       return { code: code.code, description: code.description };
     });
     const newTerminology = {
@@ -72,7 +75,6 @@ export const Terminology = () => {
         setNewCodes([]);
       });
   };
-  console.log(newCodes);
 
   return (
     <>
