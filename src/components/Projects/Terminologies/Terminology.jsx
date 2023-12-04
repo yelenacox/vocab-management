@@ -98,10 +98,11 @@ export const Terminology = () => {
                     </tr>
                   );
                 })}
-                {newCodes?.map(newCode => (
+                {newCodes?.map((newCode, i) => (
                   <tr key={`newCode${newCode.id}`}>
                     <AddCode
                       code={newCode}
+                      i={i}
                       newCodes={newCodes}
                       setNewCodes={setNewCodes}
                       terminologyId={terminologyId}
