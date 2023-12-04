@@ -5,7 +5,6 @@ import './Terminology.scss';
 import { Spinner } from '../../Manager/Spinner';
 import Background from '../../../../assets/Background.png';
 import BackArrow from '../../../../assets/back_arrow.png';
-import DeleteTrash from '../../../../assets/delete_icon_trash.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 
@@ -54,7 +53,7 @@ export const Terminology = () => {
 
   const handleAddCode = () => {
     const newCodesDTO = newCodes.map(code => {
-      return { description: code.description, code: code.code };
+      return { code: code.code, description: code.description };
     });
     const newTerminology = {
       ...terminology,

@@ -20,38 +20,36 @@ export const AddCode = ({ code, newCodes, setNewCodes }) => {
 
   return (
     <>
-      <div className="add_code_container">
-        <div className="add_code">
-          <input
-            required
-            id="code"
-            className="code_input"
-            type="text"
-            value={thisCode.code}
-            onChange={evt => {
-              setThisCode({
-                ...thisCode,
-                code: evt.target.value,
-              });
-            }}
-          />
-        </div>
-        <div className="add_code_description">
-          <input
-            required
-            id="code_description"
-            className="code_description_input"
-            type="text"
-            value={thisCode.description}
-            onChange={evt => {
-              setThisCode({
-                ...thisCode,
-                description: evt.target.value,
-              });
-            }}
-          />
-        </div>
-      </div>
+      <td className="add_code">
+        <input
+          required
+          id="code"
+          className="code_input"
+          type="text"
+          value={thisCode.code}
+          onChange={evt => {
+            setThisCode({
+              ...thisCode,
+              code: evt.target.value,
+            });
+          }}
+        />
+      </td>
+      <td className="add_code_description">
+        <input
+          required
+          id="code_description"
+          className="code_description_input"
+          type="text"
+          value={thisCode.description}
+          onChange={evt => {
+            setThisCode({
+              ...thisCode,
+              description: evt.target.value,
+            });
+          }}
+        />
+      </td>
     </>
   );
 };
