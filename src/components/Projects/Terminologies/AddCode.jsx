@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './AddCode.scss';
 
-export const AddCode = ({ code, newCodes, setNewCodes }) => {
+export const AddCode = ({ code, newCodes, setNewCodes, terminologyId }) => {
+  const { terminology, setTerminology, vocabUrl } = useContext(myContext);
   const [thisCode, setThisCode] = useState(code);
   useEffect(() => {
     let codeIndex;
@@ -17,6 +18,31 @@ export const AddCode = ({ code, newCodes, setNewCodes }) => {
     setNewCodes(newCodes);
   }, [thisCode]);
   // console.log('THISCODE ', thisCode);
+
+  const handleAddCode = () => {
+    const filterEmpty = newCodes.filter(
+      r => r.code !== '' || r.description !== '',
+    );
+    const newCodesDTO = filterEmpty.map(code => {
+      return { code: code.code, description: code.description };
+    });
+    const newTerminology = {
+      ...terminology,
+      codes: [...terminology.codes, ...newCodesDTO],
+    };
+    fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTerminology),
+    })
+      .then(response => response.json())
+      .then(updatedTerminology => {
+        setTerminology(updatedTerminology);
+        setNewCodes([]);
+      });
+  };
 
   return (
     <>
@@ -50,6 +76,7 @@ export const AddCode = ({ code, newCodes, setNewCodes }) => {
           }}
         />
       </td>
+      <button onClick={handleAddCode}>Save</button>
     </>
   );
 };
