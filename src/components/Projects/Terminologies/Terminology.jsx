@@ -51,31 +51,6 @@ export const Terminology = () => {
     return current;
   };
 
-  const handleAddCode = () => {
-    const filterEmpty = newCodes.filter(
-      r => r.code !== '' || r.description !== '',
-    );
-    const newCodesDTO = filterEmpty.map(code => {
-      return { code: code.code, description: code.description };
-    });
-    const newTerminology = {
-      ...terminology,
-      codes: [...terminology.codes, ...newCodesDTO],
-    };
-    fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newTerminology),
-    })
-      .then(response => response.json())
-      .then(updatedTerminology => {
-        setTerminology(updatedTerminology);
-        setNewCodes([]);
-      });
-  };
-
   return (
     <>
       {loading ? (
@@ -129,16 +104,17 @@ export const Terminology = () => {
                       code={newCode}
                       newCodes={newCodes}
                       setNewCodes={setNewCodes}
+                      terminologyId={terminologyId}
                     />
                   </tr>
                 ))}
               </tbody>
             </table>
-            {newCodes?.length > 0 ? (
+            {/* {newCodes?.length > 0 ? (
               <button onClick={handleAddCode}>Save</button>
             ) : (
               ''
-            )}
+            )} */}
             {terminology.url}
           </div>
         </div>
