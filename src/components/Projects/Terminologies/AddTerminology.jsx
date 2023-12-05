@@ -27,6 +27,10 @@ export const AddTerminology = () => {
     });
   };
 
+  useEffect(() => {
+    setTerminology(initialTerminology);
+  }, []);
+
   useEffect(
     () => () => {
       setTerminology(initialTerminology);

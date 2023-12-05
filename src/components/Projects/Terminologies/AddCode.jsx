@@ -1,10 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { myContext } from '../../../App';
 import './AddCode.scss';
 
-export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
-  const { terminology, setTerminology, vocabUrl } = useContext(myContext);
+export const AddCode = ({
+  code,
+  newCode,
+  newCodes,
+  setNewCodes,
+  terminologyId,
+  i,
+}) => {
+  const { terminology, setTerminology, vocabUrl, initialTerminology } =
+    useContext(myContext);
   const [thisCode, setThisCode] = useState(code);
+
   useEffect(() => {
     let codeIndex;
     newCodes.forEach((newCode, index) => {
@@ -12,12 +21,10 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
         codeIndex = index;
       }
     });
-    // console.log('EXISTING CODE INDEX:', codeIndex);
     let newCode = thisCode;
     newCodes[codeIndex] = newCode;
     setNewCodes(newCodes);
   }, [thisCode]);
-  // console.log('THISCODE ', thisCode);
 
   const removeInputField = i => {
     let newInput = [...newCodes];
@@ -25,11 +32,14 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
     setNewCodes(newInput);
   };
 
-  const handleAddCode = e => {
+  const handleAddCode = (e, i) => {
     // const filterEmpty = newCodes.filter(
     //   r => r.code !== '' || r.description !== '',
     // );
-    const newCodesDTO = newCodes.map(code => {
+
+    const filterByRowId = newCodes.filter(r => r.id === thisCode.id);
+    console.log(filterByRowId);
+    const newCodesDTO = filterByRowId.map(code => {
       return { code: code.code, description: code.description };
     });
     const newTerminology = {
@@ -47,7 +57,8 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
       .then(response => response.json())
       .then(updatedTerminology => {
         setTerminology(updatedTerminology);
-        setNewCodes([]);
+        removeInputField(i);
+        setThisCode(code);
       });
   };
 
@@ -55,7 +66,7 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
     <>
       <td className="add_code">
         <input
-          required
+          autoFocus
           id="code"
           className="code_input"
           type="text"
@@ -70,7 +81,6 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
       </td>
       <td className="add_code_description">
         <input
-          required
           id="code_description"
           className="code_description_input"
           type="text"
@@ -87,7 +97,7 @@ export const AddCode = ({ code, newCodes, setNewCodes, terminologyId, i }) => {
       <button
         onClick={e =>
           thisCode.code !== '' && thisCode.description !== ''
-            ? handleAddCode(e)
+            ? handleAddCode(i)
             : window.alert('Code and description cannot be blank.')
         }
       >
