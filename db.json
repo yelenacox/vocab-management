@@ -1725,32 +1725,36 @@
     },
     {
       "url": "www.addcode.com",
-      "description": "Test terminology to test add code functionality",
-      "name": "Add code test",
+      "description": "Test terminology to test add code functionality.",
+      "name": "Add Code",
       "codes": [
         {
-          "description": "red",
-          "code": "a"
+          "code": "a",
+          "description": "blue"
         },
         {
-          "description": "blue",
-          "code": "b"
+          "code": "b",
+          "description": "red"
         },
         {
-          "description": "pink",
-          "code": "c"
+          "code": "c",
+          "description": "purple"
         },
         {
-          "description": "yelllow",
-          "code": "d"
+          "code": "d",
+          "description": "yellow"
         },
         {
           "code": "e",
-          "description": "green"
+          "description": "orange"
         },
         {
           "code": "f",
-          "description": "purple"
+          "description": "green"
+        },
+        {
+          "code": "g",
+          "description": "pink"
         }
       ],
       "id": "9L0KWPf"
