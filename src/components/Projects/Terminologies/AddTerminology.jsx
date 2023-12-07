@@ -104,7 +104,7 @@ export const AddTerminology = () => {
 
         <div className="description">
           <label htmlFor="terminology_description">Description</label>
-          <textarea
+          <input
             id="description"
             className="description_input"
             type="text"

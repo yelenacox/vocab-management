@@ -1726,7 +1726,7 @@
     {
       "url": "www.addcode.com",
       "description": "Test terminology to test add code functionality.",
-      "name": "Add Code",
+      "name": "Edit Test",
       "codes": [
         {
           "code": "a",
@@ -1739,22 +1739,6 @@
         {
           "code": "c",
           "description": "purple"
-        },
-        {
-          "code": "d",
-          "description": "yellow"
-        },
-        {
-          "code": "e",
-          "description": "orange"
-        },
-        {
-          "code": "f",
-          "description": "green"
-        },
-        {
-          "code": "g",
-          "description": "pink"
         }
       ],
       "id": "9L0KWPf"
