@@ -12,7 +12,7 @@ import { EditTerminology } from './EditTerminology';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
-  const [codeEdit, setCodeEdit] = useState(false);
+  const [detailsEdit, setDetailsEdit] = useState(false);
   const [active, setActive] = useState(-1);
   // const [activeRows, setActiveRows] = useState([]);
 
@@ -113,14 +113,45 @@ export const Terminology = () => {
           </div>
 
           <div className="terminology_sub_nav">
-            <h1>{terminology?.name ? terminology?.name : terminology?.id}</h1>
+            {
+              !terminologyEdit ? (
+                <h1>
+                  {terminology?.name ? terminology?.name : terminology?.id}
+                </h1>
+              ) : terminologyEdit && !detailsEdit ? (
+                <>
+                  <h1>
+                    {terminology?.name ? terminology?.name : terminology?.id}
+                  </h1>
+                  <button
+                    onClick={() => {
+                      setDetailsEdit(true);
+                    }}
+                  >
+                    Edit Name
+                  </button>
+                </>
+              ) : (
+                'poop'
+              )
+              // (
+              //   <input
+              //     type="text"
+              //     placeholder={
+              //       terminology?.name ? terminology?.name : terminology?.id
+              //     }
+              //   />
+              // )
+            }
             <div className="add_code_link">
               <button onClick={handleInputAdd}>Add New Code</button>
             </div>
             <div className="add_code_link">
               <button
                 onClick={() => {
-                  setTerminologyEdit(!terminologyEdit), onCancel();
+                  setTerminologyEdit(!terminologyEdit),
+                    onCancel(),
+                    setDetailsEdit(false);
                 }}
               >
                 {terminologyEdit ? 'View' : 'Edit'}
@@ -167,13 +198,6 @@ export const Terminology = () => {
                         </>
                       ) : (
                         ''
-                        //   <EditCodeButtons
-                        //   terminologyEdit={terminologyEdit}
-                        //   active={active}
-                        //   index={index}
-                        //   onCancel={}
-                        //   codeObject={r}
-                        // />
                       )}
                     </tr>
                   );
