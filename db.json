@@ -1724,24 +1724,32 @@
       "id": "wl7NqtR"
     },
     {
-      "url": "www.addcode.com",
-      "description": "Test terminology to test add code functionality.",
+      "url": "www.edit.com",
+      "description": "Terminology to test edit functionality",
       "name": "Edit Test",
       "codes": [
         {
           "code": "a",
-          "description": "blue"
-        },
-        {
-          "code": "b",
           "description": "red"
         },
         {
+          "code": "b",
+          "description": "orange"
+        },
+        {
           "code": "c",
-          "description": "purple"
+          "description": "yellow"
+        },
+        {
+          "code": "d",
+          "description": "green"
+        },
+        {
+          "code": "e",
+          "description": "blue"
         }
       ],
-      "id": "9L0KWPf"
+      "id": "kQtv7jJ"
     }
   ]
 }

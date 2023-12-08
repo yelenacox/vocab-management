@@ -7,11 +7,13 @@ import Background from '../../../../assets/Background.png';
 import BackArrow from '../../../../assets/back_arrow.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
+import { EditCode } from './EditCode';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
   const [codeEdit, setCodeEdit] = useState(false);
   const [active, setActive] = useState(-1);
+  // const [activeRows, setActiveRows] = useState([]);
 
   const { terminologyId } = useParams();
   const {
@@ -24,6 +26,7 @@ export const Terminology = () => {
     setCodeId,
     initialTerminology,
   } = useContext(myContext);
+
   const [newCodes, setNewCodes] = useState([]);
 
   useEffect(() => {
@@ -56,14 +59,20 @@ export const Terminology = () => {
     return current;
   };
 
-  let activeRows = [];
+  const activeRows = [];
 
   const onEdit = index => {
     setActive(index);
+    // activeRows.push(index);
+    // setActiveRows(...activeRows, index);
+    // console.log('active rows: ', activeRows);
   };
 
   const onCancel = () => {
     setActive(-1);
+    // activeRows.splice(index, 1);
+    // setActiveRows(...activeRows, activeRows.splice(index, 1))
+    // console.log('removing active: ', index);
   };
 
   return (
@@ -89,7 +98,11 @@ export const Terminology = () => {
               <button onClick={handleInputAdd}>Add New Code</button>
             </div>
             <div className="add_code_link">
-              <button onClick={() => setTerminologyEdit(!terminologyEdit)}>
+              <button
+                onClick={() => {
+                  setTerminologyEdit(!terminologyEdit), onCancel();
+                }}
+              >
                 {terminologyEdit ? 'View' : 'Edit'}
               </button>
             </div>
@@ -107,22 +120,36 @@ export const Terminology = () => {
                 {terminology?.codes?.map((r, index) => {
                   return (
                     <tr key={r?.code}>
-                      <td>{r?.code}</td>
-                      <td>{r?.description}</td>
-                      {terminologyEdit && active !== index ? (
-                        <button onClick={() => onEdit(index)}>Edit</button>
-                      ) : terminologyEdit && active === index ? (
+                      {active !== index ? (
                         <>
-                          <button>Save</button>
-                          <button onClick={() => onCancel(index)}>
-                            Cancel
-                          </button>
+                          <td>{r?.code}</td>
+                          <td>{r?.description}</td>
+                        </>
+                      ) : terminologyEdit && active === index ? (
+                        <EditCode codeObject={r} />
+                      ) : (
+                        ''
+                      )}
+                      {terminologyEdit && active !== index ? (
+                        <>
+                          <button onClick={() => onEdit(index)}>Edit</button>
                           <DeleteCode
                             index={index}
                             terminology={terminology}
                             setTerminology={setTerminology}
                             terminologyId={terminologyId}
                           />
+                        </>
+                      ) : terminologyEdit && active === index ? (
+                        <>
+                          <button>Save</button>
+                          <button
+                            onClick={() => {
+                              onCancel(index), setUpdatedCode(r.code);
+                            }}
+                          >
+                            Cancel
+                          </button>
                         </>
                       ) : (
                         ''
