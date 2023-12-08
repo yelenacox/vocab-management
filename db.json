@@ -1719,45 +1719,45 @@
         {
           "code": "jelly_beans",
           "description": "Beans of jellies"
+        },
+        {
+          "code": "pinto_beans",
+          "description": "Beans of pintos"
         }
       ],
       "id": "wl7NqtR"
     },
     {
-      "url": "www.addcode.com",
-      "description": "Test terminology to test add code functionality.",
-      "name": "Add Code",
+      "url": "www.edit.com",
+      "description": "Terminology to test edit functionality",
+      "name": "Edit Test",
       "codes": [
         {
           "code": "a",
-          "description": "blue"
-        },
-        {
-          "code": "b",
           "description": "red"
         },
         {
-          "code": "c",
-          "description": "purple"
+          "code": "b",
+          "description": "grey"
         },
         {
-          "code": "d",
+          "code": "c",
           "description": "yellow"
         },
         {
-          "code": "e",
-          "description": "orange"
-        },
-        {
-          "code": "f",
+          "code": "d",
           "description": "green"
         },
         {
-          "code": "g",
-          "description": "pink"
+          "code": "e",
+          "description": "blue"
+        },
+        {
+          "code": "earl",
+          "description": "mind"
         }
       ],
-      "id": "9L0KWPf"
+      "id": "kQtv7jJ"
     }
   ]
 }

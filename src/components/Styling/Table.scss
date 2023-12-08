@@ -1,5 +1,5 @@
 table,
-td:not(.delete_cell) {
+td:not(.delete_cell, .edit_cell) {
   border: 1px solid $blackColor;
   border-collapse: collapse;
 }

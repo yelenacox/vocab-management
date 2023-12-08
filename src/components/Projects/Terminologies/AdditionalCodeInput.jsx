@@ -41,7 +41,7 @@ export const AdditionalCodeInput = props => {
       </div>
       <div className="code_description">
         <label htmlFor="terminology_code_description">Code Description</label>
-        <textarea
+        <input
           required
           id="code_description"
           className="code_description_input"
