@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { EditCodeButtons } from './EditCodeButtons';
+import { myContext } from '../../../App';
 
-export const EditCode = ({ codeObject }) => {
-  const [updatedCode, setUpdatedCode] = useState(codeObject);
+export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
+  const [thisCode, setThisCode] = useState(codeObject);
+  const { terminology, updateTerminology } = useContext(myContext);
+
+  const updateCode = (code, index) => {
+    terminology.codes[index] = code;
+    updateTerminology();
+    setActive(-1);
+  };
 
   return (
     <>
@@ -10,11 +19,12 @@ export const EditCode = ({ codeObject }) => {
           id="code"
           className="code_input"
           type="text"
-          value={updatedCode.code}
+          value={thisCode.code}
           onChange={evt => {
-            const copy = { ...updatedCode };
-            copy.code = evt.target.value;
-            setUpdatedCode(copy);
+            setThisCode({
+              code: evt.target.value,
+              description: thisCode.description,
+            });
           }}
         />
       </td>
@@ -23,14 +33,20 @@ export const EditCode = ({ codeObject }) => {
           id="code_description"
           className="code_description_input"
           type="text"
-          value={updatedCode.description}
+          value={thisCode.description}
           onChange={evt => {
-            const copy = { ...updatedCode };
-            copy.description = evt.target.value;
-            setUpdatedCode(copy);
+            setThisCode({
+              code: thisCode.code,
+              description: evt.target.value,
+            });
           }}
         />
-      </td>
+      </td>{' '}
+      <>
+        <button onClick={() => updateCode(thisCode, index)}>Save</button>
+        <button onClick={onCancel}>Cancel</button>
+      </>
+      {/* <EditCodeButtons setUpdatedCode={setUpdatedCode} /> */}
     </>
   );
 };

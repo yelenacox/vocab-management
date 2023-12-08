@@ -13,6 +13,8 @@ import { AddTerminology } from './components/Projects/Terminologies/AddTerminolo
 export const myContext = createContext();
 
 function App() {
+  const URL = import.meta.env.VITE_SEARCH_ENDPOINT;
+  const vocabUrl = import.meta.env.VITE_VOCAB_ENDPOINT;
   const [results, setResults] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
@@ -26,9 +28,18 @@ function App() {
 
   const [loading, setLoading] = useState(false);
 
-  const URL = import.meta.env.VITE_SEARCH_ENDPOINT;
-  const vocabUrl = import.meta.env.VITE_VOCAB_ENDPOINT;
+  const updateTerminology = () =>
+    fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(terminology),
+    })
+      .then(res => res.json())
+      .then(data => setTerminology(data));
 
+  console.log(terminology);
   return (
     <myContext.Provider
       value={{
@@ -53,6 +64,7 @@ function App() {
         initialTerminology,
         codeId,
         setCodeId,
+        updateTerminology,
       }}
     >
       <Routes>

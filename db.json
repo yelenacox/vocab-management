@@ -1719,6 +1719,10 @@
         {
           "code": "jelly_beans",
           "description": "Beans of jellies"
+        },
+        {
+          "code": "pinto_beans",
+          "description": "Beans of pintos"
         }
       ],
       "id": "wl7NqtR"
@@ -1734,7 +1738,7 @@
         },
         {
           "code": "b",
-          "description": "orange"
+          "description": "grey"
         },
         {
           "code": "c",
@@ -1747,6 +1751,10 @@
         {
           "code": "e",
           "description": "blue"
+        },
+        {
+          "code": "earl",
+          "description": "mind"
         }
       ],
       "id": "kQtv7jJ"

@@ -8,6 +8,7 @@ import BackArrow from '../../../../assets/back_arrow.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 import { EditCode } from './EditCode';
+import { EditTerminology } from './EditTerminology';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
@@ -25,6 +26,7 @@ export const Terminology = () => {
     codeId,
     setCodeId,
     initialTerminology,
+    updateTerminology,
   } = useContext(myContext);
 
   const [newCodes, setNewCodes] = useState([]);
@@ -32,7 +34,14 @@ export const Terminology = () => {
   useEffect(() => {
     getTerminologyById();
   }, []);
-
+  const editTerminology = (codeObject, index) => {
+    console.log('INDY!!!!!', index);
+    if (index) {
+      const updatedCodes = terminology.codes;
+      updatedCodes[index] = codeObject;
+      setTerminology({ ...terminology, codes: updatedCodes });
+    }
+  };
   const getTerminologyById = () => {
     setLoading(true);
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
@@ -73,6 +82,17 @@ export const Terminology = () => {
     // activeRows.splice(index, 1);
     // setActiveRows(...activeRows, activeRows.splice(index, 1))
     // console.log('removing active: ', index);
+  };
+
+  // const updateCode = (term) => {
+  // const newTerm = {...terminology, name: term.name}
+  //  setTerminology(newTerm)\
+  //updateTerminology();
+  //}
+  const updateCode = (code, index) => {
+    terminology.codes[index] = code;
+    updateTerminology();
+    setActive(-1);
   };
 
   return (
@@ -126,7 +146,12 @@ export const Terminology = () => {
                           <td>{r?.description}</td>
                         </>
                       ) : terminologyEdit && active === index ? (
-                        <EditCode codeObject={r} />
+                        <EditCode
+                          codeObject={r}
+                          index={index}
+                          onCancel={onCancel}
+                          setActive={setActive}
+                        />
                       ) : (
                         ''
                       )}
@@ -140,19 +165,15 @@ export const Terminology = () => {
                             terminologyId={terminologyId}
                           />
                         </>
-                      ) : terminologyEdit && active === index ? (
-                        <>
-                          <button>Save</button>
-                          <button
-                            onClick={() => {
-                              onCancel(index), setUpdatedCode(r.code);
-                            }}
-                          >
-                            Cancel
-                          </button>
-                        </>
                       ) : (
                         ''
+                        //   <EditCodeButtons
+                        //   terminologyEdit={terminologyEdit}
+                        //   active={active}
+                        //   index={index}
+                        //   onCancel={}
+                        //   codeObject={r}
+                        // />
                       )}
                     </tr>
                   );
