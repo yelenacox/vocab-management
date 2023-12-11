@@ -8,7 +8,6 @@ import BackArrow from '../../../../assets/back_arrow.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 import { EditCode } from './EditCode';
-import { EditTerminology } from './EditTerminology';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
@@ -95,6 +94,7 @@ export const Terminology = () => {
     setActive(-1);
   };
 
+  console.log(detailsEdit);
   return (
     <>
       {loading ? (
@@ -113,36 +113,43 @@ export const Terminology = () => {
           </div>
 
           <div className="terminology_sub_nav">
-            {
-              !terminologyEdit ? (
-                <h1>
+            {!terminologyEdit ? (
+              <h2>{terminology?.name ? terminology?.name : terminology?.id}</h2>
+            ) : terminologyEdit && detailsEdit === false ? (
+              <>
+                <h2>
                   {terminology?.name ? terminology?.name : terminology?.id}
-                </h1>
-              ) : terminologyEdit && !detailsEdit ? (
-                <>
-                  <h1>
-                    {terminology?.name ? terminology?.name : terminology?.id}
-                  </h1>
-                  <button
-                    onClick={() => {
-                      setDetailsEdit(true);
-                    }}
-                  >
-                    Edit Name
-                  </button>
-                </>
-              ) : (
-                'poop'
-              )
-              // (
-              //   <input
-              //     type="text"
-              //     placeholder={
-              //       terminology?.name ? terminology?.name : terminology?.id
-              //     }
-              //   />
-              // )
-            }
+                </h2>
+
+                <button
+                  onClick={() => {
+                    setDetailsEdit(true);
+                  }}
+                >
+                  Edit Name
+                </button>
+              </>
+            ) : terminologyEdit && detailsEdit === true ? (
+              <>
+                <input
+                  type="text"
+                  placeholder={
+                    terminology?.name ? terminology?.name : terminology?.id
+                  }
+                />
+                <button>Save</button>
+                <button
+                  onClick={() => {
+                    setDetailsEdit(false);
+                  }}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              ''
+            )}
+
             <div className="add_code_link">
               <button onClick={handleInputAdd}>Add New Code</button>
             </div>
