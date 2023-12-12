@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { EditCodeButtons } from './EditCodeButtons';
 import { myContext } from '../../../App';
 
 export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
@@ -46,7 +45,6 @@ export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
         <button onClick={() => updateCode(thisCode, index)}>Save</button>
         <button onClick={onCancel}>Cancel</button>
       </>
-      {/* <EditCodeButtons setUpdatedCode={setUpdatedCode} /> */}
     </>
   );
 };

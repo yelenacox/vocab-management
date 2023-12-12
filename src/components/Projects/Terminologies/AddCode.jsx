@@ -38,7 +38,7 @@ export const AddCode = ({
     // );
 
     const filterByRowId = newCodes.filter(r => r.id === thisCode.id);
-    console.log(filterByRowId);
+    // console.log(filterByRowId);
     const newCodesDTO = filterByRowId.map(code => {
       return { code: code.code, description: code.description };
     });

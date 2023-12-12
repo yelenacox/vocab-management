@@ -8,11 +8,15 @@ import BackArrow from '../../../../assets/back_arrow.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 import { EditCode } from './EditCode';
-import { EditTerminology } from './EditTerminology';
+import { EditName } from './EditName';
+import { EditDescription } from './EditDescription';
+import { EditUrl } from './EditUrl';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
-  const [codeEdit, setCodeEdit] = useState(false);
+  const [nameEdit, setNameEdit] = useState(false);
+  const [descriptionEdit, setDescriptionEdit] = useState(false);
+  const [urlEdit, setUrlEdit] = useState(false);
   const [active, setActive] = useState(-1);
   // const [activeRows, setActiveRows] = useState([]);
 
@@ -30,18 +34,11 @@ export const Terminology = () => {
   } = useContext(myContext);
 
   const [newCodes, setNewCodes] = useState([]);
-
+  const [newName, setNewName] = useState(terminology.name);
   useEffect(() => {
     getTerminologyById();
   }, []);
-  const editTerminology = (codeObject, index) => {
-    console.log('INDY!!!!!', index);
-    if (index) {
-      const updatedCodes = terminology.codes;
-      updatedCodes[index] = codeObject;
-      setTerminology({ ...terminology, codes: updatedCodes });
-    }
-  };
+
   const getTerminologyById = () => {
     setLoading(true);
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
@@ -72,28 +69,17 @@ export const Terminology = () => {
 
   const onEdit = index => {
     setActive(index);
-    // activeRows.push(index);
-    // setActiveRows(...activeRows, index);
-    // console.log('active rows: ', activeRows);
   };
 
   const onCancel = () => {
     setActive(-1);
-    // activeRows.splice(index, 1);
-    // setActiveRows(...activeRows, activeRows.splice(index, 1))
-    // console.log('removing active: ', index);
   };
 
-  // const updateCode = (term) => {
-  // const newTerm = {...terminology, name: term.name}
-  //  setTerminology(newTerm)\
-  //updateTerminology();
-  //}
-  const updateCode = (code, index) => {
-    terminology.codes[index] = code;
-    updateTerminology();
-    setActive(-1);
-  };
+  // const updateCode = (code, index) => {
+  //   terminology.codes[index] = code;
+  //   updateTerminology();
+  //   setActive(-1);
+  // };
 
   return (
     <>
@@ -104,30 +90,81 @@ export const Terminology = () => {
           <div className="image_container">
             <img className="background_image_results" src={Background} />
           </div>
-
           <div className="terminology_back_wrapper">
             <Link to="/projects">
               <img className="terminology_back" src={BackArrow} />
               Back
             </Link>
           </div>
-
           <div className="terminology_sub_nav">
-            <h1>{terminology?.name ? terminology?.name : terminology?.id}</h1>
+            {!terminologyEdit ? (
+              <h2>{terminology?.name ? terminology?.name : terminology?.id}</h2>
+            ) : terminologyEdit && nameEdit === false ? (
+              <>
+                <h2>
+                  {terminology?.name ? terminology?.name : terminology?.id}
+                </h2>
+
+                <button
+                  onClick={() => {
+                    setNameEdit(true);
+                  }}
+                >
+                  Edit Name
+                </button>
+              </>
+            ) : terminologyEdit && nameEdit === true ? (
+              <EditName
+                terminology={terminology}
+                setTerminology={setTerminology}
+                setNameEdit={setNameEdit}
+              />
+            ) : (
+              ''
+            )}
+
             <div className="add_code_link">
               <button onClick={handleInputAdd}>Add New Code</button>
             </div>
             <div className="add_code_link">
               <button
                 onClick={() => {
-                  setTerminologyEdit(!terminologyEdit), onCancel();
+                  setTerminologyEdit(!terminologyEdit),
+                    onCancel(),
+                    setNameEdit(false);
+                  setDescriptionEdit(false);
+                  setUrlEdit(false);
                 }}
               >
                 {terminologyEdit ? 'View' : 'Edit'}
               </button>
             </div>
           </div>
-          <h4>{terminology.description}</h4>
+          <div className="description_wrapper">
+            {!terminologyEdit ? (
+              <h4>{terminology?.description}</h4>
+            ) : terminologyEdit && descriptionEdit === false ? (
+              <>
+                <h4>{terminology?.description}</h4>
+
+                <button
+                  onClick={() => {
+                    setDescriptionEdit(true);
+                  }}
+                >
+                  Edit
+                </button>
+              </>
+            ) : terminologyEdit && descriptionEdit === true ? (
+              <EditDescription
+                terminology={terminology}
+                setTerminology={setTerminology}
+                setDescriptionEdit={setDescriptionEdit}
+              />
+            ) : (
+              ''
+            )}
+          </div>
           <div className="table_container">
             <table className="table">
               <thead className="header">
@@ -167,13 +204,6 @@ export const Terminology = () => {
                         </>
                       ) : (
                         ''
-                        //   <EditCodeButtons
-                        //   terminologyEdit={terminologyEdit}
-                        //   active={active}
-                        //   index={index}
-                        //   onCancel={}
-                        //   codeObject={r}
-                        // />
                       )}
                     </tr>
                   );
@@ -197,7 +227,28 @@ export const Terminology = () => {
           ) : (
             ''
           )} */}
-            {terminology.url}
+            {!terminologyEdit ? (
+              terminology?.url
+            ) : terminologyEdit && urlEdit === false ? (
+              <>
+                {terminology?.url}
+                <button
+                  onClick={() => {
+                    setUrlEdit(true);
+                  }}
+                >
+                  Edit
+                </button>
+              </>
+            ) : terminologyEdit && urlEdit === true ? (
+              <EditUrl
+                terminology={terminology}
+                setTerminology={setTerminology}
+                setUrlEdit={setUrlEdit}
+              />
+            ) : (
+              ''
+            )}
           </div>
         </div>
       )}

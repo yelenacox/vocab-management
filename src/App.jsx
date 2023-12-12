@@ -39,7 +39,6 @@ function App() {
       .then(res => res.json())
       .then(data => setTerminology(data));
 
-  console.log(terminology);
   return (
     <myContext.Provider
       value={{
