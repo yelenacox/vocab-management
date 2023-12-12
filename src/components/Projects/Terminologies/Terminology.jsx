@@ -9,6 +9,8 @@ import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 import { EditCode } from './EditCode';
 import { EditName } from './EditName';
+import { EditDescription } from './EditDescription';
+import { EditUrl } from './EditUrl';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
@@ -98,14 +100,12 @@ export const Terminology = () => {
           <div className="image_container">
             <img className="background_image_results" src={Background} />
           </div>
-
           <div className="terminology_back_wrapper">
             <Link to="/projects">
               <img className="terminology_back" src={BackArrow} />
               Back
             </Link>
           </div>
-
           <div className="terminology_sub_nav">
             {!terminologyEdit ? (
               <h2>{terminology?.name ? terminology?.name : terminology?.id}</h2>
@@ -148,7 +148,31 @@ export const Terminology = () => {
               </button>
             </div>
           </div>
-          <h4>{terminology.description}</h4>
+          <div className="description_wrapper">
+            {!terminologyEdit ? (
+              <h4>{terminology?.description}</h4>
+            ) : terminologyEdit && detailsEdit === false ? (
+              <>
+                <h4>{terminology?.description}</h4>
+
+                <button
+                  onClick={() => {
+                    setDetailsEdit(true);
+                  }}
+                >
+                  Edit
+                </button>
+              </>
+            ) : terminologyEdit && detailsEdit === true ? (
+              <EditDescription
+                terminology={terminology}
+                setTerminology={setTerminology}
+                setDetailsEdit={setDetailsEdit}
+              />
+            ) : (
+              ''
+            )}
+          </div>
           <div className="table_container">
             <table className="table">
               <thead className="header">
@@ -211,7 +235,28 @@ export const Terminology = () => {
           ) : (
             ''
           )} */}
-            {terminology.url}
+            {!terminologyEdit ? (
+              terminology?.url
+            ) : terminologyEdit && detailsEdit === false ? (
+              <>
+                {terminology?.url}
+                <button
+                  onClick={() => {
+                    setDetailsEdit(true);
+                  }}
+                >
+                  Edit
+                </button>
+              </>
+            ) : terminologyEdit && detailsEdit === true ? (
+              <EditUrl
+                terminology={terminology}
+                setTerminology={setTerminology}
+                setDetailsEdit={setDetailsEdit}
+              />
+            ) : (
+              ''
+            )}
           </div>
         </div>
       )}
