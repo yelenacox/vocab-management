@@ -14,7 +14,9 @@ import { EditUrl } from './EditUrl';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
-  const [detailsEdit, setDetailsEdit] = useState(false);
+  const [nameEdit, setNameEdit] = useState(false);
+  const [descriptionEdit, setDescriptionEdit] = useState(false);
+  const [urlEdit, setUrlEdit] = useState(false);
   const [active, setActive] = useState(-1);
   // const [activeRows, setActiveRows] = useState([]);
 
@@ -36,14 +38,7 @@ export const Terminology = () => {
   useEffect(() => {
     getTerminologyById();
   }, []);
-  const editTerminology = (codeObject, index) => {
-    console.log('INDY!!!!!', index);
-    if (index) {
-      const updatedCodes = terminology.codes;
-      updatedCodes[index] = codeObject;
-      setTerminology({ ...terminology, codes: updatedCodes });
-    }
-  };
+
   const getTerminologyById = () => {
     setLoading(true);
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
@@ -80,17 +75,12 @@ export const Terminology = () => {
     setActive(-1);
   };
 
-  const updateName = term => {
-    updateTerminology();
-    setDetailsEdit(false);
-  };
   // const updateCode = (code, index) => {
   //   terminology.codes[index] = code;
   //   updateTerminology();
   //   setActive(-1);
   // };
 
-  console.log('thisTerm: ', terminology);
   return (
     <>
       {loading ? (
@@ -109,7 +99,7 @@ export const Terminology = () => {
           <div className="terminology_sub_nav">
             {!terminologyEdit ? (
               <h2>{terminology?.name ? terminology?.name : terminology?.id}</h2>
-            ) : terminologyEdit && detailsEdit === false ? (
+            ) : terminologyEdit && nameEdit === false ? (
               <>
                 <h2>
                   {terminology?.name ? terminology?.name : terminology?.id}
@@ -117,17 +107,17 @@ export const Terminology = () => {
 
                 <button
                   onClick={() => {
-                    setDetailsEdit(true);
+                    setNameEdit(true);
                   }}
                 >
                   Edit Name
                 </button>
               </>
-            ) : terminologyEdit && detailsEdit === true ? (
+            ) : terminologyEdit && nameEdit === true ? (
               <EditName
                 terminology={terminology}
                 setTerminology={setTerminology}
-                setDetailsEdit={setDetailsEdit}
+                setNameEdit={setNameEdit}
               />
             ) : (
               ''
@@ -141,7 +131,9 @@ export const Terminology = () => {
                 onClick={() => {
                   setTerminologyEdit(!terminologyEdit),
                     onCancel(),
-                    setDetailsEdit(false);
+                    setNameEdit(false);
+                  setDescriptionEdit(false);
+                  setUrlEdit(false);
                 }}
               >
                 {terminologyEdit ? 'View' : 'Edit'}
@@ -151,23 +143,23 @@ export const Terminology = () => {
           <div className="description_wrapper">
             {!terminologyEdit ? (
               <h4>{terminology?.description}</h4>
-            ) : terminologyEdit && detailsEdit === false ? (
+            ) : terminologyEdit && descriptionEdit === false ? (
               <>
                 <h4>{terminology?.description}</h4>
 
                 <button
                   onClick={() => {
-                    setDetailsEdit(true);
+                    setDescriptionEdit(true);
                   }}
                 >
                   Edit
                 </button>
               </>
-            ) : terminologyEdit && detailsEdit === true ? (
+            ) : terminologyEdit && descriptionEdit === true ? (
               <EditDescription
                 terminology={terminology}
                 setTerminology={setTerminology}
-                setDetailsEdit={setDetailsEdit}
+                setDescriptionEdit={setDescriptionEdit}
               />
             ) : (
               ''
@@ -237,22 +229,22 @@ export const Terminology = () => {
           )} */}
             {!terminologyEdit ? (
               terminology?.url
-            ) : terminologyEdit && detailsEdit === false ? (
+            ) : terminologyEdit && urlEdit === false ? (
               <>
                 {terminology?.url}
                 <button
                   onClick={() => {
-                    setDetailsEdit(true);
+                    setUrlEdit(true);
                   }}
                 >
                   Edit
                 </button>
               </>
-            ) : terminologyEdit && detailsEdit === true ? (
+            ) : terminologyEdit && urlEdit === true ? (
               <EditUrl
                 terminology={terminology}
                 setTerminology={setTerminology}
-                setDetailsEdit={setDetailsEdit}
+                setUrlEdit={setUrlEdit}
               />
             ) : (
               ''

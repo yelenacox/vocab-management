@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 
-export const EditUrl = ({ terminology, setTerminology, setDetailsEdit }) => {
+export const EditUrl = ({ terminology, setTerminology, setUrlEdit }) => {
   const [initialUrl, setInitialUrl] = useState(terminology.url);
   const { updateTerminology } = useContext(myContext);
 
   const updateUrl = () => {
     updateTerminology();
-    setDetailsEdit(false);
+    setUrlEdit(false);
   };
   return (
     <>
@@ -24,7 +24,7 @@ export const EditUrl = ({ terminology, setTerminology, setDetailsEdit }) => {
       <button
         onClick={() => {
           setTerminology({ ...terminology, url: initialUrl });
-          setDetailsEdit(false);
+          setUrlEdit(false);
         }}
       >
         Cancel

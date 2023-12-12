@@ -4,7 +4,7 @@ import { myContext } from '../../../App';
 export const EditDescription = ({
   terminology,
   setTerminology,
-  setDetailsEdit,
+  setDescriptionEdit,
 }) => {
   const [initialDescription, setInitialDescription] = useState(
     terminology.description,
@@ -13,7 +13,7 @@ export const EditDescription = ({
 
   const updateDescription = () => {
     updateTerminology();
-    setDetailsEdit(false);
+    setDescriptionEdit(false);
   };
   return (
     <>
@@ -30,7 +30,7 @@ export const EditDescription = ({
       <button
         onClick={() => {
           setTerminology({ ...terminology, description: initialDescription });
-          setDetailsEdit(false);
+          setDescriptionEdit(false);
         }}
       >
         Cancel

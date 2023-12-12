@@ -1729,7 +1729,7 @@
     },
     {
       "url": "www.edit.com",
-      "description": "Terminology to test edit functionality",
+      "description": "Terminology to test CRUD functionality",
       "name": "Edit Test",
       "codes": [
         {

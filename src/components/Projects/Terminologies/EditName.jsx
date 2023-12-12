@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 
-export const EditName = ({ terminology, setTerminology, setDetailsEdit }) => {
+export const EditName = ({ terminology, setTerminology, setNameEdit }) => {
   const [initialName, setInitialName] = useState(terminology.name);
   const { updateTerminology } = useContext(myContext);
 
   const updateName = () => {
     updateTerminology();
-    setDetailsEdit(false);
+    setNameEdit(false);
   };
   return (
     <>
@@ -24,7 +24,7 @@ export const EditName = ({ terminology, setTerminology, setDetailsEdit }) => {
       <button
         onClick={() => {
           setTerminology({ ...terminology, name: initialName });
-          setDetailsEdit(false);
+          setNameEdit(false);
         }}
       >
         Cancel
