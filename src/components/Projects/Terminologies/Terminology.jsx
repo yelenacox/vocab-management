@@ -8,6 +8,7 @@ import BackArrow from '../../../../assets/back_arrow.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 import { EditCode } from './EditCode';
+import { EditName } from './EditName';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
@@ -29,7 +30,7 @@ export const Terminology = () => {
   } = useContext(myContext);
 
   const [newCodes, setNewCodes] = useState([]);
-
+  const [newName, setNewName] = useState(terminology.name);
   useEffect(() => {
     getTerminologyById();
   }, []);
@@ -71,30 +72,23 @@ export const Terminology = () => {
 
   const onEdit = index => {
     setActive(index);
-    // activeRows.push(index);
-    // setActiveRows(...activeRows, index);
-    // console.log('active rows: ', activeRows);
   };
 
   const onCancel = () => {
     setActive(-1);
-    // activeRows.splice(index, 1);
-    // setActiveRows(...activeRows, activeRows.splice(index, 1))
-    // console.log('removing active: ', index);
   };
 
-  // const updateCode = (term) => {
-  // const newTerm = {...terminology, name: term.name}
-  //  setTerminology(newTerm)\
-  //updateTerminology();
-  //}
-  const updateCode = (code, index) => {
-    terminology.codes[index] = code;
+  const updateName = term => {
     updateTerminology();
-    setActive(-1);
+    setDetailsEdit(false);
   };
+  // const updateCode = (code, index) => {
+  //   terminology.codes[index] = code;
+  //   updateTerminology();
+  //   setActive(-1);
+  // };
 
-  console.log(detailsEdit);
+  console.log('thisTerm: ', terminology);
   return (
     <>
       {loading ? (
@@ -130,22 +124,11 @@ export const Terminology = () => {
                 </button>
               </>
             ) : terminologyEdit && detailsEdit === true ? (
-              <>
-                <input
-                  type="text"
-                  placeholder={
-                    terminology?.name ? terminology?.name : terminology?.id
-                  }
-                />
-                <button>Save</button>
-                <button
-                  onClick={() => {
-                    setDetailsEdit(false);
-                  }}
-                >
-                  Cancel
-                </button>
-              </>
+              <EditName
+                terminology={terminology}
+                setTerminology={setTerminology}
+                setDetailsEdit={setDetailsEdit}
+              />
             ) : (
               ''
             )}
