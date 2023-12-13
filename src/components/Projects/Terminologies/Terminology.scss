@@ -2,7 +2,7 @@
 @import '../../Styling/Table';
 @import '../../Styling/Form';
 .terminology_container {
-  margin: 20vh 0 10vh 5vw;
+  margin: 20vh 0 10vh 10vw;
   min-height: 70vh;
   width: 60vw;
 }
@@ -16,4 +16,14 @@
 
 .add_code_link {
   margin-left: 50px;
+}
+
+.terminology_details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.initial_div {
+  width: 4vw;
 }

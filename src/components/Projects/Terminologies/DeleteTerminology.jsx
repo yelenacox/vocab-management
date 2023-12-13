@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
-import DeleteTrash from '../../../../assets/delete_icon_trash.png';
+import DeleteTrash from '../../../../assets/trash_transparent.png';
 
 export const DeleteTerminology = ({ terminology, setTerminologies }) => {
   const [updatedTerminologies, setupdatedTerminologies] = useState([]);
@@ -21,6 +21,6 @@ export const DeleteTerminology = ({ terminology, setTerminologies }) => {
   };
 
   return (
-    <img className="delete_image" onClick={handleDelete} src={DeleteTrash} />
+    <img className="small_icon" onClick={handleDelete} src={DeleteTrash} />
   );
 };

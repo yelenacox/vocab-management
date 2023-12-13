@@ -5,6 +5,7 @@ import './Terminology.scss';
 import { Spinner } from '../../Manager/Spinner';
 import Background from '../../../../assets/Background.png';
 import BackArrow from '../../../../assets/back_arrow.png';
+import PencilIcon from '../../../../assets/pencil_yellow.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 import { EditCode } from './EditCode';
@@ -90,39 +91,11 @@ export const Terminology = () => {
           <div className="image_container">
             <img className="background_image_results" src={Background} />
           </div>
-          <div className="terminology_back_wrapper">
+          <div className="terminology_sub_nav">
             <Link to="/projects">
               <img className="terminology_back" src={BackArrow} />
               Back
             </Link>
-          </div>
-          <div className="terminology_sub_nav">
-            {!terminologyEdit ? (
-              <h2>{terminology?.name ? terminology?.name : terminology?.id}</h2>
-            ) : terminologyEdit && nameEdit === false ? (
-              <>
-                <h2>
-                  {terminology?.name ? terminology?.name : terminology?.id}
-                </h2>
-
-                <button
-                  onClick={() => {
-                    setNameEdit(true);
-                  }}
-                >
-                  Edit Name
-                </button>
-              </>
-            ) : terminologyEdit && nameEdit === true ? (
-              <EditName
-                terminology={terminology}
-                setTerminology={setTerminology}
-                setNameEdit={setNameEdit}
-              />
-            ) : (
-              ''
-            )}
-
             <div className="add_code_link">
               <button onClick={handleInputAdd}>Add New Code</button>
             </div>
@@ -140,20 +113,53 @@ export const Terminology = () => {
               </button>
             </div>
           </div>
-          <div className="description_wrapper">
+          <div className="terminology_details">
             {!terminologyEdit ? (
-              <h4>{terminology?.description}</h4>
+              <>
+                <div className="initial_div"></div>
+                <h2>
+                  {terminology?.name ? terminology?.name : terminology?.id}
+                </h2>
+              </>
+            ) : terminologyEdit && nameEdit === false ? (
+              <>
+                <div className="initial_div">
+                  <img
+                    className="small_icon"
+                    onClick={() => setNameEdit(true)}
+                    src={PencilIcon}
+                  />
+                </div>
+                <h2>
+                  {terminology?.name ? terminology?.name : terminology?.id}
+                </h2>
+              </>
+            ) : terminologyEdit && nameEdit === true ? (
+              <EditName
+                terminology={terminology}
+                setTerminology={setTerminology}
+                setNameEdit={setNameEdit}
+              />
+            ) : (
+              ''
+            )}
+          </div>
+          <div className="terminology_details">
+            {!terminologyEdit ? (
+              <>
+                <div className="initial_div"></div>
+                <h4>{terminology?.description}</h4>
+              </>
             ) : terminologyEdit && descriptionEdit === false ? (
               <>
+                <div className="initial_div">
+                  <img
+                    className="small_icon"
+                    onClick={() => setDescriptionEdit(true)}
+                    src={PencilIcon}
+                  />
+                </div>
                 <h4>{terminology?.description}</h4>
-
-                <button
-                  onClick={() => {
-                    setDescriptionEdit(true);
-                  }}
-                >
-                  Edit
-                </button>
               </>
             ) : terminologyEdit && descriptionEdit === true ? (
               <EditDescription
@@ -169,6 +175,7 @@ export const Terminology = () => {
             <table className="table">
               <thead className="header">
                 <tr className="header_row">
+                  <th></th>
                   <th>Code</th>
                   <th>Description</th>
                 </tr>
@@ -179,6 +186,26 @@ export const Terminology = () => {
                     <tr key={r?.code}>
                       {active !== index ? (
                         <>
+                          <td className="icon_cell">
+                            {' '}
+                            {terminologyEdit && active !== index ? (
+                              <>
+                                <img
+                                  className="small_icon"
+                                  onClick={() => onEdit(index)}
+                                  src={PencilIcon}
+                                />
+                                <DeleteCode
+                                  index={index}
+                                  terminology={terminology}
+                                  setTerminology={setTerminology}
+                                  terminologyId={terminologyId}
+                                />
+                              </>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{r?.code}</td>
                           <td>{r?.description}</td>
                         </>
@@ -189,19 +216,6 @@ export const Terminology = () => {
                           onCancel={onCancel}
                           setActive={setActive}
                         />
-                      ) : (
-                        ''
-                      )}
-                      {terminologyEdit && active !== index ? (
-                        <>
-                          <button onClick={() => onEdit(index)}>Edit</button>
-                          <DeleteCode
-                            index={index}
-                            terminology={terminology}
-                            setTerminology={setTerminology}
-                            terminologyId={terminologyId}
-                          />
-                        </>
                       ) : (
                         ''
                       )}
@@ -227,28 +241,33 @@ export const Terminology = () => {
           ) : (
             ''
           )} */}
-            {!terminologyEdit ? (
-              terminology?.url
-            ) : terminologyEdit && urlEdit === false ? (
-              <>
-                {terminology?.url}
-                <button
-                  onClick={() => {
-                    setUrlEdit(true);
-                  }}
-                >
-                  Edit
-                </button>
-              </>
-            ) : terminologyEdit && urlEdit === true ? (
-              <EditUrl
-                terminology={terminology}
-                setTerminology={setTerminology}
-                setUrlEdit={setUrlEdit}
-              />
-            ) : (
-              ''
-            )}
+            <div className="terminology_details">
+              {!terminologyEdit ? (
+                <>
+                  <div className="initial_div"></div>
+                  {terminology?.url}
+                </>
+              ) : terminologyEdit && urlEdit === false ? (
+                <>
+                  <div className="initial_div">
+                    <img
+                      className="small_icon"
+                      onClick={() => setUrlEdit(true)}
+                      src={PencilIcon}
+                    />
+                  </div>
+                  {terminology?.url}
+                </>
+              ) : terminologyEdit && urlEdit === true ? (
+                <EditUrl
+                  terminology={terminology}
+                  setTerminology={setTerminology}
+                  setUrlEdit={setUrlEdit}
+                />
+              ) : (
+                ''
+              )}
+            </div>
           </div>
         </div>
       )}

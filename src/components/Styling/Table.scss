@@ -1,5 +1,5 @@
 table,
-td:not(.delete_cell, .edit_cell) {
+td:not(.icon_cell) {
   border: 1px solid $blackColor;
   border-collapse: collapse;
 }
@@ -20,16 +20,24 @@ table {
 th,
 td {
   text-align: left;
-  padding: 8px 12px;
   overflow-wrap: break-word;
 }
-
-th:first-of-type,
-td:first-of-type {
-  width: 15vw;
+th,
+td:not(.icon_cell) {
+  padding: 8px 12px;
 }
 
-.delete_image {
-  width: 0.9vw;
+.icon_cell {
+  width: 4vw;
+}
+
+.small_icon {
+  width: 1.5vw;
   cursor: pointer;
+  border-radius: 50%;
+  margin-right: 2px;
+}
+
+.small_icon:hover {
+  box-shadow: 0 0 2px 2px rgb(8, 7, 5, 0.2);
 }

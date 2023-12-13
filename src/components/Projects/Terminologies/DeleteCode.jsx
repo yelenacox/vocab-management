@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
-import DeleteTrash from '../../../../assets/delete_icon_trash.png';
+import DeleteTrash from '../../../../assets/trash_transparent.png';
 
 export const DeleteCode = ({
   index,
@@ -27,7 +27,7 @@ export const DeleteCode = ({
 
   return (
     <img
-      className="delete_image"
+      className="small_icon"
       onClick={() => handleDelete(index)}
       src={DeleteTrash}
     />
