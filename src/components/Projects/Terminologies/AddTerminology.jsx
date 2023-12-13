@@ -20,10 +20,7 @@ export const AddTerminology = () => {
   const handleCodeAdd = () => {
     setTerminology({
       ...terminology,
-      codes: [
-        ...terminology.codes,
-        { id: getCodeId(), code: '', description: '' },
-      ],
+      codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
     });
   };
 
@@ -51,14 +48,15 @@ export const AddTerminology = () => {
 
   let terminologyDTO = () => {
     const codesDTO = terminology.codes.map(code => {
-      return { code: code.code, description: code.description };
+      return { code: code.code, display: code.display };
     });
     return { ...terminology, codes: codesDTO };
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    fetch(`${vocabUrl}/terminologies`, {
+    fetch(`${vocabUrl}/Terminology`, {
+      // fetch(`${vocabUrl}/terminologies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,7 +103,7 @@ export const AddTerminology = () => {
         <div className="description">
           <label htmlFor="terminology_description">Description</label>
           <input
-            id="description"
+            id="display"
             className="description_input"
             type="text"
             value={terminology.description}

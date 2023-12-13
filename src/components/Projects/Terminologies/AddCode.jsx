@@ -40,14 +40,15 @@ export const AddCode = ({
     const filterByRowId = newCodes.filter(r => r.id === thisCode.id);
     // console.log(filterByRowId);
     const newCodesDTO = filterByRowId.map(code => {
-      return { code: code.code, description: code.description };
+      return { code: code.code, display: code.display };
     });
     const newTerminology = {
       ...terminology,
       codes: [...terminology.codes, ...newCodesDTO],
     };
 
-    fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
+    fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
+      // fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -84,11 +85,11 @@ export const AddCode = ({
           id="code_description"
           className="code_description_input"
           type="text"
-          value={thisCode.description}
+          value={thisCode.display}
           onChange={evt => {
             setThisCode({
               ...thisCode,
-              description: evt.target.value,
+              display: evt.target.value,
             });
           }}
         />
@@ -96,7 +97,7 @@ export const AddCode = ({
 
       <button
         onClick={e =>
-          thisCode.code !== '' && thisCode.description !== ''
+          thisCode.code !== '' && thisCode.display !== ''
             ? handleAddCode(i)
             : window.alert('Code and description cannot be blank.')
         }

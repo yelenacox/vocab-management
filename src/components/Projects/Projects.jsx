@@ -16,8 +16,8 @@ export const Projects = () => {
 
   const getTerminologies = () => {
     setLoading(true);
-    // fetch(`${vocabUrl}/Terminology`, {
-    fetch(`${vocabUrl}/terminologies`, {
+    fetch(`${vocabUrl}/Terminology`, {
+      // fetch(`${vocabUrl}/terminologies`, {
       // mode: 'cors',
       method: 'GET',
       headers: {

@@ -42,8 +42,8 @@ export const Terminology = () => {
 
   const getTerminologyById = () => {
     setLoading(true);
-    // fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
-    fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
+    fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
+      // fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const Terminology = () => {
   };
 
   const handleInputAdd = () => {
-    const newCode = { code: '', description: '', id: getCodeId() };
+    const newCode = { code: '', display: '', id: getCodeId() };
     setNewCodes([...newCodes, newCode]);
   };
 
@@ -205,7 +205,7 @@ export const Terminology = () => {
                             )}
                           </td>
                           <td>{r?.code}</td>
-                          <td>{r?.description}</td>
+                          <td>{r?.display}</td>
                         </>
                       ) : terminologyEdit && active === index ? (
                         <EditCode

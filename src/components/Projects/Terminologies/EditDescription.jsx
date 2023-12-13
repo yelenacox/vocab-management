@@ -21,7 +21,7 @@ export const EditDescription = ({
         id="description"
         className="description_input"
         type="text"
-        value={terminology.description}
+        value={terminology?.description}
         onChange={evt => {
           setTerminology({ ...terminology, description: evt.target.value });
         }}

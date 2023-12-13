@@ -22,7 +22,7 @@ export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
           onChange={evt => {
             setThisCode({
               code: evt.target.value,
-              description: thisCode.description,
+              display: thisCode.display,
             });
           }}
         />
@@ -32,11 +32,11 @@ export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
           id="code_description"
           className="code_description_input"
           type="text"
-          value={thisCode.description}
+          value={thisCode.display}
           onChange={evt => {
             setThisCode({
               code: thisCode.code,
-              description: evt.target.value,
+              display: evt.target.value,
             });
           }}
         />
