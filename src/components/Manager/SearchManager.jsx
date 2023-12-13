@@ -1,6 +1,6 @@
-export const requestSearch = (query, rowCount, firstRowDisplayed) => {
+export const requestSearch = (query, rowCount, firstRowdescriptioned) => {
   fetch(
-    `${URL}q=${query}&ontology=mondo,hp&rows=${rowCount}&start=${firstRowDisplayed}`,
+    `${URL}q=${query}&ontology=mondo,hp&rows=${rowCount}&start=${firstRowdescriptioned}`,
     {
       method: 'GET',
       headers: {

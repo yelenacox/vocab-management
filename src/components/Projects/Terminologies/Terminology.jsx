@@ -42,6 +42,7 @@ export const Terminology = () => {
 
   const getTerminologyById = () => {
     setLoading(true);
+    // fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
     fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'GET',
       headers: {
@@ -113,13 +114,12 @@ export const Terminology = () => {
               </button>
             </div>
           </div>
-          <div className="terminology_details">
+          <div className="terminology_details terminology_name">
             {!terminologyEdit ? (
               <>
                 <div className="initial_div"></div>
-                <h2>
-                  {terminology?.name ? terminology?.name : terminology?.id}
-                </h2>
+
+                {terminology?.name ? terminology?.name : terminology?.id}
               </>
             ) : terminologyEdit && nameEdit === false ? (
               <>
@@ -130,9 +130,7 @@ export const Terminology = () => {
                     src={PencilIcon}
                   />
                 </div>
-                <h2>
-                  {terminology?.name ? terminology?.name : terminology?.id}
-                </h2>
+                {terminology?.name ? terminology?.name : terminology?.id}
               </>
             ) : terminologyEdit && nameEdit === true ? (
               <EditName
@@ -144,11 +142,11 @@ export const Terminology = () => {
               ''
             )}
           </div>
-          <div className="terminology_details">
+          <div className="terminology_details terminology_desc">
             {!terminologyEdit ? (
               <>
                 <div className="initial_div"></div>
-                <h4>{terminology?.description}</h4>
+                {terminology?.description}
               </>
             ) : terminologyEdit && descriptionEdit === false ? (
               <>
@@ -159,7 +157,7 @@ export const Terminology = () => {
                     src={PencilIcon}
                   />
                 </div>
-                <h4>{terminology?.description}</h4>
+                {terminology?.description}
               </>
             ) : terminologyEdit && descriptionEdit === true ? (
               <EditDescription

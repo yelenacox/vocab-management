@@ -22,6 +22,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  line-height: 2.2rem;
+}
+
+.terminology_name {
+  margin: 4vh 0 1.5vh 0;
+}
+
+.terminology_desc {
+  margin: 0 0 2vh 0;
 }
 
 .initial_div {
