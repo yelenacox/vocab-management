@@ -1,6 +1,8 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { myContext } from '../../../App';
 import './AddCode.scss';
+import SaveIcon from '../../../../assets/cloud_save.png';
+import CancelIcon from '../../../../assets/cancel_icon.png';
 
 export const AddCode = ({
   code,
@@ -65,11 +67,27 @@ export const AddCode = ({
 
   return (
     <>
-      <td className="add_code">
+      <td className="icon_cell">
+        <img
+          className="small_icon"
+          onClick={e =>
+            thisCode.code !== '' && thisCode.display !== ''
+              ? handleAddCode(i)
+              : window.alert('Please fill in the code and description.')
+          }
+          src={SaveIcon}
+        />
+        <img
+          className="small_icon"
+          onClick={() => removeInputField(i)}
+          src={CancelIcon}
+        />
+      </td>
+      <td className="add_code row_input_cell">
         <input
           autoFocus
           id="code"
-          className="code_input"
+          className="code_input input_field"
           type="text"
           value={thisCode.code}
           onChange={evt => {
@@ -80,10 +98,10 @@ export const AddCode = ({
           }}
         />
       </td>
-      <td className="add_code_description">
+      <td className="row_input_cell">
         <input
           id="code_description"
-          className="code_description_input"
+          className="code_description_input input_field"
           type="text"
           value={thisCode.display}
           onChange={evt => {
@@ -94,17 +112,6 @@ export const AddCode = ({
           }}
         />
       </td>
-
-      <button
-        onClick={e =>
-          thisCode.code !== '' && thisCode.display !== ''
-            ? handleAddCode(i)
-            : window.alert('Code and description cannot be blank.')
-        }
-      >
-        Save
-      </button>
-      <button onClick={() => removeInputField(i)}>Remove</button>
     </>
   );
 };

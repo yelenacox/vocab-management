@@ -5,7 +5,7 @@ import './Terminology.scss';
 import { Spinner } from '../../Manager/Spinner';
 import Background from '../../../../assets/Background.png';
 import BackArrow from '../../../../assets/back_arrow.png';
-import PencilIcon from '../../../../assets/pencil_yellow.png';
+import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
 import { EditCode } from './EditCode';
@@ -93,15 +93,12 @@ export const Terminology = () => {
             <img className="background_image_results" src={Background} />
           </div>
           <div className="terminology_sub_nav">
-            <Link to="/projects">
+            {/* <Link to="/projects">
               <img className="terminology_back" src={BackArrow} />
-              Back
-            </Link>
-            <div className="add_code_link">
-              <button onClick={handleInputAdd}>Add New Code</button>
-            </div>
+            </Link> */}
             <div className="add_code_link">
               <button
+                className="manage_term_button"
                 onClick={() => {
                   setTerminologyEdit(!terminologyEdit),
                     onCancel(),
@@ -110,9 +107,18 @@ export const Terminology = () => {
                   setUrlEdit(false);
                 }}
               >
-                {terminologyEdit ? 'View' : 'Edit'}
+                {terminologyEdit ? 'View' : 'Manage'}
               </button>
             </div>
+            {terminologyEdit ? (
+              <div className="add_code_link">
+                <button className="manage_term_button" onClick={handleInputAdd}>
+                  Add Code
+                </button>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <div className="terminology_details terminology_name">
             {!terminologyEdit ? (
@@ -145,12 +151,12 @@ export const Terminology = () => {
           <div className="terminology_details terminology_desc">
             {!terminologyEdit ? (
               <>
-                <div className="initial_div"></div>
+                <div className="initial_div empty_description"></div>
                 {terminology?.description}
               </>
             ) : terminologyEdit && descriptionEdit === false ? (
               <>
-                <div className="initial_div">
+                <div className="initial_div empty_description">
                   <img
                     className="small_icon"
                     onClick={() => setDescriptionEdit(true)}
@@ -174,8 +180,8 @@ export const Terminology = () => {
               <thead className="header">
                 <tr className="header_row">
                   <th></th>
-                  <th>Code</th>
-                  <th>Description</th>
+                  <th className="first_cell">Code</th>
+                  <th className="second_cell">Description</th>
                 </tr>
               </thead>
               <tbody>
@@ -204,8 +210,8 @@ export const Terminology = () => {
                               ''
                             )}
                           </td>
-                          <td>{r?.code}</td>
-                          <td>{r?.display}</td>
+                          <td className="first_cell">{r?.code}</td>
+                          <td className="second_cell">{r?.display}</td>
                         </>
                       ) : terminologyEdit && active === index ? (
                         <EditCode

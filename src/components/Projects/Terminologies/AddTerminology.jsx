@@ -77,12 +77,12 @@ export const AddTerminology = () => {
   return (
     <>
       <article className="form_container">
-        <div className="terminology_back_wrapper back_margin">
+        {/* <div className="terminology_back_wrapper back_margin">
           <Link to="/projects">
             <img className="terminology_back" src={BackArrow} />
             Back
           </Link>
-        </div>
+        </div> */}
         <div className="name">
           <label htmlFor="terminology_name">Name</label>
           <input

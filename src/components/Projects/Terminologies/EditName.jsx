@@ -1,5 +1,8 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
+import SaveIcon from '../../../../assets/cloud_save.png';
+import CancelIcon from '../../../../assets/cancel_icon.png';
+import './Terminology.scss';
 
 export const EditName = ({ terminology, setTerminology, setNameEdit }) => {
   const [initialName, setInitialName] = useState(terminology.name);
@@ -11,24 +14,25 @@ export const EditName = ({ terminology, setTerminology, setNameEdit }) => {
   };
   return (
     <>
+      <img className="small_icon" onClick={updateName} src={SaveIcon} />
+      <img
+        className="small_icon"
+        onClick={() => {
+          setTerminology({ ...terminology, name: initialName });
+          setNameEdit(false);
+        }}
+        src={CancelIcon}
+      />
+
       <input
         id="name"
-        className="name_input"
+        className="terminology_input name_input input_field"
         type="text"
         value={terminology.name}
         onChange={evt => {
           setTerminology({ ...terminology, name: evt.target.value });
         }}
       />
-      <button onClick={updateName}>Save</button>
-      <button
-        onClick={() => {
-          setTerminology({ ...terminology, name: initialName });
-          setNameEdit(false);
-        }}
-      >
-        Cancel
-      </button>
     </>
   );
 };

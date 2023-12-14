@@ -1,5 +1,8 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
+import SaveIcon from '../../../../assets/cloud_save.png';
+import CancelIcon from '../../../../assets/cancel_icon.png';
+import './Terminology.scss';
 
 export const EditDescription = ({
   terminology,
@@ -17,24 +20,24 @@ export const EditDescription = ({
   };
   return (
     <>
+      <img className="small_icon" onClick={updateDescription} src={SaveIcon} />
+      <img
+        className="small_icon"
+        onClick={() => {
+          setTerminology({ ...terminology, description: initialDescription });
+          setDescriptionEdit(false);
+        }}
+        src={CancelIcon}
+      />
       <input
         id="description"
-        className="description_input"
+        className="terminology_input description_input input_field"
         type="text"
         value={terminology?.description}
         onChange={evt => {
           setTerminology({ ...terminology, description: evt.target.value });
         }}
       />
-      <button onClick={updateDescription}>Save</button>
-      <button
-        onClick={() => {
-          setTerminology({ ...terminology, description: initialDescription });
-          setDescriptionEdit(false);
-        }}
-      >
-        Cancel
-      </button>
     </>
   );
 };
