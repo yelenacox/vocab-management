@@ -38,17 +38,17 @@ export const SearchResults = () => {
   };
 
   useEffect(() => {
-    displayResults(rows, page);
+    descriptionResults(rows, page);
   }, [rows, page, query]);
 
-  const displayResults = (rows, page) => {
+  const descriptionResults = (rows, page) => {
     return requestSearch(rows, (page - 1) * rows);
   };
 
-  const requestSearch = (rowCount, firstRowDisplayed) => {
+  const requestSearch = (rowCount, firstRowdescriptioned) => {
     setLoading(true);
     fetch(
-      `${URL}q=${query}&ontology=mondo,hp&rows=${rowCount}&start=${firstRowDisplayed}`,
+      `${URL}q=${query}&ontology=mondo,hp&rows=${rowCount}&start=${firstRowdescriptioned}`,
       {
         method: 'GET',
         headers: {

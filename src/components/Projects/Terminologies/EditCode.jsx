@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
+import SaveIcon from '../../../../assets/cloud_save.png';
+import CancelIcon from '../../../../assets/cancel_icon.png';
+import './Terminology.scss';
 
 export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
   const [thisCode, setThisCode] = useState(codeObject);
@@ -13,38 +16,43 @@ export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
 
   return (
     <>
-      <td>
+      <td className="icon_cell">
+        <img
+          className="small_icon"
+          onClick={() => updateCode(thisCode, index)}
+          src={SaveIcon}
+        />
+        <img className="small_icon" onClick={onCancel} src={CancelIcon} />
+      </td>
+      <td className="row_input_cell">
         <input
+          autoFocus
           id="code"
-          className="code_input"
+          className="code_input input_field"
           type="text"
           value={thisCode.code}
           onChange={evt => {
             setThisCode({
               code: evt.target.value,
-              description: thisCode.description,
+              display: thisCode.display,
             });
           }}
         />
       </td>
-      <td>
+      <td className="row_input_cell">
         <input
           id="code_description"
-          className="code_description_input"
+          className="code_description_input input_field"
           type="text"
-          value={thisCode.description}
+          value={thisCode.display}
           onChange={evt => {
             setThisCode({
               code: thisCode.code,
-              description: evt.target.value,
+              display: evt.target.value,
             });
           }}
         />
       </td>{' '}
-      <>
-        <button onClick={() => updateCode(thisCode, index)}>Save</button>
-        <button onClick={onCancel}>Cancel</button>
-      </>
     </>
   );
 };

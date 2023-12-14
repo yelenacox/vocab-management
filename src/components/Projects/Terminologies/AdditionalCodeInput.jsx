@@ -46,11 +46,11 @@ export const AdditionalCodeInput = props => {
           id="code_description"
           className="code_description_input"
           type="text"
-          value={terminology.codeDescription}
+          value={terminology.display}
           onChange={evt => {
             setThisCode({
               ...thisCode,
-              description: evt.target.value,
+              display: evt.target.value,
             });
           }}
         />

@@ -29,7 +29,8 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const updateTerminology = () =>
-    fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
+    fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
+      // fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

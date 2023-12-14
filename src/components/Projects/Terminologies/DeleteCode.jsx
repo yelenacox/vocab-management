@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
-import DeleteTrash from '../../../../assets/delete_icon_trash.png';
+import DeleteTrash from '../../../../assets/trash_transparent.png';
 
 export const DeleteCode = ({
   index,
@@ -12,7 +12,8 @@ export const DeleteCode = ({
 
   const handleDelete = index => {
     terminology.codes.splice(index, 1);
-    fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
+    fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
+      // fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +28,7 @@ export const DeleteCode = ({
 
   return (
     <img
-      className="delete_image"
+      className="small_icon"
       onClick={() => handleDelete(index)}
       src={DeleteTrash}
     />

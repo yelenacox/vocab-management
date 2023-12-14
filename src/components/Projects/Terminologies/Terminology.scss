@@ -2,7 +2,7 @@
 @import '../../Styling/Table';
 @import '../../Styling/Form';
 .terminology_container {
-  margin: 20vh 0 10vh 5vw;
+  margin: 20vh 0 10vh 10vw;
   min-height: 70vh;
   width: 60vw;
 }
@@ -16,4 +16,76 @@
 
 .add_code_link {
   margin-left: 50px;
+}
+
+.terminology_details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 2.2rem;
+}
+
+.terminology_name {
+  margin: 4vh 0 1.5vh 0;
+}
+
+.terminology_desc {
+  margin: 0 0 2vh 0;
+}
+
+.initial_div {
+  width: 4vw;
+}
+
+.empty_description {
+  height: 4.5vh;
+}
+
+.manage_term_button {
+  border: 2px solid $yellowColor;
+  color: white;
+  font-weight: 600;
+  background-color: $blackColor;
+  border-radius: 25px;
+  padding: 1vh 2.5vh;
+  cursor: pointer;
+}
+
+.manage_term_button:not(:hover, :active) {
+  margin-bottom: 2px;
+}
+
+.manage_term_button:hover {
+  box-shadow: 0 5px 10px rgba(103, 103, 103, 0.8);
+  border: 3px $yellowColor solid;
+}
+
+.manage_term_button:active {
+  background-color: $buttonEffect;
+  box-shadow: 0 5px 15px rgb(103, 103, 103);
+  transform: translateY(4px);
+}
+
+.terminology_input {
+  margin-left: 0.6vw;
+  height: 3vh;
+  width: 60vw;
+}
+
+.input_field {
+  height: 3.5vh;
+  margin: 0 0 0 0.5vw;
+
+  font: {
+    size: 16px;
+    family: 'Wix Madefor Display', sans-serif;
+  }
+}
+
+.code_input {
+  width: 15vw;
+}
+
+.code_description_input {
+  width: 38vw;
 }

@@ -912,75 +912,75 @@
       "codes": [
         {
           "code": "Study Code",
-          "description": "Unique identifer for the study, assigned by DCC"
+          "display": "Unique identifer for the study, assigned by DCC"
         },
         {
           "code": "Participant Global ID",
-          "description": "Unique INCLUDE global identifier for the participant, assigned by DCC"
+          "display": "Unique INCLUDE global identifier for the participant, assigned by DCC"
         },
         {
           "code": "Participant External ID",
-          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
+          "display": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
         },
         {
           "code": "Family ID",
-          "description": "Unique identifer for family to which Participant belongs, assigned by data contributor"
+          "display": "Unique identifer for family to which Participant belongs, assigned by data contributor"
         },
         {
           "code": "Family Type",
-          "description": "Structure of family members participating in the study"
+          "display": "Structure of family members participating in the study"
         },
         {
           "code": "Father ID",
-          "description": "Participant External ID for Participant's father (NA if Participant is not the proband)"
+          "display": "Participant External ID for Participant's father (NA if Participant is not the proband)"
         },
         {
           "code": "Mother ID",
-          "description": "Participant External ID for Participant's mother (NA if Participant is not the proband)"
+          "display": "Participant External ID for Participant's mother (NA if Participant is not the proband)"
         },
         {
           "code": "Sibling ID",
-          "description": "Participant External ID for Participant's sibling(s) (NA if Participant is not the proband)"
+          "display": "Participant External ID for Participant's sibling(s) (NA if Participant is not the proband)"
         },
         {
           "code": "Other Family Member ID",
-          "description": "Participant External ID for Participant's other family members (NA if Participant is not the proband)"
+          "display": "Participant External ID for Participant's other family members (NA if Participant is not the proband)"
         },
         {
           "code": "Family Relationship",
-          "description": "Relationship of Participant to proband"
+          "display": "Relationship of Participant to proband"
         },
         {
           "code": "Sex",
-          "description": "Sex of Participant"
+          "display": "Sex of Participant"
         },
         {
           "code": "Race",
-          "description": "Race of Participant"
+          "display": "Race of Participant"
         },
         {
           "code": "Ethnicity",
-          "description": "Ethnicity of Participant"
+          "display": "Ethnicity of Participant"
         },
         {
           "code": "Down Syndrome Status",
-          "description": "Down Syndrome status of participant"
+          "display": "Down Syndrome status of participant"
         },
         {
           "code": "Age at First Patient Engagement",
-          "description": "Age in days of Participant at first recorded study event (enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available."
+          "display": "Age in days of Participant at first recorded study event (enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available."
         },
         {
           "code": "First Patient Engagement Event",
-          "description": "Event for which Age at First Patient Engagement is given (e.g. enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available."
+          "display": "Event for which Age at First Patient Engagement is given (e.g. enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available."
         },
         {
           "code": "Outcomes Vital Status",
-          "description": "Whether participant is alive or dead"
+          "display": "Whether participant is alive or dead"
         },
         {
           "code": "Age at Last Vital Status",
-          "description": "Age in days when participant's vital status was last recorded"
+          "display": "Age in days when participant's vital status was last recorded"
         }
       ],
       "id": "INCLUDE:participant",
@@ -991,27 +991,27 @@
       "codes": [
         {
           "code": "Control-only",
-          "description": "Control-only"
+          "display": "Control-only"
         },
         {
           "code": "Duo",
-          "description": "Duo"
+          "display": "Duo"
         },
         {
           "code": "Other",
-          "description": "Other"
+          "display": "Other"
         },
         {
           "code": "Proband-only",
-          "description": "Proband-only"
+          "display": "Proband-only"
         },
         {
           "code": "Trio",
-          "description": "Trio"
+          "display": "Trio"
         },
         {
           "code": "Trio+",
-          "description": "Trio+"
+          "display": "Trio+"
         }
       ],
       "id": "INCLUDE:participant:family_type",
@@ -1022,27 +1022,27 @@
       "codes": [
         {
           "code": "Proband",
-          "description": "Proband"
+          "display": "Proband"
         },
         {
           "code": "Father",
-          "description": "Father"
+          "display": "Father"
         },
         {
           "code": "Mother",
-          "description": "Mother"
+          "display": "Mother"
         },
         {
           "code": "Sibling",
-          "description": "Sibling"
+          "display": "Sibling"
         },
         {
           "code": "Other relative",
-          "description": "Other relative"
+          "display": "Other relative"
         },
         {
           "code": "Unrelated control",
-          "description": "Unrelated control"
+          "display": "Unrelated control"
         }
       ],
       "id": "INCLUDE:participant:family_relationship",
@@ -1053,19 +1053,19 @@
       "codes": [
         {
           "code": "Female",
-          "description": "Female"
+          "display": "Female"
         },
         {
           "code": "Male",
-          "description": "Male"
+          "display": "Male"
         },
         {
           "code": "Other",
-          "description": "Other"
+          "display": "Other"
         },
         {
           "code": "Unknown",
-          "description": "Unknown"
+          "display": "Unknown"
         }
       ],
       "id": "INCLUDE:participant:sex",
@@ -1076,55 +1076,55 @@
       "codes": [
         {
           "code": "American Indian or Alaska Native",
-          "description": "American Indian or Alaska Native"
+          "display": "American Indian or Alaska Native"
         },
         {
           "code": "Asian",
-          "description": "Asian"
+          "display": "Asian"
         },
         {
           "code": "Black or African American",
-          "description": "Black or African American"
+          "display": "Black or African American"
         },
         {
           "code": "More than one race",
-          "description": "More than one race"
+          "display": "More than one race"
         },
         {
           "code": "Native Hawaiian or Other Pacific Islander",
-          "description": "Native Hawaiian or Other Pacific Islander"
+          "display": "Native Hawaiian or Other Pacific Islander"
         },
         {
           "code": "Other",
-          "description": "Other"
+          "display": "Other"
         },
         {
           "code": "White",
-          "description": "White"
+          "display": "White"
         },
         {
           "code": "Prefer not to answer",
-          "description": "Prefer not to answer"
+          "display": "Prefer not to answer"
         },
         {
           "code": "Unknown",
-          "description": "Unknown"
+          "display": "Unknown"
         },
         {
           "code": "East Asian",
-          "description": "East Asian"
+          "display": "East Asian"
         },
         {
           "code": "Latin American",
-          "description": "Latin American"
+          "display": "Latin American"
         },
         {
           "code": "Middle Eastern or North African",
-          "description": "Middle Eastern or North African"
+          "display": "Middle Eastern or North African"
         },
         {
           "code": "South Asian",
-          "description": "South Asian"
+          "display": "South Asian"
         }
       ],
       "id": "INCLUDE:participant:race",
@@ -1135,19 +1135,19 @@
       "codes": [
         {
           "code": "Hispanic or Latino",
-          "description": "Hispanic or Latino"
+          "display": "Hispanic or Latino"
         },
         {
           "code": "Not Hispanic or Latino",
-          "description": "Not Hispanic or Latino"
+          "display": "Not Hispanic or Latino"
         },
         {
           "code": "Prefer not to answer",
-          "description": "Prefer not to answer"
+          "display": "Prefer not to answer"
         },
         {
           "code": "Unknown",
-          "description": "Unknown"
+          "display": "Unknown"
         }
       ],
       "id": "INCLUDE:participant:ethnicity",
@@ -1158,11 +1158,11 @@
       "codes": [
         {
           "code": "D21",
-          "description": "Disomy 21 (euploid)"
+          "display": "Disomy 21 (euploid)"
         },
         {
           "code": "T21",
-          "description": "Trisomy 21 (Down syndrome)"
+          "display": "Trisomy 21 (Down syndrome)"
         }
       ],
       "id": "INCLUDE:participant:down_syndrome_status",
@@ -1173,15 +1173,15 @@
       "codes": [
         {
           "code": "Dead",
-          "description": "Dead"
+          "display": "Dead"
         },
         {
           "code": "Alive",
-          "description": "Alive"
+          "display": "Alive"
         },
         {
           "code": "Unknown or not available",
-          "description": "Unknown or not available"
+          "display": "Unknown or not available"
         }
       ],
       "id": "INCLUDE:participant:outcomes_vital_status",
@@ -1192,75 +1192,75 @@
       "codes": [
         {
           "code": "Participant External ID",
-          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
+          "display": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
         },
         {
           "code": "Event ID",
-          "description": "Identifier for event (Visit, Survey completion, Sample collection, etc.) to which the Condition data are linked, if applicable. There may be multiple events linked to a Participant."
+          "display": "Identifier for event (Visit, Survey completion, Sample collection, etc.) to which the Condition data are linked, if applicable. There may be multiple events linked to a Participant."
         },
         {
           "code": "Event Type",
-          "description": "Type of event for which Event ID is given (Visit, Survey completion, Sample collection, etc.)"
+          "display": "Type of event for which Event ID is given (Visit, Survey completion, Sample collection, etc.)"
         },
         {
           "code": "Condition or Measure Source Text",
-          "description": "Co-occurring Condition (phenotype or diagnosis) or Measure (observation with numeric value), as described by data contributor. The Down Syndrome Genetic Diagnosis will be rolled into this field."
+          "display": "Co-occurring Condition (phenotype or diagnosis) or Measure (observation with numeric value), as described by data contributor. The Down Syndrome Genetic Diagnosis will be rolled into this field."
         },
         {
           "code": "Age At Condition or Measure Observation",
-          "description": "Age in days at which Condition or Measure was observed, recorded, or diagnosed"
+          "display": "Age in days at which Condition or Measure was observed, recorded, or diagnosed"
         },
         {
           "code": "Condition Interpretation",
-          "description": "Whether Condition was observed or not"
+          "display": "Whether Condition was observed or not"
         },
         {
           "code": "Condition Status",
-          "description": "Whether the Condition is ongoing, has been resolved, or this is a general history of the condition without known dates"
+          "display": "Whether the Condition is ongoing, has been resolved, or this is a general history of the condition without known dates"
         },
         {
           "code": "Condition Data Source",
-          "description": "Whether Condition information was obtained by the investigator or reported by participant/family member"
+          "display": "Whether Condition information was obtained by the investigator or reported by participant/family member"
         },
         {
           "code": "HPO Label",
-          "description": "Label for Condition in the Human Phenotype Ontology (HPO)"
+          "display": "Label for Condition in the Human Phenotype Ontology (HPO)"
         },
         {
           "code": "HPO Code",
-          "description": "Code for Condition in the Human Phenotype Ontology (HPO)"
+          "display": "Code for Condition in the Human Phenotype Ontology (HPO)"
         },
         {
           "code": "MONDO Label",
-          "description": "Label for Condition in the Mondo Disease Ontology (MONDO)"
+          "display": "Label for Condition in the Mondo Disease Ontology (MONDO)"
         },
         {
           "code": "MONDO Code",
-          "description": "Code for Condition in the Mondo Disease Ontology (Mondo)"
+          "display": "Code for Condition in the Mondo Disease Ontology (Mondo)"
         },
         {
           "code": "MAXO Label",
-          "description": "Label for Condition in the Medical Action Ontology (MAXO)"
+          "display": "Label for Condition in the Medical Action Ontology (MAXO)"
         },
         {
           "code": "MAXO Code",
-          "description": "Code for condition in the Medical Action Ontology (MAXO)"
+          "display": "Code for condition in the Medical Action Ontology (MAXO)"
         },
         {
           "code": "Other Label",
-          "description": "Label for Condition in another ontology (if no match in HPO, MONDO, or MAXO)"
+          "display": "Label for Condition in another ontology (if no match in HPO, MONDO, or MAXO)"
         },
         {
           "code": "Other Code",
-          "description": "Code for Condition in another ontology (if no match in HPO, MONDO, or MAXO)"
+          "display": "Code for Condition in another ontology (if no match in HPO, MONDO, or MAXO)"
         },
         {
           "code": "Measure Value",
-          "description": "Numeric value of Measure"
+          "display": "Numeric value of Measure"
         },
         {
           "code": "Measure Unit",
-          "description": "Unit that is associated with Measure Value (e.g. kg, cm, %, x10^9/L, etc.)"
+          "display": "Unit that is associated with Measure Value (e.g. kg, cm, %, x10^9/L, etc.)"
         }
       ],
       "id": "INCLUDE:condition",
@@ -1271,11 +1271,11 @@
       "codes": [
         {
           "code": "Observed",
-          "description": "Observed"
+          "display": "Observed"
         },
         {
           "code": "Not Observed",
-          "description": "Not Observed"
+          "display": "Not Observed"
         }
       ],
       "id": "INCLUDE:condition:condition_interpretation",
@@ -1286,15 +1286,15 @@
       "codes": [
         {
           "code": "Current",
-          "description": "Current"
+          "display": "Current"
         },
         {
           "code": "Resolved",
-          "description": "Resolved"
+          "display": "Resolved"
         },
         {
           "code": "History Of",
-          "description": "History Of"
+          "display": "History Of"
         }
       ],
       "id": "INCLUDE:condition:condition_status",
@@ -1305,11 +1305,11 @@
       "codes": [
         {
           "code": "Clinical",
-          "description": "Clinical"
+          "display": "Clinical"
         },
         {
           "code": "Self-reported",
-          "description": "Self-reported"
+          "display": "Self-reported"
         }
       ],
       "id": "INCLUDE:condition:condition_data_source",
@@ -1319,95 +1319,95 @@
       "codes": [
         {
           "code": "Participant Global ID",
-          "description": "Unique INCLUDE global identifier for the participant, assigned by DCC"
+          "display": "Unique INCLUDE global identifier for the participant, assigned by DCC"
         },
         {
           "code": "Participant External ID",
-          "description": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
+          "display": "Unique, de-identified identifier for the participant, assigned by data contributor. External IDs must be two steps removed from personal information in the study records."
         },
         {
           "code": "Age at Biospecimen Collection",
-          "description": "Age in days of participant at time of biospecimen collection"
+          "display": "Age in days of participant at time of biospecimen collection"
         },
         {
           "code": "Sample Global ID",
-          "description": "INCLUDE global identifier for sample, assigned by DCC"
+          "display": "INCLUDE global identifier for sample, assigned by DCC"
         },
         {
           "code": "Sample External ID",
-          "description": "Unique identifier for sample, assigned by data contributor. A sample is a unique biological material; two samples with two different IDs are biologically distinct."
+          "display": "Unique identifier for sample, assigned by data contributor. A sample is a unique biological material; two samples with two different IDs are biologically distinct."
         },
         {
           "code": "Sample Type",
-          "description": "Type of biological material comprising the Sample (e.g. Plasma, White blood cells, Red blood cells, DNA, RNA, Peripheral blood mononuclear cells, CD4+ Tconv cells, NK cells, Monocytes, CD8+ T cells, B cells, Granulocytes, Treg cells)"
+          "display": "Type of biological material comprising the Sample (e.g. Plasma, White blood cells, Red blood cells, DNA, RNA, Peripheral blood mononuclear cells, CD4+ Tconv cells, NK cells, Monocytes, CD8+ T cells, B cells, Granulocytes, Treg cells)"
         },
         {
           "code": "Sample Availability",
-          "description": "Whether or not the sample is potentially available for sharing through\n      the Virtual Biorepository"
+          "display": "Whether or not the sample is potentially available for sharing through\n      the Virtual Biorepository"
         },
         {
           "code": "Collection Global ID",
-          "description": "INCLUDE global identifier for the eldest sample in a lineage, assigned by DCC"
+          "display": "INCLUDE global identifier for the eldest sample in a lineage, assigned by DCC"
         },
         {
           "code": "Collection External ID",
-          "description": "Identifier for the eldest sample in a lineage of processed, pooled,\n      or aliquoted samples - typically the material actually collected from the Participant. This may be the same as Parent Sample ID or Sample ID\n      (if no processing was performed). Assigned by data contributor."
+          "display": "Identifier for the eldest sample in a lineage of processed, pooled,\n      or aliquoted samples - typically the material actually collected from the Participant. This may be the same as Parent Sample ID or Sample ID\n      (if no processing was performed). Assigned by data contributor."
         },
         {
           "code": "Collection Sample Type",
-          "description": "Type of biological material comprising the Collected Sample (e.g. Whole blood, Not reported, Saliva, Derived cell line)"
+          "display": "Type of biological material comprising the Collected Sample (e.g. Whole blood, Not reported, Saliva, Derived cell line)"
         },
         {
           "code": "Container Global ID",
-          "description": "INCLUDE global identifier for specific container/aliquot of sample, assigned by DCC"
+          "display": "INCLUDE global identifier for specific container/aliquot of sample, assigned by DCC"
         },
         {
           "code": "Container External ID",
-          "description": "Identifier for specific container/aliquot of sample, assigned by data contributor.\n      For example, distinct aliquots of a sample will have the same Sample ID but\n      different Container IDs."
+          "display": "Identifier for specific container/aliquot of sample, assigned by data contributor.\n      For example, distinct aliquots of a sample will have the same Sample ID but\n      different Container IDs."
         },
         {
           "code": "Container Availability",
-          "description": "Container Availability"
+          "display": "Container Availability"
         },
         {
           "code": "Parent Sample Global ID",
-          "description": "INCLUDE global identifier for the direct parent from which Sample was derived, assigned by DCC"
+          "display": "INCLUDE global identifier for the direct parent from which Sample was derived, assigned by DCC"
         },
         {
           "code": "Parent Sample External ID",
-          "description": "Unique identifier for the parent sample, assigned by data contributor"
+          "display": "Unique identifier for the parent sample, assigned by data contributor"
         },
         {
           "code": "Parent Sample Type",
-          "description": "Type of biological material comprising the Parent Sample (e.g. Peripheral Whole Blood, Derived Cell Line, Saliva, Whole blood, WBCs) "
+          "display": "Type of biological material comprising the Parent Sample (e.g. Peripheral Whole Blood, Derived Cell Line, Saliva, Whole blood, WBCs) "
         },
         {
           "code": "Laboratory Procedure",
-          "description": "Procedure by which Sample was derived from Parent Sample (e.g. Centrifugation, RBC lysis, Lyse/fix buffer, FACS, PAXgene DNA, PAXgene RNA, Qiagen Allprep, Ficoll)"
+          "display": "Procedure by which Sample was derived from Parent Sample (e.g. Centrifugation, RBC lysis, Lyse/fix buffer, FACS, PAXgene DNA, PAXgene RNA, Qiagen Allprep, Ficoll)"
         },
         {
           "code": "In/Out",
-          "description": "Sample Availability where In indcates available and Out indicates Unavailable"
+          "display": "Sample Availability where In indcates available and Out indicates Unavailable"
         },
         {
           "code": "Biospecimen Storage",
-          "description": "Method by which Container is stored (e.g. Minus 80 degrees Celsius, Liquid nitrogen storage)"
+          "display": "Method by which Container is stored (e.g. Minus 80 degrees Celsius, Liquid nitrogen storage)"
         },
         {
           "code": "Concentration",
-          "description": "Concentration of sample in container"
+          "display": "Concentration of sample in container"
         },
         {
           "code": "Concentration_Unit",
-          "description": "Unit of sample concentration"
+          "display": "Unit of sample concentration"
         },
         {
           "code": "Volume",
-          "description": "Amount of sample in container"
+          "display": "Amount of sample in container"
         },
         {
           "code": "Volume Unit",
-          "description": "Unit of sample volume"
+          "display": "Unit of sample volume"
         }
       ],
       "id": "INCLUDE:specimen",
@@ -1417,135 +1417,135 @@
       "codes": [
         {
           "code": "ATACseq",
-          "description": "ATACseq"
+          "display": "ATACseq"
         },
         {
           "code": "B cells Cryo",
-          "description": "B cells Cryo"
+          "display": "B cells Cryo"
         },
         {
           "code": "Blood Smear Slide",
-          "description": "Blood Smear Slide"
+          "display": "Blood Smear Slide"
         },
         {
           "code": "Buffy Coat",
-          "description": "Buffy Coat"
+          "display": "Buffy Coat"
         },
         {
           "code": "CD4+ Tconv cells",
-          "description": "CD4+ Tconv cells"
+          "display": "CD4+ Tconv cells"
         },
         {
           "code": "CD8+ T cells",
-          "description": "CD8+ T cells"
+          "display": "CD8+ T cells"
         },
         {
           "code": "CYTOF Ready White Blood Cells",
-          "description": "CYTOF Ready White Blood Cells"
+          "display": "CYTOF Ready White Blood Cells"
         },
         {
           "code": "DNA",
-          "description": "DNA"
+          "display": "DNA"
         },
         {
           "code": "Granulocytes",
-          "description": "Granulocytes"
+          "display": "Granulocytes"
         },
         {
           "code": "Monocytes",
-          "description": "Monocytes"
+          "display": "Monocytes"
         },
         {
           "code": "NK cells",
-          "description": "NK cells"
+          "display": "NK cells"
         },
         {
           "code": "PAXgene Whole Blood DNA",
-          "description": "PAXgene Whole Blood DNA"
+          "display": "PAXgene Whole Blood DNA"
         },
         {
           "code": "PAXgene Whole Blood DNA Tube",
-          "description": "PAXgene Whole Blood DNA Tube"
+          "display": "PAXgene Whole Blood DNA Tube"
         },
         {
           "code": "PAXgene Whole Blood RNA",
-          "description": "PAXgene Whole Blood RNA"
+          "display": "PAXgene Whole Blood RNA"
         },
         {
           "code": "PAXgene Whole Blood RNA Tube",
-          "description": "PAXgene Whole Blood RNA Tube"
+          "display": "PAXgene Whole Blood RNA Tube"
         },
         {
           "code": "PBMC",
-          "description": "PBMC"
+          "display": "PBMC"
         },
         {
           "code": "Peripheral Blood Mononuclear Cells",
-          "description": "Peripheral Blood Mononuclear Cells"
+          "display": "Peripheral Blood Mononuclear Cells"
         },
         {
           "code": "Peripheral Whole Blood",
-          "description": "Peripheral Whole Blood"
+          "display": "Peripheral Whole Blood"
         },
         {
           "code": "Plasma",
-          "description": "Plasma"
+          "display": "Plasma"
         },
         {
           "code": "Red Blood Cells",
-          "description": "Red Blood Cells"
+          "display": "Red Blood Cells"
         },
         {
           "code": "RNA",
-          "description": "RNA"
+          "display": "RNA"
         },
         {
           "code": "Saliva",
-          "description": "Saliva"
+          "display": "Saliva"
         },
         {
           "code": "Salivette",
-          "description": "Salivette"
+          "display": "Salivette"
         },
         {
           "code": "Skin Tape",
-          "description": "Skin Tape"
+          "display": "Skin Tape"
         },
         {
           "code": "Tongue Swab",
-          "description": "Tongue Swab"
+          "display": "Tongue Swab"
         },
         {
           "code": "Tregs",
-          "description": "Tregs"
+          "display": "Tregs"
         },
         {
           "code": "White Blood Cells",
-          "description": "White Blood Cells"
+          "display": "White Blood Cells"
         },
         {
           "code": "White Blood Cells Cryo",
-          "description": "White Blood Cells Cryo"
+          "display": "White Blood Cells Cryo"
         },
         {
           "code": "White Blood Cells DNA",
-          "description": "White Blood Cells DNA"
+          "display": "White Blood Cells DNA"
         },
         {
           "code": "White Blood Cells Protein",
-          "description": "White Blood Cells Protein"
+          "display": "White Blood Cells Protein"
         },
         {
           "code": "White Blood Cells RNA",
-          "description": "White Blood Cells RNA"
+          "display": "White Blood Cells RNA"
         },
         {
           "code": "Whole Blood",
-          "description": "Whole Blood"
+          "display": "Whole Blood"
         },
         {
           "code": "Whole Blood EDTA",
-          "description": "Whole Blood EDTA"
+          "display": "Whole Blood EDTA"
         }
       ],
       "id": "INCLUDE:specimen:sample_type",
@@ -1555,11 +1555,11 @@
       "codes": [
         {
           "code": "Available",
-          "description": "Available"
+          "display": "Available"
         },
         {
           "code": "Unavailable",
-          "description": "Unavailable"
+          "display": "Unavailable"
         }
       ],
       "id": "INCLUDE:specimen:sample_availability",
@@ -1569,19 +1569,19 @@
       "codes": [
         {
           "code": "Saliva",
-          "description": "Saliva"
+          "display": "Saliva"
         },
         {
           "code": "Skin Tape",
-          "description": "Skin Tape"
+          "display": "Skin Tape"
         },
         {
           "code": "Tongue Swab",
-          "description": "Tongue Swab"
+          "display": "Tongue Swab"
         },
         {
           "code": "Whole Blood",
-          "description": "Whole Blood"
+          "display": "Whole Blood"
         }
       ],
       "id": "INCLUDE:specimen:collection_sample_type",
@@ -1591,11 +1591,11 @@
       "codes": [
         {
           "code": "Available",
-          "description": "Available"
+          "display": "Available"
         },
         {
           "code": "Unavailable",
-          "description": "Unavailable"
+          "display": "Unavailable"
         }
       ],
       "id": "INCLUDE:specimen:container_availability",
@@ -1605,35 +1605,35 @@
       "codes": [
         {
           "code": "Monocytes",
-          "description": "Monocytes"
+          "display": "Monocytes"
         },
         {
           "code": "NA",
-          "description": "NA"
+          "display": "NA"
         },
         {
           "code": "PAXgene Whole Blood DNA Tube",
-          "description": "PAXgene Whole Blood DNA Tube"
+          "display": "PAXgene Whole Blood DNA Tube"
         },
         {
           "code": "PAXgene Whole Blood RNA Tube",
-          "description": "PAXgene Whole Blood RNA Tube"
+          "display": "PAXgene Whole Blood RNA Tube"
         },
         {
           "code": "Saliva",
-          "description": "Saliva"
+          "display": "Saliva"
         },
         {
           "code": "White Blood Cells",
-          "description": "White Blood Cells"
+          "display": "White Blood Cells"
         },
         {
           "code": "Whole Blood",
-          "description": "Whole Blood"
+          "display": "Whole Blood"
         },
         {
           "code": "Whole Blood EDTA",
-          "description": "Whole Blood EDTA"
+          "display": "Whole Blood EDTA"
         }
       ],
       "id": "INCLUDE:specimen:parent_sample_type",
@@ -1643,15 +1643,15 @@
       "codes": [
         {
           "code": "NA",
-          "description": "NA"
+          "display": "NA"
         },
         {
           "code": "In",
-          "description": "In"
+          "display": "In"
         },
         {
           "code": "Out",
-          "description": "Out"
+          "display": "Out"
         }
       ],
       "id": "INCLUDE:specimen:in/out",
@@ -1661,15 +1661,15 @@
       "codes": [
         {
           "code": "-80C Freezer",
-          "description": "-80C Freezer"
+          "display": "-80C Freezer"
         },
         {
           "code": "Liquid Nitrogen Storage",
-          "description": "Liquid Nitrogen Storage"
+          "display": "Liquid Nitrogen Storage"
         },
         {
           "code": "Other",
-          "description": "Other"
+          "display": "Other"
         }
       ],
       "id": "INCLUDE:specimen:biospecimen_storage",
@@ -1679,11 +1679,11 @@
       "codes": [
         {
           "code": "Cells/mL",
-          "description": "Cells/mL"
+          "display": "Cells/mL"
         },
         {
           "code": "NA",
-          "description": "NA"
+          "display": "NA"
         }
       ],
       "id": "INCLUDE:specimen:concentration_unit",
@@ -1693,19 +1693,19 @@
       "codes": [
         {
           "code": "each",
-          "description": "each"
+          "display": "each"
         },
         {
           "code": "mL",
-          "description": "mL"
+          "display": "mL"
         },
         {
           "code": "NA",
-          "description": "NA"
+          "display": "NA"
         },
         {
           "code": "uL",
-          "description": "uL"
+          "display": "uL"
         }
       ],
       "id": "INCLUDE:specimen:volume_unit",
@@ -1718,11 +1718,11 @@
       "codes": [
         {
           "code": "jelly_beans",
-          "description": "Beans of jellies"
+          "display": "Beans of jellies"
         },
         {
           "code": "pinto_beans",
-          "description": "Beans of pintos"
+          "display": "Beans of pintos"
         }
       ],
       "id": "wl7NqtR"
@@ -1734,27 +1734,27 @@
       "codes": [
         {
           "code": "a",
-          "description": "red"
+          "display": "red"
         },
         {
           "code": "b",
-          "description": "orange"
+          "display": "orange"
         },
         {
           "code": "c",
-          "description": "yellow"
+          "display": "yellow"
         },
         {
           "code": "d",
-          "description": "green"
+          "display": "green"
         },
         {
           "code": "e",
-          "description": "blue"
+          "display": "blue"
         },
         {
           "code": "f",
-          "description": "purple"
+          "display": "purple"
         }
       ],
       "id": "kQtv7jJ"
