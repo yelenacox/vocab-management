@@ -4,7 +4,6 @@ import { myContext } from '../../../App';
 import './Terminology.scss';
 import { Spinner } from '../../Manager/Spinner';
 import Background from '../../../../assets/Background.png';
-import BackArrow from '../../../../assets/back_arrow.png';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import { DeleteCode } from './DeleteCode';
 import { AddCode } from './AddCode';
@@ -164,6 +163,14 @@ export const Terminology = () => {
                   />
                 </div>
                 {terminology?.description}
+                {/* {terminology?.description ? (
+                  terminology.description
+                ) : (
+                  <>
+                    <img className="terminology_back" src={BackArrow} />
+                    description
+                  </>
+                )} */}
               </>
             ) : terminologyEdit && descriptionEdit === true ? (
               <EditDescription

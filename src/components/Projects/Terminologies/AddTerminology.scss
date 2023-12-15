@@ -1,9 +1,47 @@
-@import '../../Styling/Form';
+@import '../../Styling/Variables';
 
 .form_container {
-  margin: 20vh 0 10vh 5vw;
-  min-height: 100vh;
+  margin: 20vh 0 10vh 10vw;
+  min-height: 70vh;
 }
-.back_margin {
-  margin-bottom: 2vh;
+
+.add_term_input {
+  @include input_field($margin: 1vh 0 0 0);
+  width: 50vw;
+}
+
+.form_wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 2vh 0;
+}
+
+.additional_code_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.code_input,
+.code_display_input {
+  @include input_field($margin: 1vh 1vw 0 0);
+}
+
+.code_display_input {
+  width: 33.5vw;
+}
+
+.manage_code_button {
+  @include manage_term_button($padding: 0.3vh 1.5vh);
+  font-size: 1.3rem;
+}
+.manage_code_button:hover {
+  @include manage_term_button_hover;
+}
+
+.manage_code_button:active {
+  @include manage_term_button_active;
+}
+
+.above_btn {
+  height: 3.3vh;
 }

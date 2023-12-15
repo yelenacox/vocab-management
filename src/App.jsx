@@ -40,6 +40,19 @@ function App() {
       .then(res => res.json())
       .then(data => setTerminology(data));
 
+  const getCodeId = () => {
+    const current = codeId;
+    setCodeId(codeId + 1);
+    return current;
+  };
+
+  const handleCodeAdd = () => {
+    setTerminology({
+      ...terminology,
+      codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
+    });
+  };
+
   return (
     <myContext.Provider
       value={{
@@ -65,6 +78,8 @@ function App() {
         codeId,
         setCodeId,
         updateTerminology,
+        getCodeId,
+        handleCodeAdd,
       }}
     >
       <Routes>

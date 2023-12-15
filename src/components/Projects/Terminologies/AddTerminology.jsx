@@ -3,7 +3,7 @@ import { Link, useAsyncError, useNavigate } from 'react-router-dom';
 import './AddTerminology.scss';
 import { myContext } from '../../../App';
 import { AdditionalCodeInput } from './AdditionalCodeInput';
-import BackArrow from '../../../../assets/back_arrow.png';
+import Background from '../../../../assets/Background.png';
 
 export const AddTerminology = () => {
   const {
@@ -15,14 +15,16 @@ export const AddTerminology = () => {
     initialTerminology,
     codeId,
     setCodeId,
+    getCodeId,
+    handleCodeAdd,
   } = useContext(myContext);
 
-  const handleCodeAdd = () => {
-    setTerminology({
-      ...terminology,
-      codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
-    });
-  };
+  // const handleCodeAdd = () => {
+  //   setTerminology({
+  //     ...terminology,
+  //     codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
+  //   });
+  // };
 
   useEffect(() => {
     setTerminology(initialTerminology);
@@ -68,27 +70,33 @@ export const AddTerminology = () => {
   };
 
   // console.log('code id', codeId);
-  const getCodeId = () => {
-    const current = codeId;
-    setCodeId(codeId + 1);
-    return current;
-  };
+  // const getCodeId = () => {
+  //   const current = codeId;
+  //   setCodeId(codeId + 1);
+  //   return current;
+  // };
 
   return (
     <>
       <article className="form_container">
+        <div className="image_container">
+          <img className="background_image_results" src={Background} />
+        </div>
         {/* <div className="terminology_back_wrapper back_margin">
           <Link to="/projects">
             <img className="terminology_back" src={BackArrow} />
             Back
           </Link>
         </div> */}
-        <div className="name">
-          <label htmlFor="terminology_name">Name</label>
+        <h2>New Terminology</h2>
+        <div className="name form_wrapper">
+          <label className="input_label" htmlFor="terminology_name">
+            Name
+          </label>
           <input
             autoFocus
             id="name"
-            className="name_input"
+            className="add_term_input name_input"
             type="text"
             value={terminology.name}
             onChange={evt => {
@@ -100,11 +108,13 @@ export const AddTerminology = () => {
           />
         </div>
 
-        <div className="description">
-          <label htmlFor="terminology_description">Description</label>
+        <div className="description form_wrapper">
+          <label className="input_label" htmlFor="terminology_description">
+            Description
+          </label>
           <input
             id="display"
-            className="description_input"
+            className="add_term_input description_input"
             type="text"
             value={terminology.description}
             onChange={evt => {
@@ -116,12 +126,14 @@ export const AddTerminology = () => {
           />
         </div>
 
-        <div className="url">
-          <label htmlFor="terminology_url">URL</label>
+        <div className="url form_wrapper">
+          <label className="input_label" htmlFor="terminology_url">
+            URL
+          </label>
           <input
             required
             id="url"
-            className="url_input"
+            className="add_term_input url_input"
             type="text"
             value={terminology.url}
             onChange={evt => {
@@ -136,11 +148,13 @@ export const AddTerminology = () => {
         {terminology.codes.map(code => (
           <AdditionalCodeInput code={code} />
         ))}
-        <div className="new_code_input">
-          <button onClick={handleCodeAdd}>Add New Code</button>
-        </div>
+        {/* <div className="new_code_input">
+          <button className="manage_term_button" onClick={handleCodeAdd}>
+            +
+          </button>
+        </div> */}
 
-        <button className="btn btn-primary" onClick={handleSubmit}>
+        <button className="manage_term_button" onClick={handleSubmit}>
           Save
         </button>
       </article>
