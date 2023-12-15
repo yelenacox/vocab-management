@@ -32,7 +32,7 @@ export const AdditionalCodeInput = props => {
           <input
             required
             id="code"
-            className="code_input"
+            className="add_code_input"
             type="text"
             value={terminology.code}
             onChange={evt => {

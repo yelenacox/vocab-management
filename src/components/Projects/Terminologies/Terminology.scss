@@ -62,7 +62,9 @@
   width: 60vw;
 }
 
-.input_field {
+.input_field,
+.code_input,
+.code_description_input {
   @include input_field;
 }
 

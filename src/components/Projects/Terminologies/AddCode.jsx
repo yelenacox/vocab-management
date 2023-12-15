@@ -87,7 +87,7 @@ export const AddCode = ({
         <input
           autoFocus
           id="code"
-          className="code_input input_field"
+          className="code_input code_input_field"
           type="text"
           value={thisCode.code}
           onChange={evt => {
@@ -101,7 +101,7 @@ export const AddCode = ({
       <td className="row_input_cell">
         <input
           id="code_description"
-          className="code_description_input input_field"
+          className="code_description_input code_input_field"
           type="text"
           value={thisCode.display}
           onChange={evt => {

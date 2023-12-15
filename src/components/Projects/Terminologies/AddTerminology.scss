@@ -21,9 +21,13 @@
   flex-direction: row;
 }
 
-.code_input,
+.add_code_input,
 .code_display_input {
   @include input_field($margin: 1vh 1vw 0 0);
+}
+
+.add_code_input {
+  width: 15vw;
 }
 
 .code_display_input {
