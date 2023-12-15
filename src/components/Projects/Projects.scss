@@ -3,7 +3,7 @@
 @import '../Styling/BackgroundImage.scss';
 
 .projects_container {
-  margin: 20vh 0 10vh 5vw;
+  margin: 20vh 0 10vh 10vw;
   min-height: 100vh;
 }
 
@@ -16,4 +16,19 @@
 .menu_buttons_container {
   margin-left: auto;
   margin-right: 30vw;
+}
+
+.manage_term_button {
+  @include manage_term_button;
+}
+.manage_term_button:hover {
+  @include manage_term_button_hover;
+}
+
+.manage_term_button:active {
+  @include button_active;
+}
+
+.manage_term_button:not(:hover, :active) {
+  margin-bottom: 2px;
 }

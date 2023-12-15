@@ -2,13 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import './Projects.scss';
 import { myContext } from '../../App';
 import { Spinner } from '../Manager/Spinner';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Background from '../../../assets/Background.png';
 import { DeleteTerminology } from './Terminologies/DeleteTerminology';
 
 export const Projects = () => {
   const [terminologies, setTerminologies] = useState([]);
   const { loading, setLoading, vocabUrl } = useContext(myContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTerminologies();
@@ -38,9 +40,14 @@ export const Projects = () => {
           <img className="background_image_results" src={Background} />
         </div>
         <div className="projects_sub_nav">
-          <h1>Terminologies</h1>
+          <h2>Terminologies</h2>
           <div className="menu_buttons_container">
-            <Link to="/add">Add Terminology</Link>
+            <button
+              className="manage_term_button"
+              onClick={() => navigate('/add')}
+            >
+              Add Terminology
+            </button>{' '}
           </div>
         </div>
         {loading ? (
