@@ -1,14 +1,13 @@
 import { useState, createContext } from 'react';
-import viteLogo from '/vite.svg';
 import { OntologySearch } from './components/Search/OntologySearch';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { NavBar } from './components/Nav/NavBar';
-import { Switch } from 'antd';
 import { Footer } from './components/Nav/Footer';
 import { SearchResults } from './components/Search/SearchResults';
 import { Projects } from './components/Projects/Projects';
 import { Terminology } from './components/Projects/Terminologies/Terminology';
 import { AddTerminology } from './components/Projects/Terminologies/AddTerminology';
+import { TableDetails } from './components/Projects/Tables/TableDetails';
 
 export const myContext = createContext();
 
@@ -23,8 +22,10 @@ function App() {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const initialTerminology = { url: '', description: '', name: '', codes: [] };
   const [codeId, setCodeId] = useState(0);
+  const [table, setTable] = useState({});
 
   const [terminology, setTerminology] = useState(initialTerminology);
+  const [tables, setTables] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -80,6 +81,10 @@ function App() {
         updateTerminology,
         getCodeId,
         handleCodeAdd,
+        tables,
+        setTables,
+        table,
+        setTable,
       }}
     >
       <Routes>
@@ -96,11 +101,9 @@ function App() {
           <Route index element={<OntologySearch />} />
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/projects" element={<Projects />} />
-          <Route
-            path="/terminologies/:terminologyId"
-            element={<Terminology />}
-          />
-          <Route path="/add" element={<AddTerminology />} />
+          <Route path="/terminology/:terminologyId" element={<Terminology />} />
+          <Route path="/addTerminology" element={<AddTerminology />} />
+          <Route path="/table/:tableId" element={<TableDetails />} />
         </Route>
       </Routes>
     </myContext.Provider>
