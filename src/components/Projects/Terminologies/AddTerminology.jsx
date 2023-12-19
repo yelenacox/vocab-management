@@ -66,7 +66,7 @@ export const AddTerminology = () => {
       body: JSON.stringify(terminologyDTO()),
     })
       .then(res => res.json())
-      .then(data => navigate(`/terminologies/${data?.id}`));
+      .then(data => navigate(`/terminology/${data?.id}`));
   };
 
   // console.log('code id', codeId);
