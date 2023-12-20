@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import '../Projects.scss';
+import './TableStyling.scss';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
@@ -61,12 +62,12 @@ export const TableList = () => {
                 return (
                   <>
                     <tr key={index}>
-                      <td>
+                      <td className="project_first_cell">
                         <Link to={`/table/${r?.id}`}>
                           {r?.name ? r?.name : r?.id}
                         </Link>
                       </td>
-                      <td>{r?.description}</td>
+                      <td className="project_second_cell">{r?.description}</td>
                       <td className="delete_cell">
                         <DeleteTable table={r} setTables={setTables} />
                       </td>

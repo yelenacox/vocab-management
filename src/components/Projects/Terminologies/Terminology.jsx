@@ -92,9 +92,6 @@ export const Terminology = () => {
             <img className="background_image_results" src={Background} />
           </div>
           <div className="terminology_sub_nav">
-            {/* <Link to="/projects">
-              <img className="terminology_back" src={BackArrow} />
-            </Link> */}
             <div className="add_code_link">
               <button
                 className="manage_term_button"
@@ -109,6 +106,7 @@ export const Terminology = () => {
                 {terminologyEdit ? 'View' : 'Manage'}
               </button>
             </div>
+            {/* <div>Terminology</div> */}
             {terminologyEdit ? (
               <div className="add_code_link">
                 <button className="manage_term_button" onClick={handleInputAdd}>
@@ -116,7 +114,7 @@ export const Terminology = () => {
                 </button>
               </div>
             ) : (
-              ''
+              <div className="add_code_link"></div>
             )}
           </div>
           <div className="terminology_details terminology_name">
@@ -151,7 +149,13 @@ export const Terminology = () => {
             {!terminologyEdit ? (
               <>
                 <div className="initial_div empty_description"></div>
-                {terminology?.description}
+                {terminology?.description ? (
+                  terminology?.description
+                ) : (
+                  <span className="no_description">
+                    No description provided.
+                  </span>
+                )}
               </>
             ) : terminologyEdit && descriptionEdit === false ? (
               <>
@@ -162,15 +166,13 @@ export const Terminology = () => {
                     src={PencilIcon}
                   />
                 </div>
-                {terminology?.description}
-                {/* {terminology?.description ? (
-                  terminology.description
+                {terminology?.description ? (
+                  terminology?.description
                 ) : (
-                  <>
-                    <img className="terminology_back" src={BackArrow} />
-                    description
-                  </>
-                )} */}
+                  <span className="no_description">
+                    No description provided.
+                  </span>
+                )}
               </>
             ) : terminologyEdit && descriptionEdit === true ? (
               <EditDescription

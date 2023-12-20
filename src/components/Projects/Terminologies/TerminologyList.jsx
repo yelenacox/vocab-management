@@ -60,12 +60,12 @@ export const TerminologyList = () => {
                 return (
                   <>
                     <tr key={index}>
-                      <td>
+                      <td className="project_first_cell">
                         <Link to={`/terminology/${r?.id}`}>
                           {r?.name ? r?.name : r?.id}
                         </Link>
                       </td>
-                      <td>{r?.description}</td>
+                      <td className="project_second_cell">{r?.description}</td>
                       <td className="delete_cell">
                         <DeleteTerminology
                           terminology={r}
