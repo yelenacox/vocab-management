@@ -6,8 +6,8 @@ export const DeleteTerminology = ({ terminology, setTerminologies }) => {
   const { vocabUrl } = useContext(myContext);
 
   const handleDelete = evt => {
-    // fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
-    fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
+    fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
+      // fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
       method: 'DELETE',
     })
       .then(response => response.json())

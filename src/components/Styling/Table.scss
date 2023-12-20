@@ -1,3 +1,5 @@
+@import '../Styling/Variables';
+
 table,
 td:not(.icon_cell) {
   border-bottom: 1px solid $greyColor;
@@ -10,7 +12,7 @@ table:first-child {
 
 table {
   width: 60vw;
-  margin: 0 0 2vh 0;
+  margin: 0 0 4vh 0;
 }
 
 .header_row {
@@ -44,4 +46,12 @@ td:not(.icon_cell, .row_input_cell) {
 
 .first_cell {
   width: 15vw;
+}
+
+.delete_cell {
+  width: 2vw;
+}
+
+.project_first_cell {
+  width: 18vw;
 }

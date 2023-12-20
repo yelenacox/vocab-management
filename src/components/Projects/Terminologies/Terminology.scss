@@ -14,7 +14,8 @@
   justify-content: space-between;
 }
 
-.add_code_link {
+.add_code_link,
+.terminology_header {
   margin-left: 50px;
 }
 
@@ -31,6 +32,10 @@
 
 .terminology_desc {
   margin: 0 0 2vh 0;
+}
+
+.no_description {
+  color: rgb(208, 205, 205);
 }
 
 .initial_div {
