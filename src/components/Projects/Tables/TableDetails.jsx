@@ -1,7 +1,7 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './TableStyling.scss';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 
@@ -9,6 +9,8 @@ export const TableDetails = () => {
   const { table, setTable, vocabUrl, loading, setLoading } =
     useContext(myContext);
   const { tableId } = useParams();
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
 
   useEffect(() => {
     getTableById();
@@ -24,6 +26,9 @@ export const TableDetails = () => {
       .then(res => res.json())
       .then(data => setTable(data));
   };
+  {
+    console.log(active, open);
+  }
 
   return (
     <>
@@ -139,11 +144,12 @@ export const TableDetails = () => {
               <tbody>
                 {table?.variables?.map((v, index) => {
                   return (
-                    <tr key={v?.name}>
-                      {/* {active !== index ? (
+                    <>
+                      <tr key={index}>
+                        {/* {active !== index ? (
                         <> */}
-                      <td className="icon_cell">
-                        {/* {' '}
+                        <td className="icon_cell">
+                          {/* {' '}
                             {terminologyEdit && active !== index ? (
                               <>
                                 <img
@@ -161,11 +167,30 @@ export const TableDetails = () => {
                             ) : (
                               ''
                             )} */}
-                      </td>
-                      <td className="first_cell">{v?.name}</td>
-                      <td className="second_cell">{v?.description}</td>
-                      <td className="third_cell">{v?.data_type}</td>
-                      {/* </>
+                        </td>
+                        <td className="first_cell">{v?.name}</td>
+                        <td className="second_cell">{v?.description}</td>
+                        <td className="third_cell">
+                          {v?.data_type === 'ENUMERATION' ? (
+                            <Link to={`/${v?.enumerations?.reference}`}>
+                              {v?.data_type}
+                            </Link>
+                          ) : v?.data_type === 'INTEGER' ||
+                            v?.data_type === 'QUANTITY' ? (
+                            <div
+                              className="set_open"
+                              onClick={() => {
+                                setActive(index),
+                                  active === index ? setOpen(!open) : '';
+                              }}
+                            >
+                              {v?.data_type}
+                            </div>
+                          ) : (
+                            v?.data_type
+                          )}
+                        </td>
+                        {/* </>
                       ) : terminologyEdit && active === index ? (
                         <EditCode
                           codeObject={r}
@@ -176,7 +201,23 @@ export const TableDetails = () => {
                       ) : (
                         ''
                       )} */}
-                    </tr>
+                      </tr>
+                      {active === index && open ? (
+                        <>
+                          <tr>
+                            <td className="icon_cell"></td>
+                            <td className="first_cell"></td>
+                            <div className="integer_div">
+                              <th>min: {v?.min}</th>
+                              <th>max: {v?.max}</th>
+                              <th>units: {v?.units}</th>
+                            </div>
+                          </tr>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </>
                   );
                 })}
                 {/* {newCodes?.map((newCode, i) => (

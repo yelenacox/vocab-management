@@ -8,6 +8,7 @@ import { Projects } from './components/Projects/Projects';
 import { Terminology } from './components/Projects/Terminologies/Terminology';
 import { AddTerminology } from './components/Projects/Terminologies/AddTerminology';
 import { TableDetails } from './components/Projects/Tables/TableDetails';
+import { AddTable } from './components/Projects/Tables/AddTable';
 
 export const myContext = createContext();
 
@@ -21,8 +22,10 @@ function App() {
   const [current, setCurrent] = useState(1);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const initialTerminology = { url: '', description: '', name: '', codes: [] };
+  const initialTable = { name: '', description: '', url: '', variables: [] };
   const [codeId, setCodeId] = useState(0);
-  const [table, setTable] = useState({});
+  const [variableId, setVariableId] = useState(0);
+  const [table, setTable] = useState(initialTable);
 
   const [terminology, setTerminology] = useState(initialTerminology);
   const [tables, setTables] = useState([]);
@@ -46,11 +49,26 @@ function App() {
     setCodeId(codeId + 1);
     return current;
   };
+  const getVariableId = () => {
+    const current = variableId;
+    setVariableId(variableId + 1);
+    return current;
+  };
 
   const handleCodeAdd = () => {
     setTerminology({
       ...terminology,
       codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
+    });
+  };
+
+  const handleVariableAdd = () => {
+    setTable({
+      ...table,
+      variables: [
+        ...table.variables,
+        { id: getVariableId(), name: '', description: '', data_type: '' },
+      ],
     });
   };
 
@@ -85,6 +103,8 @@ function App() {
         setTables,
         table,
         setTable,
+        handleVariableAdd,
+        getVariableId,
       }}
     >
       <Routes>
@@ -104,6 +124,7 @@ function App() {
           <Route path="/terminology/:terminologyId" element={<Terminology />} />
           <Route path="/addTerminology" element={<AddTerminology />} />
           <Route path="/table/:tableId" element={<TableDetails />} />
+          <Route path="/addTable" element={<AddTable />} />
         </Route>
       </Routes>
     </myContext.Provider>

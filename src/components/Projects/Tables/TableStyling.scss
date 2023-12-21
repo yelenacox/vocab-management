@@ -5,3 +5,13 @@
   min-height: 70vh;
   width: 60vw;
 }
+
+.set_open {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.integer_div {
+  display: flex;
+  flex-direction: column;
+}
