@@ -6,6 +6,7 @@ import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 import { Enumerations } from './Enumerations';
 import { render } from 'react-dom';
+import { TableRow } from './TableRow';
 
 export const TableDetails = () => {
   const { table, setTable, vocabUrl, loading, setLoading } =
@@ -14,6 +15,7 @@ export const TableDetails = () => {
   const [open, setOpen] = useState(false);
   const [activeRows, setActiveRows] = useState([]);
   console.log('active ROws', activeRows);
+
   const addActiveRows = index => {
     setActiveRows([...activeRows, index]);
   };
@@ -29,9 +31,13 @@ export const TableDetails = () => {
     getTableById();
   }, []);
 
+  const handleOpen = (open, set) => {
+    set(open);
+  };
+
   const renderDecider = index => {
-    console.log('EVALUATING ', activeRows.includes(index));
-    return activeRows.includes(index);
+    console.log('EVALUATING ', activeRows?.includes(index));
+    return activeRows?.includes(index);
   };
   const rowIsOpen = index => {
     return activeRows.includes(index);
@@ -189,75 +195,12 @@ export const TableDetails = () => {
                 {table?.variables?.map((v, index) => {
                   return (
                     <>
-                      <tr key={index}>
-                        {/* {active !== index ? (
-                        <> */}
-                        <td className="icon_cell">
-                          {/* {' '}
-                            {terminologyEdit && active !== index ? (
-                              <>
-                                <img
-                                  className="small_icon"
-                                  onClick={() => onEdit(index)}
-                                  src={PencilIcon}
-                                />
-                                <DeleteCode
-                                  index={index}
-                                  terminology={terminology}
-                                  setTerminology={setTerminology}
-                                  terminologyId={terminologyId}
-                                />
-                              </>
-                            ) : (
-                              ''
-                            )} */}
-                        </td>
-                        <td className="first_cell">{v?.name}</td>
-                        <td className="second_cell">{v?.description}</td>
-                        <td className="third_cell">
-                          {v?.data_type !== 'STRING' ? (
-                            <div
-                              className="row_header"
-                              id={index}
-                              onClick={handleRowClick}
-                            >
-                              {v?.data_type}
-                            </div>
-                          ) : (
-                            v?.data_type
-                          )}
-                        </td>
-                        {/* </>
-                      ) : terminologyEdit && active === index ? (
-                        <EditCode
-                          codeObject={r}
-                          index={index}
-                          onCancel={onCancel}
-                          setActive={setActive}
-                        />
-                      ) : (
-                        ''
-                      )} */}
-                      </tr>
-                      {renderDecider(index) ? (
-                        // active === index && open ? (
-                        <>
-                          {v?.data_type === 'QUANTITY' ||
-                          v?.data_type === 'INTEGER' ? (
-                            <tr key={`subrow-${index}`}>
-                              <td className="icon_cell"></td>
-                              <td className="first_cell"></td>
-                              <div className="integer_div">
-                                <th>min: {v?.min}</th>
-                                <th>max: {v?.max}</th>
-                                <th>units: {v?.units}</th>
-                              </div>
-                            </tr>
-                          ) : v?.data_type === 'ENUMERATION' ? (
-                            <Enumerations terminologyReference={v} />
-                          ) : undefined}
-                        </>
-                      ) : undefined}
+                      <TableRow
+                        v={v}
+                        index={index}
+                        key={index}
+                        handleOpen={handleOpen}
+                      />
                     </>
                   );
                 })}
