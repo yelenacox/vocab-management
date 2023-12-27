@@ -1,65 +1,62 @@
 import { React, useContext, useEffect, useState } from 'react';
-import { Link, useAsyncError, useNavigate } from 'react-router-dom';
-import './AddTerminology.scss';
+import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
-import { AdditionalCodeInput } from './AdditionalCodeInput';
 import Background from '../../../../assets/Background.png';
+import { AdditionalVariableInput } from './AdditionalVariableInput';
 
-export const AddTerminology = () => {
-  const {
-    vocabUrl,
-    terminology,
-    setTerminology,
-    initialTerminology,
-    handleCodeAdd,
-  } = useContext(myContext);
+export const AddTable = () => {
+  const { vocabUrl, table, setTable, initialTable, handleVariableAdd } =
+    useContext(myContext);
 
   // const handleCodeAdd = () => {
-  //   setTerminology({
-  //     ...terminology,
-  //     codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
+  //   setTable({
+  //     ...table,
+  //     codes: [...table.codes, { id: getCodeId(), code: '', display: '' }],
   //   });
   // };
 
   useEffect(() => {
-    setTerminology(initialTerminology);
+    setTable(initialTable);
   }, []);
 
   useEffect(
     () => () => {
-      setTerminology(initialTerminology);
+      setTable(initialTable);
     },
     [],
   );
 
   useEffect(() => {
-    if (terminology?.codes?.length === 0) {
-      handleCodeAdd();
+    if (table?.variables?.length === 0) {
+      handleVariableAdd();
     }
   });
 
-  // console.log('TERMINOLOGY: ', JSON.stringify(terminology));
+  // console.log('table: ', JSON.stringify(table));
   const navigate = useNavigate();
 
-  let terminologyDTO = () => {
-    const codesDTO = terminology.codes.map(code => {
-      return { code: code.code, display: code.display };
+  let tableDTO = () => {
+    const variablesDTO = table.variables.map(variable => {
+      return {
+        name: variable.name,
+        description: variable.description,
+        data_type: variable.data_type,
+      };
     });
-    return { ...terminology, codes: codesDTO };
+    return { ...table, variables: variablesDTO };
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    fetch(`${vocabUrl}/Terminology`, {
-      // fetch(`${vocabUrl}/terminologies`, {
+    fetch(`${vocabUrl}/Table`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(terminologyDTO()),
+      body: JSON.stringify(tableDTO()),
     })
       .then(res => res.json())
-      .then(data => navigate(`/terminology/${data?.id}`));
+      .then(data => navigate(`/table/${data?.id}`));
   };
 
   // console.log('code id', codeId);
@@ -75,7 +72,7 @@ export const AddTerminology = () => {
         <div className="image_container">
           <img className="background_image_results" src={Background} />
         </div>
-        <h2>New Terminology</h2>
+        <h2>New Table</h2>
         <div className="name form_wrapper">
           <label className="input_label" htmlFor="terminology_name">
             Name
@@ -85,10 +82,10 @@ export const AddTerminology = () => {
             id="name"
             className="add_term_input name_input"
             type="text"
-            value={terminology.name}
+            value={table?.name}
             onChange={evt => {
-              setTerminology({
-                ...terminology,
+              setTable({
+                ...table,
                 name: evt.target.value,
               });
             }}
@@ -96,17 +93,17 @@ export const AddTerminology = () => {
         </div>
 
         <div className="description form_wrapper">
-          <label className="input_label" htmlFor="terminology_description">
+          <label className="input_label" htmlFor="table_description">
             Description
           </label>
           <input
             id="display"
             className="add_term_input description_input"
             type="text"
-            value={terminology.description}
+            value={table?.description}
             onChange={evt => {
-              setTerminology({
-                ...terminology,
+              setTable({
+                ...table,
                 description: evt.target.value,
               });
             }}
@@ -114,7 +111,7 @@ export const AddTerminology = () => {
         </div>
 
         <div className="url form_wrapper">
-          <label className="input_label" htmlFor="terminology_url">
+          <label className="input_label" htmlFor="table_url">
             URL
           </label>
           <input
@@ -122,18 +119,18 @@ export const AddTerminology = () => {
             id="url"
             className="add_term_input url_input"
             type="text"
-            value={terminology.url}
+            value={table?.url}
             onChange={evt => {
-              setTerminology({
-                ...terminology,
+              setTable({
+                ...table,
                 url: evt.target.value,
               });
             }}
           />
         </div>
 
-        {terminology.codes.map(code => (
-          <AdditionalCodeInput code={code} />
+        {table?.variables?.map(variable => (
+          <AdditionalVariableInput variable={variable} />
         ))}
 
         <button className="manage_term_button" onClick={handleSubmit}>

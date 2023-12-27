@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import './TableStyling.scss';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
@@ -40,7 +39,7 @@ export const TableList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            onClick={() => navigate('/add')}
+            onClick={() => navigate('/addTable')}
           >
             Add Table
           </button>{' '}

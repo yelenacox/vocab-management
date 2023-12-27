@@ -1,18 +1,57 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './TableStyling.scss';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
+import { Enumerations } from './Enumerations';
+import { render } from 'react-dom';
+import { TableRow } from './TableRow';
 
 export const TableDetails = () => {
   const { table, setTable, vocabUrl, loading, setLoading } =
     useContext(myContext);
   const { tableId } = useParams();
+  const [open, setOpen] = useState(false);
+  const [activeRows, setActiveRows] = useState([]);
+  console.log('active ROws', activeRows);
+
+  const addActiveRows = index => {
+    setActiveRows([...activeRows, index]);
+  };
+
+  const removeActiveRow = index => {
+    const rows = activeRows;
+    const indexOfRowIndex = rows.indexOf(index);
+    rows.splice(indexOfRowIndex, 1);
+    setActiveRows(rows);
+  };
 
   useEffect(() => {
     getTableById();
   }, []);
+
+  const handleOpen = (open, set) => {
+    set(open);
+  };
+
+  const renderDecider = index => {
+    console.log('EVALUATING ', activeRows?.includes(index));
+    return activeRows?.includes(index);
+  };
+  const rowIsOpen = index => {
+    return activeRows.includes(index);
+  };
+  const handleRowClick = evt => {
+    const rowIndex = evt.target.id;
+    console.log('HANDLE ROW CLICK EVALUATION', rowIsOpen(rowIndex));
+    if (rowIsOpen(rowIndex)) {
+      removeActiveRow(rowIndex);
+    } else {
+      addActiveRows(rowIndex);
+    }
+    console.log('POST ROW CLICK EVALUATION', rowIsOpen(rowIndex));
+  };
 
   const getTableById = () => {
     fetch(`${vocabUrl}/Table/${tableId}`, {
@@ -23,6 +62,22 @@ export const TableDetails = () => {
     })
       .then(res => res.json())
       .then(data => setTable(data));
+  };
+
+  const getTerminologyById = v => {
+    setLoading(true);
+    fetch(`${vocabUrl}/Terminology/${v?.reference}`, {
+      // fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(data => setTerminology(data))
+      .then(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -139,44 +194,14 @@ export const TableDetails = () => {
               <tbody>
                 {table?.variables?.map((v, index) => {
                   return (
-                    <tr key={v?.name}>
-                      {/* {active !== index ? (
-                        <> */}
-                      <td className="icon_cell">
-                        {/* {' '}
-                            {terminologyEdit && active !== index ? (
-                              <>
-                                <img
-                                  className="small_icon"
-                                  onClick={() => onEdit(index)}
-                                  src={PencilIcon}
-                                />
-                                <DeleteCode
-                                  index={index}
-                                  terminology={terminology}
-                                  setTerminology={setTerminology}
-                                  terminologyId={terminologyId}
-                                />
-                              </>
-                            ) : (
-                              ''
-                            )} */}
-                      </td>
-                      <td className="first_cell">{v?.name}</td>
-                      <td className="second_cell">{v?.description}</td>
-                      <td className="third_cell">{v?.data_type}</td>
-                      {/* </>
-                      ) : terminologyEdit && active === index ? (
-                        <EditCode
-                          codeObject={r}
-                          index={index}
-                          onCancel={onCancel}
-                          setActive={setActive}
-                        />
-                      ) : (
-                        ''
-                      )} */}
-                    </tr>
+                    <>
+                      <TableRow
+                        v={v}
+                        index={index}
+                        key={index}
+                        handleOpen={handleOpen}
+                      />
+                    </>
                   );
                 })}
                 {/* {newCodes?.map((newCode, i) => (
