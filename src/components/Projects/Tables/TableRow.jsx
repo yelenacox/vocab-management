@@ -69,7 +69,11 @@ export const TableRow = ({ v, index, handleOpen }) => {
               </div>
             </tr>
           ) : v?.data_type === 'ENUMERATION' ? (
-            <Enumerations terminologyReference={v} />
+            <tr>
+              <td colSpan="4">
+                <Enumerations terminologyReference={v} />
+              </td>
+            </tr>
           ) : undefined}
         </>
       ) : undefined}
