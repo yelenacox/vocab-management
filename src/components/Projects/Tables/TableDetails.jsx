@@ -17,6 +17,13 @@ export const TableDetails = () => {
     getTableById();
   }, []);
 
+  useEffect(
+    () => () => {
+      setTable({});
+    },
+    [],
+  );
+
   const handleOpen = (open, set) => {
     set(open);
   };

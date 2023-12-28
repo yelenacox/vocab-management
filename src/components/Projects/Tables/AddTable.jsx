@@ -8,13 +8,6 @@ export const AddTable = () => {
   const { vocabUrl, table, setTable, initialTable, handleVariableAdd } =
     useContext(myContext);
 
-  // const handleCodeAdd = () => {
-  //   setTable({
-  //     ...table,
-  //     codes: [...table.codes, { id: getCodeId(), code: '', display: '' }],
-  //   });
-  // };
-
   useEffect(() => {
     setTable(initialTable);
   }, []);
@@ -25,7 +18,6 @@ export const AddTable = () => {
     },
     [],
   );
-
   useEffect(() => {
     if (table?.variables?.length === 0) {
       handleVariableAdd();
@@ -37,11 +29,29 @@ export const AddTable = () => {
 
   let tableDTO = () => {
     const variablesDTO = table.variables.map(variable => {
-      return {
-        name: variable.name,
-        description: variable.description,
-        data_type: variable.data_type,
-      };
+      variable.data_type === 'QUANTITY' || variable.data_type === 'INTEGER'
+        ? {
+            name: variable.name,
+            description: variable.description,
+            data_type: variable.data_type,
+            min: variable.min,
+            max: variable.max,
+            units: variable.units,
+          }
+        : variable.data_type === 'ENUMERATION'
+        ? {
+            name: variable.name,
+            description: variable.description,
+            data_type: variable.data_type,
+            enumerations: {
+              reference: variable.reference,
+            },
+          }
+        : {
+            name: variable.name,
+            description: variable.description,
+            data_type: variable.data_type,
+          };
     });
     return { ...table, variables: variablesDTO };
   };

@@ -14,13 +14,6 @@ export const AddTerminology = () => {
     handleCodeAdd,
   } = useContext(myContext);
 
-  // const handleCodeAdd = () => {
-  //   setTerminology({
-  //     ...terminology,
-  //     codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
-  //   });
-  // };
-
   useEffect(() => {
     setTerminology(initialTerminology);
   }, []);
@@ -61,13 +54,6 @@ export const AddTerminology = () => {
       .then(res => res.json())
       .then(data => navigate(`/terminology/${data?.id}`));
   };
-
-  // console.log('code id', codeId);
-  // const getCodeId = () => {
-  //   const current = codeId;
-  //   setCodeId(codeId + 1);
-  //   return current;
-  // };
 
   return (
     <>
