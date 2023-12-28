@@ -59,13 +59,22 @@ export const TableRow = ({ v, index, handleOpen }) => {
       {open ? (
         <>
           {v?.data_type === 'QUANTITY' || v?.data_type === 'INTEGER' ? (
-            <tr key={`subrow-${index}`}>
-              <td className="icon_cell"></td>
+            <tr className="integer_row" key={`subrow-${index}`}>
+              <td id="first_integer_cell"></td>
               <td className="first_cell"></td>
               <div className="integer_div">
-                <th>min: {v?.min}</th>
-                <th>max: {v?.max}</th>
-                <th>units: {v?.units}</th>
+                <div>
+                  <th>min:</th>
+                  <td id="integer_value"> {v?.min}</td>
+                </div>
+                <div>
+                  <th>max: </th>
+                  <td id="integer_value">{v?.max}</td>
+                </div>
+                <div>
+                  <th>units: </th>
+                  <td id="integer_value">{v?.units}</td>
+                </div>
               </div>
             </tr>
           ) : v?.data_type === 'ENUMERATION' ? (
