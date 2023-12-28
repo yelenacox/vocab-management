@@ -1,16 +1,17 @@
 import { useState, useEffect, useContext } from 'react';
 import { myContext } from '../../../App';
+import './Enumerations.scss';
 
 export const Enumerations = ({ terminologyReference }) => {
   const [enumeration, setEnumeration] = useState({});
   const { loading, setLoading, vocabUrl } = useContext(myContext);
 
-  // useEffect(() => {
-  //   getTerminologyById();
-  // }, []);
+  useEffect(() => {
+    getTerminologyById();
+  }, []);
 
   const getTerminologyById = () => {
-    setLoading(true);
+    // setLoading(true);
     fetch(`${vocabUrl}/${terminologyReference?.enumerations?.reference}`, {
       method: 'GET',
       headers: {
@@ -26,15 +27,49 @@ export const Enumerations = ({ terminologyReference }) => {
 
   return (
     <>
-      poop
-      {/* <tr>
-        <td className="icon_cell"></td>
-        <td className="first_cell"></td>
-        <div className="integer_div">
-          <th>Code: {enumeration?.code}</th>
-          <th>Display: {enumeration?.display}</th>
-        </div>
-      </tr> */}
+      <table className="enumerations_table">
+        <thead className="enumeration_head_wrapper">
+          <th id="first_column"></th>
+          <th id="first_column"></th>
+          <th id="enumeration_header second_column">Code</th>
+          <th id="enumeration_header third_column">Display</th>
+        </thead>
+        <tbody>
+          {enumeration?.codes?.map((e, index) => {
+            return (
+              <>
+                <tr className="enumeration_row" key={index}>
+                  <td id="first_column"></td>
+                  <td id="first_column"></td>
+                  <td id="second_column">{e?.code}</td>
+                  <td id="third_column">{e?.display}</td>
+                </tr>
+              </>
+            );
+          })}
+        </tbody>
+      </table>
     </>
   );
 };
+
+{
+  /* <div id="enumeration_header">
+  <div className="first_cell"></div>
+  <div className="second_cell">Code</div>
+  <div className="third_cell">Display</div>
+</div>
+{
+  enumeration?.codes?.map((e, index) => {
+    return (
+      <>
+        <div key={index}>
+          <div className="first_cell"></div>
+          <div className="second_cell">{e?.code}</div>
+          <div className="third_cell">{e?.display}</div>
+        </div>
+      </>
+    );
+  });
+} */
+}
