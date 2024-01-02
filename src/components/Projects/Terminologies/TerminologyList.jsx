@@ -6,8 +6,8 @@ import { Spinner } from '../../Manager/Spinner';
 import { DeleteTerminology } from './DeleteTerminology';
 
 export const TerminologyList = () => {
-  const [terminologies, setTerminologies] = useState([]);
-  const { loading, setLoading, vocabUrl } = useContext(myContext);
+  const { loading, setLoading, vocabUrl, terminologies, setTerminologies } =
+    useContext(myContext);
 
   const navigate = useNavigate();
 

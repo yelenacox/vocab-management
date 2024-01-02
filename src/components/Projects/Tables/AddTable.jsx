@@ -31,8 +31,8 @@ export const AddTable = () => {
     const variablesDTO = table.variables.map(variable => {
       variable.data_type === 'QUANTITY' || variable.data_type === 'INTEGER'
         ? {
-            name: variable.name,
-            description: variable.description,
+            name: variable.varName,
+            description: variable.varDescription,
             data_type: variable.data_type,
             min: variable.min,
             max: variable.max,
@@ -40,16 +40,16 @@ export const AddTable = () => {
           }
         : variable.data_type === 'ENUMERATION'
         ? {
-            name: variable.name,
-            description: variable.description,
+            name: variable.varName,
+            description: variable.varDescription,
             data_type: variable.data_type,
             enumerations: {
               reference: variable.reference,
             },
           }
         : {
-            name: variable.name,
-            description: variable.description,
+            name: variable.varName,
+            description: variable.varDescription,
             data_type: variable.data_type,
           };
     });
