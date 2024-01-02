@@ -26,6 +26,7 @@ function App() {
   const [codeId, setCodeId] = useState(0);
   const [variableId, setVariableId] = useState(0);
   const [table, setTable] = useState(initialTable);
+  const [terminologies, setTerminologies] = useState([]);
 
   const [terminology, setTerminology] = useState(initialTerminology);
   const [tables, setTables] = useState([]);
@@ -94,6 +95,8 @@ function App() {
         terminology,
         setTerminology,
         initialTerminology,
+        terminologies,
+        setTerminologies,
         codeId,
         setCodeId,
         updateTerminology,

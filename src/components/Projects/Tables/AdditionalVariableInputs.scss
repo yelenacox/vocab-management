@@ -1,0 +1,28 @@
+@import '../../Styling/Variables';
+
+.data_type_inputs {
+  display: flex;
+  flex-direction: row;
+}
+
+.add_variable_input,
+.variable_display_input {
+  @include input_field($margin: 1vh 1vw 0 0);
+}
+
+.add_variable_input {
+  width: 12vw;
+}
+
+.variable_display_input {
+  width: 27.7vw;
+}
+.data_type_select {
+  height: 4vh;
+  margin: 1vh 1vw 0 0;
+
+  font: {
+    size: 16px;
+    family: 'Wix Madefor Display', sans-serif;
+  }
+}
