@@ -11,24 +11,29 @@ export const AdditionalVariableInput = variable => {
     terminologies,
     setTerminologies,
   } = useContext(myContext);
-  const [thisVariable, setThisVariable] = useState(variable);
-  console.log('PROPS: ', variable);
+  console.log('AVI VAR', variable);
+  const [thisVariable, setThisVariable] = useState({
+    name: variable.name,
+    description: variable.description,
+    data_type: variable.data_type,
+  });
+  //   console.log('PROPS: ', variable);
 
   useEffect(() => {
     let variableIndex;
-    table.variables.forEach((v, index) => {
-      console.log('THIS CODE ID: ', v.id === thisVariable.id);
+    table?.variables?.forEach((v, index) => {
+      console.log('THISVARIABLE ', thisVariable);
+      console.log('THIS VARIABLE ID: ', v.id === thisVariable.id);
       if (v.id === thisVariable.id) {
         console.log('FOUND IT', index);
         variableIndex = index;
       }
     });
-    console.log('EXISTING CODE INDEX:', variableIndex);
+    // console.log('EXISTING CODE INDEX:', variableIndex);
     let newTable = table;
     newTable.variables[variableIndex] = thisVariable;
     setTable(newTable);
   }, [thisVariable]);
-  console.log('THISCODE ', thisVariable);
 
   useEffect(() => {
     thisVariable.data_type === 'ENUMERATION' ? getTerminologies() : '';
@@ -182,7 +187,10 @@ export const AdditionalVariableInput = variable => {
                   onChange={evt => {
                     setThisVariable({
                       ...thisVariable,
-                      enumerations: evt.target.value,
+                      enumerations: {
+                        ...enumerations,
+                        reference: evt.target.value,
+                      },
                     });
                   }}
                 >

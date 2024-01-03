@@ -5,16 +5,15 @@ import Background from '../../../../assets/Background.png';
 import { AdditionalVariableInput } from './AdditionalVariableInput';
 
 export const AddTable = () => {
-  const { vocabUrl, table, setTable, initialTable, handleVariableAdd } =
+  const { vocabUrl, table, setTable, resetTable, handleVariableAdd } =
     useContext(myContext);
-
+  console.log('TBL VARS', table.variables);
   useEffect(() => {
-    setTable(initialTable);
+    resetTable();
   }, []);
-
   useEffect(
     () => () => {
-      setTable(initialTable);
+      resetTable();
     },
     [],
   );
@@ -28,6 +27,7 @@ export const AddTable = () => {
   const navigate = useNavigate();
 
   let tableDTO = () => {
+    console.log('TBL VARS JUST BEFOR EFETCH', table.variables);
     const variablesDTO = table.variables.map(variable => {
       variable.data_type === 'QUANTITY' || variable.data_type === 'INTEGER'
         ? {
