@@ -26,13 +26,14 @@ function App() {
   const [codeId, setCodeId] = useState(0);
   const [variableId, setVariableId] = useState(0);
   const [table, setTable] = useState(initialTable);
+  const resetTable = () => setTable(initialTable);
   const [terminologies, setTerminologies] = useState([]);
 
   const [terminology, setTerminology] = useState(initialTerminology);
   const [tables, setTables] = useState([]);
 
   const [loading, setLoading] = useState(false);
-
+  console.log(table);
   const updateTerminology = () =>
     fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
       // fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
@@ -64,6 +65,13 @@ function App() {
   };
 
   const handleVariableAdd = () => {
+    console.log('App.js setting ', {
+      ...table,
+      variables: [
+        ...table.variables,
+        { id: getVariableId(), name: '', description: '', data_type: '' },
+      ],
+    });
     setTable({
       ...table,
       variables: [
@@ -105,6 +113,7 @@ function App() {
         tables,
         setTables,
         table,
+        resetTable,
         setTable,
         handleVariableAdd,
         getVariableId,
