@@ -2,37 +2,21 @@ import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './AdditionalVariableInputs.scss';
 
-export const AdditionalVariableInput = variable => {
+export const AdditionalVariableInput = props => {
+  const { variable } = props;
   const {
     vocabUrl,
     table,
-    setTable,
-    handleVariableAdd,
+    addTableVariable,
     terminologies,
     setTerminologies,
+    updateTableVariable,
+    setLoading,
   } = useContext(myContext);
-  console.log('AVI VAR', variable);
-  const [thisVariable, setThisVariable] = useState({
-    name: variable.name,
-    description: variable.description,
-    data_type: variable.data_type,
-  });
-  //   console.log('PROPS: ', variable);
+  const [thisVariable, setThisVariable] = useState(variable);
 
   useEffect(() => {
-    let variableIndex;
-    table?.variables?.forEach((v, index) => {
-      console.log('THISVARIABLE ', thisVariable);
-      console.log('THIS VARIABLE ID: ', v.id === thisVariable.id);
-      if (v.id === thisVariable.id) {
-        console.log('FOUND IT', index);
-        variableIndex = index;
-      }
-    });
-    // console.log('EXISTING CODE INDEX:', variableIndex);
-    let newTable = table;
-    newTable.variables[variableIndex] = thisVariable;
-    setTable(newTable);
+    updateTableVariable(thisVariable);
   }, [thisVariable]);
 
   useEffect(() => {
@@ -40,6 +24,7 @@ export const AdditionalVariableInput = variable => {
   }, [thisVariable.data_type]);
 
   const getTerminologies = () => {
+    setLoading(true);
     fetch(`${vocabUrl}/Terminology`, {
       method: 'GET',
       headers: {
@@ -47,7 +32,8 @@ export const AdditionalVariableInput = variable => {
       },
     })
       .then(res => res.json())
-      .then(data => setTerminologies(data));
+      .then(data => setTerminologies(data))
+      .then(() => setLoading(false));
   };
 
   return (
@@ -113,7 +99,7 @@ export const AdditionalVariableInput = variable => {
           </div>
           <div className="code_button_wrapper">
             <div className="above_btn"></div>
-            <button className="manage_code_button" onClick={handleVariableAdd}>
+            <button className="manage_code_button" onClick={addTableVariable}>
               +
             </button>
           </div>
@@ -183,12 +169,11 @@ export const AdditionalVariableInput = variable => {
                 </label>
                 <select
                   className="data_type_select"
-                  value={table.enumerations?.reference}
+                  value={table?.enumerations?.reference}
                   onChange={evt => {
                     setThisVariable({
                       ...thisVariable,
                       enumerations: {
-                        ...enumerations,
                         reference: evt.target.value,
                       },
                     });
@@ -198,8 +183,8 @@ export const AdditionalVariableInput = variable => {
                   {terminologies.map(term => {
                     return (
                       <>
-                        <option value={`Terminology/${term.id}`}>
-                          {term.name}
+                        <option value={`Terminology/${term.id}`} key={term.id}>
+                          {term.name ? term.name : term.id}
                         </option>
                       </>
                     );

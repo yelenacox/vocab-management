@@ -6,14 +6,12 @@ export const DeleteTable = ({ table, setTables }) => {
   const { vocabUrl } = useContext(myContext);
 
   const handleDelete = evt => {
-    // fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
-    fetch(`${vocabUrl}/tables/${table.id}`, {
+    fetch(`${vocabUrl}/Table/${table.id}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
       .then(() => {
-        // return fetch(`${vocabUrl}/Terminology`);
-        return fetch(`${vocabUrl}/tables/`);
+        return fetch(`${vocabUrl}/Table`);
       })
       .then(response => response.json())
       .then(updatedTables => {

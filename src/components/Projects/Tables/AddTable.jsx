@@ -5,9 +5,14 @@ import Background from '../../../../assets/Background.png';
 import { AdditionalVariableInput } from './AdditionalVariableInput';
 
 export const AddTable = () => {
-  const { vocabUrl, table, setTable, resetTable, handleVariableAdd } =
-    useContext(myContext);
-  console.log('TBL VARS', table.variables);
+  const {
+    vocabUrl,
+    table,
+    setTable,
+    resetTable,
+    addTableVariable /*handleVariableAdd*/,
+  } = useContext(myContext);
+  const [variableId, setVariableId] = useState(0);
   useEffect(() => {
     resetTable();
   }, []);
@@ -17,41 +22,18 @@ export const AddTable = () => {
     },
     [],
   );
+
   useEffect(() => {
     if (table?.variables?.length === 0) {
-      handleVariableAdd();
+      addTableVariable();
     }
   });
 
-  // console.log('table: ', JSON.stringify(table));
   const navigate = useNavigate();
 
   let tableDTO = () => {
-    console.log('TBL VARS JUST BEFOR EFETCH', table.variables);
     const variablesDTO = table.variables.map(variable => {
-      variable.data_type === 'QUANTITY' || variable.data_type === 'INTEGER'
-        ? {
-            name: variable.varName,
-            description: variable.varDescription,
-            data_type: variable.data_type,
-            min: variable.min,
-            max: variable.max,
-            units: variable.units,
-          }
-        : variable.data_type === 'ENUMERATION'
-        ? {
-            name: variable.varName,
-            description: variable.varDescription,
-            data_type: variable.data_type,
-            enumerations: {
-              reference: variable.reference,
-            },
-          }
-        : {
-            name: variable.varName,
-            description: variable.varDescription,
-            data_type: variable.data_type,
-          };
+      return { ...variable, id: undefined };
     });
     return { ...table, variables: variablesDTO };
   };
@@ -68,13 +50,6 @@ export const AddTable = () => {
       .then(res => res.json())
       .then(data => navigate(`/table/${data?.id}`));
   };
-
-  // console.log('code id', codeId);
-  // const getCodeId = () => {
-  //   const current = codeId;
-  //   setCodeId(codeId + 1);
-  //   return current;
-  // };
 
   return (
     <>
@@ -138,7 +113,6 @@ export const AddTable = () => {
             }}
           />
         </div>
-
         {table?.variables?.map(variable => (
           <AdditionalVariableInput variable={variable} />
         ))}

@@ -52,24 +52,3 @@ export const Enumerations = ({ terminologyReference }) => {
     </>
   );
 };
-
-{
-  /* <div id="enumeration_header">
-  <div className="first_cell"></div>
-  <div className="second_cell">Code</div>
-  <div className="third_cell">Display</div>
-</div>
-{
-  enumeration?.codes?.map((e, index) => {
-    return (
-      <>
-        <div key={index}>
-          <div className="first_cell"></div>
-          <div className="second_cell">{e?.code}</div>
-          <div className="third_cell">{e?.display}</div>
-        </div>
-      </>
-    );
-  });
-} */
-}

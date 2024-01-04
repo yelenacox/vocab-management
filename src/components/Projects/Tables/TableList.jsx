@@ -18,8 +18,6 @@ export const TableList = () => {
   const getTables = () => {
     setLoading(true);
     fetch(`${vocabUrl}/Table`, {
-      // fetch(`${vocabUrl}/tables`, {
-      // mode: 'cors',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
