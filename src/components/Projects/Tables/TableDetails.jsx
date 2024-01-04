@@ -19,7 +19,6 @@ export const TableDetails = () => {
 
   useEffect(
     () => () => {
-      console.log('TableDetail setting ', {});
       setTable({});
     },
     [],
@@ -38,7 +37,6 @@ export const TableDetails = () => {
     })
       .then(res => res.json())
       .then(it => {
-        console.log('fetch setting', it);
         return it;
       })
       .then(data => setTable(data));

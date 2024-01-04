@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { OntologySearch } from './components/Search/OntologySearch';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { NavBar } from './components/Nav/NavBar';
@@ -33,7 +33,34 @@ function App() {
   const [tables, setTables] = useState([]);
 
   const [loading, setLoading] = useState(false);
-  console.log(table);
+
+  const addTableVariable = () => {
+    const tableVars = table.variables;
+    tableVars.push({ id: getVariableId() });
+    setTable({
+      ...table,
+      variables: tableVars,
+    });
+  };
+  console.log('THING!', table.variables);
+  const removeTableVariable = variable => {
+    const varIndex = table.variables.findIndex(variable);
+    const tableVars = table.variables.splice(varIndex, 1);
+    setTable({ ...table, variables: tableVars });
+  };
+  const resetTableVariables = () => {
+    setTable({ ...table, variables: [] });
+  };
+  const updateTableVariable = variable => {
+    if (variable.id !== undefined) {
+      const tableVars = table.variables;
+      const varIndex = tableVars.findIndex(v => v.id === variable.id);
+      if (varIndex > -1) {
+        tableVars[varIndex] = variable;
+        setTable({ ...table, variables: tableVars });
+      }
+    }
+  };
   const updateTerminology = () =>
     fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
       // fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
@@ -64,22 +91,22 @@ function App() {
     });
   };
 
-  const handleVariableAdd = () => {
-    console.log('App.js setting ', {
-      ...table,
-      variables: [
-        ...table.variables,
-        { id: getVariableId(), name: '', description: '', data_type: '' },
-      ],
-    });
-    setTable({
-      ...table,
-      variables: [
-        ...table.variables,
-        { id: getVariableId(), name: '', description: '', data_type: '' },
-      ],
-    });
-  };
+  // const handleVariableAdd = () => {
+  //   // console.log('App.js setting ', {
+  //   //   ...table,
+  //   //   variables: [
+  //   //     ...table.variables,
+  //   //     { id: getVariableId(), name: '', description: '', data_type: '' },
+  //   //   ],
+  //   // });
+  //   setTable({
+  //     ...table,
+  //     variables: [
+  //       ...table.variables,
+  //       { id: getVariableId(), name: '', description: '', data_type: '' },
+  //     ],
+  //   });
+  // };
 
   return (
     <myContext.Provider
@@ -115,8 +142,12 @@ function App() {
         table,
         resetTable,
         setTable,
-        handleVariableAdd,
-        getVariableId,
+        // handleVariableAdd,
+        // getVariableId,
+        updateTableVariable,
+        resetTableVariables,
+        removeTableVariable,
+        addTableVariable,
       }}
     >
       <Routes>

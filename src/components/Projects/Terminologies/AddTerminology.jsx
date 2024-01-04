@@ -44,7 +44,6 @@ export const AddTerminology = () => {
   const handleSubmit = event => {
     event.preventDefault();
     fetch(`${vocabUrl}/Terminology`, {
-      // fetch(`${vocabUrl}/terminologies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
