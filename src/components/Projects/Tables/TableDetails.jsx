@@ -174,6 +174,11 @@ export const TableDetails = () => {
                         index={index}
                         key={index}
                         handleOpen={handleOpen}
+                        tableEdit={tableEdit}
+                        active={active}
+                        table={table}
+                        setTable={setTable}
+                        tableId={tableId}
                       />
                     </>
                   );
