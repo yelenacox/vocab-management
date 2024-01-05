@@ -5,14 +5,8 @@ import Background from '../../../../assets/Background.png';
 import { AdditionalVariableInput } from './AdditionalVariableInput';
 
 export const AddTable = () => {
-  const {
-    vocabUrl,
-    table,
-    setTable,
-    resetTable,
-    addTableVariable /*handleVariableAdd*/,
-  } = useContext(myContext);
-  const [variableId, setVariableId] = useState(0);
+  const { vocabUrl, table, setTable, resetTable, addTableVariable } =
+    useContext(myContext);
   useEffect(() => {
     resetTable();
   }, []);
@@ -113,13 +107,19 @@ export const AddTable = () => {
             }}
           />
         </div>
-        {table?.variables?.map(variable => (
-          <AdditionalVariableInput variable={variable} />
+        {table?.variables?.map((variable, index) => (
+          <AdditionalVariableInput variable={variable} index={index} />
         ))}
 
         <button className="manage_term_button" onClick={handleSubmit}>
           Save
         </button>
+        {/* <button
+          className="manage_term_button"
+          onClick={() => navigate('/projects')}
+        >
+          Cancel
+        </button> */}
       </article>
     </>
   );

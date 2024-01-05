@@ -18,7 +18,6 @@ export const Terminology = () => {
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [urlEdit, setUrlEdit] = useState(false);
   const [active, setActive] = useState(-1);
-  // const [activeRows, setActiveRows] = useState([]);
 
   const { terminologyId } = useParams();
   const {
@@ -29,12 +28,9 @@ export const Terminology = () => {
     setLoading,
     codeId,
     setCodeId,
-    initialTerminology,
-    updateTerminology,
   } = useContext(myContext);
 
   const [newCodes, setNewCodes] = useState([]);
-  const [newName, setNewName] = useState(terminology.name);
   useEffect(() => {
     getTerminologyById();
   }, []);
@@ -42,7 +38,6 @@ export const Terminology = () => {
   const getTerminologyById = () => {
     setLoading(true);
     fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
-      // fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -75,12 +70,6 @@ export const Terminology = () => {
   const onCancel = () => {
     setActive(-1);
   };
-
-  // const updateCode = (code, index) => {
-  //   terminology.codes[index] = code;
-  //   updateTerminology();
-  //   setActive(-1);
-  // };
 
   return (
     <>
@@ -126,14 +115,16 @@ export const Terminology = () => {
               </>
             ) : terminologyEdit && nameEdit === false ? (
               <>
-                <div className="initial_div">
-                  <img
-                    className="small_icon"
-                    onClick={() => setNameEdit(true)}
-                    src={PencilIcon}
-                  />
+                <div className="edit_div">
+                  <div className="initial_div">
+                    <img
+                      className="small_icon"
+                      onClick={() => setNameEdit(true)}
+                      src={PencilIcon}
+                    />
+                  </div>
+                  {terminology?.name ? terminology?.name : terminology?.id}
                 </div>
-                {terminology?.name ? terminology?.name : terminology?.id}
               </>
             ) : terminologyEdit && nameEdit === true ? (
               <EditName

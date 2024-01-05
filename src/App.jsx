@@ -42,12 +42,15 @@ function App() {
       variables: tableVars,
     });
   };
-  console.log('THING!', table.variables);
   const removeTableVariable = variable => {
-    const varIndex = table.variables.findIndex(variable);
-    const tableVars = table.variables.splice(varIndex, 1);
+    const varIndex = table.variables.findIndex(v => v.id === variable.id);
+    const tableVars = table.variables;
+    tableVars.splice(varIndex, 1);
     setTable({ ...table, variables: tableVars });
+
+    console.log(table);
   };
+
   const resetTableVariables = () => {
     setTable({ ...table, variables: [] });
   };
@@ -63,7 +66,6 @@ function App() {
   };
   const updateTerminology = () =>
     fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
-      // fetch(`${vocabUrl}/terminologies/${terminology.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -72,6 +74,17 @@ function App() {
     })
       .then(res => res.json())
       .then(data => setTerminology(data));
+
+  const updateTable = () =>
+    fetch(`${vocabUrl}/Table/${table.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(table),
+    })
+      .then(res => res.json())
+      .then(data => setTable(data));
 
   const getCodeId = () => {
     const current = codeId;
@@ -90,23 +103,6 @@ function App() {
       codes: [...terminology.codes, { id: getCodeId(), code: '', display: '' }],
     });
   };
-
-  // const handleVariableAdd = () => {
-  //   // console.log('App.js setting ', {
-  //   //   ...table,
-  //   //   variables: [
-  //   //     ...table.variables,
-  //   //     { id: getVariableId(), name: '', description: '', data_type: '' },
-  //   //   ],
-  //   // });
-  //   setTable({
-  //     ...table,
-  //     variables: [
-  //       ...table.variables,
-  //       { id: getVariableId(), name: '', description: '', data_type: '' },
-  //     ],
-  //   });
-  // };
 
   return (
     <myContext.Provider
@@ -142,12 +138,11 @@ function App() {
         table,
         resetTable,
         setTable,
-        // handleVariableAdd,
-        // getVariableId,
         updateTableVariable,
         resetTableVariables,
         removeTableVariable,
         addTableVariable,
+        updateTable,
       }}
     >
       <Routes>
