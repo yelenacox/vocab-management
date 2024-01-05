@@ -9,18 +9,14 @@ export const AdditionalCodeInput = props => {
   useEffect(() => {
     let codeIndex;
     terminology.codes.forEach((code, index) => {
-      // console.log('THIS CODE ID: ', code.id === props.code.id);
       if (code.id === thisCode.id) {
-        // console.log('FOUND IT', index);
         codeIndex = index;
       }
     });
-    // console.log('EXISTING CODE INDEX:', codeIndex);
     let newTerminology = terminology;
     newTerminology.codes[codeIndex] = thisCode;
     setTerminology(newTerminology);
   }, [thisCode]);
-  // console.log('THISCODE ', thisCode);
 
   return (
     <>

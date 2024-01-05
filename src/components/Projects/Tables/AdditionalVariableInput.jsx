@@ -3,7 +3,7 @@ import { myContext } from '../../../App';
 import './AdditionalVariableInputs.scss';
 
 export const AdditionalVariableInput = props => {
-  const { variable } = props;
+  const { variable, index } = props;
   const {
     vocabUrl,
     table,
@@ -12,12 +12,13 @@ export const AdditionalVariableInput = props => {
     setTerminologies,
     updateTableVariable,
     setLoading,
+    removeTableVariable,
   } = useContext(myContext);
   const [thisVariable, setThisVariable] = useState(variable);
 
   useEffect(() => {
     updateTableVariable(thisVariable);
-  }, [thisVariable]);
+  }, [thisVariable, table.variables]);
 
   useEffect(() => {
     thisVariable.data_type === 'ENUMERATION' ? getTerminologies() : '';
@@ -102,6 +103,16 @@ export const AdditionalVariableInput = props => {
             <button className="manage_code_button" onClick={addTableVariable}>
               +
             </button>
+            {/* {table.variables.length > 1 ? (
+              <button
+                className="manage_code_button"
+                onClick={() => removeTableVariable(thisVariable)}
+              >
+                -
+              </button>
+            ) : (
+              ''
+            )} */}
           </div>
         </div>
         <div className="data_type_inputs">

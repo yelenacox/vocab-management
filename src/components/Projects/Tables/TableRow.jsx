@@ -64,15 +64,15 @@ export const TableRow = ({ v, index, handleOpen }) => {
               <td className="first_cell"></td>
               <div className="integer_div">
                 <div>
-                  <th>min:</th>
+                  <th className="numerical_header">min:</th>
                   <td id="integer_value"> {v?.min}</td>
                 </div>
                 <div>
-                  <th>max: </th>
+                  <th className="numerical_header">max: </th>
                   <td id="integer_value">{v?.max}</td>
                 </div>
                 <div>
-                  <th>units: </th>
+                  <th className="numerical_header">units: </th>
                   <td id="integer_value">{v?.units}</td>
                 </div>
               </div>

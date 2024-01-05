@@ -7,8 +7,17 @@ import { Spinner } from '../../Manager/Spinner';
 import { Enumerations } from './Enumerations';
 import { render } from 'react-dom';
 import { TableRow } from './TableRow';
+import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
+import { EditNameTable } from './EditNameTable';
+import { EditDescriptionTable } from './EditDescriptionTable';
+import { EditUrlTable } from './EditUrlTable';
 
 export const TableDetails = () => {
+  const [tableEdit, setTableEdit] = useState(false);
+  const [nameEdit, setNameEdit] = useState(false);
+  const [urlEdit, setUrlEdit] = useState(false);
+  const [descriptionEdit, setDescriptionEdit] = useState(false);
+  const [active, setActive] = useState(-1);
   const { table, setTable, vocabUrl, loading, setLoading } =
     useContext(myContext);
   const { tableId } = useParams();
@@ -23,6 +32,14 @@ export const TableDetails = () => {
     },
     [],
   );
+
+  const onEdit = index => {
+    setActive(index);
+  };
+
+  const onCancel = () => {
+    setActive(-1);
+  };
 
   const handleOpen = (open, set) => {
     set(open);
@@ -52,20 +69,19 @@ export const TableDetails = () => {
             <img className="background_image_results" src={Background} />
           </div>
           <div className="terminology_sub_nav">
-            {/* <div className="add_code_link">
+            <div className="add_code_link">
               <button
                 className="manage_term_button"
                 onClick={() => {
-                  setTerminologyEdit(!terminologyEdit),
-                    onCancel(),
-                    setNameEdit(false);
+                  setTableEdit(!tableEdit);
+                  onCancel(), setNameEdit(false);
                   setDescriptionEdit(false);
                   setUrlEdit(false);
                 }}
               >
-                {terminologyEdit ? 'View' : 'Manage'}
+                {tableEdit ? 'View' : 'Manage'}
               </button>
-            </div> */}
+            </div>
             {/* {terminologyEdit ? (
               <div className="add_code_link">
                 <button className="manage_term_button" onClick={handleInputAdd}>
@@ -77,44 +93,48 @@ export const TableDetails = () => {
             )} */}
           </div>
           <div className="terminology_details terminology_name">
-            {/* {!terminologyEdit ? (
-              <> */}
-            <div className="initial_div"></div>
-
-            {table?.name ? table?.name : table?.id}
-            {/* </>
-            ) : terminologyEdit && nameEdit === false ? (
+            {!tableEdit ? (
               <>
-                <div className="initial_div">
-                  <img
-                    className="small_icon"
-                    onClick={() => setNameEdit(true)}
-                    src={PencilIcon}
-                  />
-                </div>
-                {terminology?.name ? terminology?.name : terminology?.id}
+                <div className="initial_div"></div>
+
+                {table?.name ? table?.name : table?.id}
               </>
-            ) : terminologyEdit && nameEdit === true ? (
-              <EditName
-                terminology={terminology}
-                setTerminology={setTerminology}
+            ) : tableEdit && nameEdit === false ? (
+              <>
+                <div className="edit_div">
+                  <div className="initial_div">
+                    <img
+                      className="small_icon"
+                      onClick={() => setNameEdit(true)}
+                      src={PencilIcon}
+                    />
+                  </div>
+                  <div>{table?.name ? table?.name : table?.id}</div>
+                </div>
+              </>
+            ) : tableEdit && nameEdit === true ? (
+              <EditNameTable
+                table={table}
+                setTable={setTable}
                 setNameEdit={setNameEdit}
               />
             ) : (
               ''
-            )} */}
+            )}
           </div>
           <div className="terminology_details terminology_desc">
-            {/* {!terminologyEdit ? (
-              <> */}
-            <div className="initial_div empty_description"></div>
-            {table?.description ? (
-              table?.description
-            ) : (
-              <span className="no_description">No description provided.</span>
-            )}
-            {/* </>
-            ) : terminologyEdit && descriptionEdit === false ? (
+            {!tableEdit ? (
+              <>
+                <div className="initial_div empty_description"></div>
+                {table?.description ? (
+                  table?.description
+                ) : (
+                  <span className="no_description">
+                    No description provided.
+                  </span>
+                )}
+              </>
+            ) : tableEdit && descriptionEdit === false ? (
               <>
                 <div className="initial_div empty_description">
                   <img
@@ -123,25 +143,17 @@ export const TableDetails = () => {
                     src={PencilIcon}
                   />
                 </div>
-                {terminology?.description}
-                {/* {terminology?.description ? (
-                  terminology.description
-                ) : (
-                  <>
-                    <img className="terminology_back" src={BackArrow} />
-                    description
-                  </>
-                )} */}
-            {/* </>
-            ) : terminologyEdit && descriptionEdit === true ? (
-              <EditDescription
-                terminology={terminology}
-                setTerminology={setTerminology}
+                {table?.description}
+              </>
+            ) : tableEdit && descriptionEdit === true ? (
+              <EditDescriptionTable
+                table={table}
+                setTable={setTable}
                 setDescriptionEdit={setDescriptionEdit}
               />
             ) : (
               ''
-            )}  */}
+            )}
           </div>
           <div className="table_container">
             <table className="table">
@@ -186,12 +198,12 @@ export const TableDetails = () => {
             ''
           )} */}
             <div className="terminology_details">
-              {/* {!terminologyEdit ? (
-                <> */}
-              <div className="initial_div"></div>
-              {table?.url}
-              {/* </>
-              ) : terminologyEdit && urlEdit === false ? (
+              {!tableEdit ? (
+                <>
+                  <div className="initial_div"></div>
+                  {table?.url}
+                </>
+              ) : tableEdit && urlEdit === false ? (
                 <>
                   <div className="initial_div">
                     <img
@@ -200,17 +212,17 @@ export const TableDetails = () => {
                       src={PencilIcon}
                     />
                   </div>
-                  {terminology?.url}
+                  {table?.url}
                 </>
-              ) : terminologyEdit && urlEdit === true ? (
-                <EditUrl
-                  terminology={terminology}
-                  setTerminology={setTerminology}
+              ) : tableEdit && urlEdit === true ? (
+                <EditUrlTable
+                  table={table}
+                  setTable={setTable}
                   setUrlEdit={setUrlEdit}
                 />
               ) : (
                 ''
-              )} */}
+              )}
             </div>
           </div>
         </div>
