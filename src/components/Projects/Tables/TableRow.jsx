@@ -1,7 +1,18 @@
 import { useState } from 'react';
 import { Enumerations } from './Enumerations';
+import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
+import { DeleteVariable } from './DeleteVariable';
 
-export const TableRow = ({ v, index, handleOpen }) => {
+export const TableRow = ({
+  v,
+  index,
+  handleOpen,
+  tableEdit,
+  active,
+  table,
+  setTable,
+  tableId,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -10,24 +21,24 @@ export const TableRow = ({ v, index, handleOpen }) => {
         {/* {active !== index ? (
                         <> */}
         <td className="icon_cell">
-          {/* {' '}
-                            {terminologyEdit && active !== index ? (
-                              <>
-                                <img
-                                  className="small_icon"
-                                  onClick={() => onEdit(index)}
-                                  src={PencilIcon}
-                                />
-                                <DeleteCode
-                                  index={index}
-                                  terminology={terminology}
-                                  setTerminology={setTerminology}
-                                  terminologyId={terminologyId}
-                                />
-                              </>
-                            ) : (
-                              ''
-                            )} */}
+          {' '}
+          {tableEdit && active !== index ? (
+            <>
+              <img
+                className="small_icon"
+                onClick={() => onEdit(index)}
+                src={PencilIcon}
+              />
+              <DeleteVariable
+                index={index}
+                table={table}
+                setTable={setTable}
+                tableId={tableId}
+              />
+            </>
+          ) : (
+            ''
+          )}
         </td>
         <td className="first_cell">{v?.name}</td>
         <td className="second_cell">{v?.description}</td>
