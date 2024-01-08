@@ -24,11 +24,11 @@ export const TableRow = ({
           {' '}
           {tableEdit && active !== index ? (
             <>
-              <img
+              {/* <img
                 className="small_icon"
                 onClick={() => onEdit(index)}
                 src={PencilIcon}
-              />
+              /> */}
               <DeleteVariable
                 index={index}
                 table={table}

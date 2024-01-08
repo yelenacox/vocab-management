@@ -143,6 +143,7 @@ function App() {
         removeTableVariable,
         addTableVariable,
         updateTable,
+        getVariableId,
       }}
     >
       <Routes>

@@ -11,7 +11,6 @@ export const Enumerations = ({ terminologyReference }) => {
   }, []);
 
   const getTerminologyById = () => {
-    // setLoading(true);
     fetch(`${vocabUrl}/${terminologyReference?.enumerations?.reference}`, {
       method: 'GET',
       headers: {
@@ -19,10 +18,7 @@ export const Enumerations = ({ terminologyReference }) => {
       },
     })
       .then(res => res.json())
-      .then(data => setEnumeration(data))
-      .then(() => {
-        setLoading(false);
-      });
+      .then(data => setEnumeration(data));
   };
 
   return (

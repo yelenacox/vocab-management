@@ -11,6 +11,7 @@ import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import { EditNameTable } from './EditNameTable';
 import { EditDescriptionTable } from './EditDescriptionTable';
 import { EditUrlTable } from './EditUrlTable';
+import { AddVariable } from './AddVariable';
 
 export const TableDetails = () => {
   const [tableEdit, setTableEdit] = useState(false);
@@ -18,7 +19,8 @@ export const TableDetails = () => {
   const [urlEdit, setUrlEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [active, setActive] = useState(-1);
-  const { table, setTable, vocabUrl, loading, setLoading } =
+  const [newVars, setNewVars] = useState([]);
+  const { table, setTable, vocabUrl, loading, setLoading, getVariableId } =
     useContext(myContext);
   const { tableId } = useParams();
 
@@ -43,6 +45,16 @@ export const TableDetails = () => {
 
   const handleOpen = (open, set) => {
     set(open);
+  };
+
+  const handleInputAdd = () => {
+    const newVar = {
+      name: '',
+      description: '',
+      data_type: '',
+      id: getVariableId(),
+    };
+    setNewVars([...newVars, newVar]);
   };
 
   const getTableById = () => {
@@ -82,15 +94,15 @@ export const TableDetails = () => {
                 {tableEdit ? 'View' : 'Manage'}
               </button>
             </div>
-            {/* {terminologyEdit ? (
+            {tableEdit ? (
               <div className="add_code_link">
                 <button className="manage_term_button" onClick={handleInputAdd}>
-                  Add Code
+                  Add Variable
                 </button>
               </div>
             ) : (
               ''
-            )} */}
+            )}
           </div>
           <div className="terminology_details terminology_name">
             {!tableEdit ? (
@@ -183,18 +195,19 @@ export const TableDetails = () => {
                     </>
                   );
                 })}
-                {/* {newCodes?.map((newCode, i) => (
-                  <tr key={`newCode${newCode.id}`}>
-                    <AddCode
-                      code={newCode}
+
+                {newVars?.map((newVar, i) => (
+                  <tr key={`newVars${newVar.id}`}>
+                    <AddVariable
+                      variable={newVar}
                       i={i}
-                      newCode={newCode}
-                      newCodes={newCodes}
-                      setNewCodes={setNewCodes}
-                      terminologyId={terminologyId}
+                      newVar={newVar}
+                      newVars={newVars}
+                      setNewVars={setNewVars}
+                      tableId={tableId}
                     />
                   </tr>
-                ))} */}
+                ))}
               </tbody>
             </table>
             {/* {newCodes?.length > 0 ? (
