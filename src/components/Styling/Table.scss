@@ -1,7 +1,7 @@
 @import '../Styling/Variables';
 
 table,
-td:not(.icon_cell) {
+td:not(.icon_cell, .input_no_border) {
   border-bottom: 1px solid $greyColor;
   border-collapse: collapse;
 }
@@ -46,6 +46,13 @@ td:not(.icon_cell, .row_input_cell) {
 
 .first_cell {
   width: 15vw;
+}
+.second_cell {
+  width: 29vw;
+}
+
+.third_cell {
+  width: 8vw;
 }
 
 .delete_cell {
