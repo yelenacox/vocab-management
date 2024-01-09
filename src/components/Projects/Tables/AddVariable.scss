@@ -22,3 +22,22 @@
     family: 'Wix Madefor Display', sans-serif;
   }
 }
+
+.max_cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.min_input,
+.max_input,
+.units_input {
+  @include input_field($margin: 0 0 0 0);
+}
+
+.units_input {
+  width: 7vw;
+}
+
+.min_input {
+  width: 14vw;
+}

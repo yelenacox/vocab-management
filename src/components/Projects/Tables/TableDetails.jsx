@@ -12,6 +12,7 @@ import { EditNameTable } from './EditNameTable';
 import { EditDescriptionTable } from './EditDescriptionTable';
 import { EditUrlTable } from './EditUrlTable';
 import { AddVariable } from './AddVariable';
+import { AddVariableDataType } from './AddVariableDataType';
 
 export const TableDetails = () => {
   const [tableEdit, setTableEdit] = useState(false);
@@ -203,7 +204,7 @@ export const TableDetails = () => {
                 })}
 
                 {newVars?.map((newVar, i) => (
-                  <tr key={`newVars${newVar.id}`}>
+                  <>
                     <AddVariable
                       variable={newVar}
                       i={i}
@@ -212,7 +213,7 @@ export const TableDetails = () => {
                       setNewVars={setNewVars}
                       tableId={tableId}
                     />
-                  </tr>
+                  </>
                 ))}
               </tbody>
             </table>
