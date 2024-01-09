@@ -155,7 +155,13 @@ export const TableDetails = () => {
                     src={PencilIcon}
                   />
                 </div>
-                {table?.description}
+                {table?.description ? (
+                  table?.description
+                ) : (
+                  <span className="no_description">
+                    No description provided.
+                  </span>
+                )}
               </>
             ) : tableEdit && descriptionEdit === true ? (
               <EditDescriptionTable

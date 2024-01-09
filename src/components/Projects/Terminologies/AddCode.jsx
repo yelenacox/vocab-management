@@ -35,12 +35,7 @@ export const AddCode = ({
   };
 
   const handleAddCode = (e, i) => {
-    // const filterEmpty = newCodes.filter(
-    //   r => r.code !== '' || r.description !== '',
-    // );
-
     const filterByRowId = newCodes.filter(r => r.id === thisCode.id);
-    // console.log(filterByRowId);
     const newCodesDTO = filterByRowId.map(code => {
       return { code: code.code, display: code.display };
     });
@@ -50,7 +45,6 @@ export const AddCode = ({
     };
 
     fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
-      // fetch(`${vocabUrl}/terminologies/${terminologyId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
