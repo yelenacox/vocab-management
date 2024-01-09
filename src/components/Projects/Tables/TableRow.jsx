@@ -21,7 +21,6 @@ export const TableRow = ({
         {/* {active !== index ? (
                         <> */}
         <td className="icon_cell">
-          {' '}
           {tableEdit && active !== index ? (
             <>
               {/* <img

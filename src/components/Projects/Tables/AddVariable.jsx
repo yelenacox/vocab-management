@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { myContext } from '../../../App';
-// import './AddCode.scss';
+import './AddVariable.scss';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
 
@@ -12,14 +12,8 @@ export const AddVariable = ({
   tableId,
   i,
 }) => {
-  const {
-    table,
-    setTable,
-    vocabUrl,
-    initialTable,
-    terminologies,
-    setTerminologies,
-  } = useContext(myContext);
+  const { table, setTable, vocabUrl, terminologies, setTerminologies } =
+    useContext(myContext);
   const [thisVariable, setThisVariable] = useState(variable);
 
   useEffect(() => {
@@ -92,7 +86,7 @@ export const AddVariable = ({
           onClick={e =>
             thisVariable.name !== '' && thisVariable.description !== ''
               ? handleAddCode(i)
-              : window.alert('Please fill in the name and description.')
+              : window.alert('Please fill out the name and description.')
           }
           src={SaveIcon}
         />
@@ -102,11 +96,11 @@ export const AddVariable = ({
           src={CancelIcon}
         />
       </td>
-      <td className="add_code row_input_cell">
+      <td className="row_input_cell first_cell">
         <input
           autoFocus
           id="name"
-          className="code_input code_input_field"
+          className="var_input"
           type="text"
           value={thisVariable.name}
           onChange={evt => {
@@ -117,10 +111,10 @@ export const AddVariable = ({
           }}
         />
       </td>
-      <td className="row_input_cell">
+      <td className="row_input_cell second_cell">
         <input
-          id="code_description"
-          className="code_description_input code_input_field"
+          id="variable_description"
+          className="var_description_input var_input_field"
           type="text"
           value={thisVariable.description}
           onChange={evt => {
@@ -132,9 +126,9 @@ export const AddVariable = ({
           }}
         />
       </td>
-      <td className="data_type form_wrapper">
+      <td className="data_type_cell row_input_cell form_wrapper third_cell">
         <select
-          className="data_type_select"
+          className="data_type_select_input"
           value={table.data_type}
           onChange={evt => {
             setThisVariable({
@@ -150,7 +144,7 @@ export const AddVariable = ({
           <option value="ENUMERATION">Enumeration</option>
         </select>
       </td>
-      <div className="data_type_inputs">
+      <tr className="data_type_inputs">
         {thisVariable.data_type === 'INTEGER' ||
         thisVariable.data_type === 'QUANTITY' ? (
           <>
@@ -241,7 +235,7 @@ export const AddVariable = ({
         ) : (
           ''
         )}
-      </div>
+      </tr>
     </>
   );
 };
