@@ -26,7 +26,7 @@ export const EditName = ({ terminology, setTerminology, setNameEdit }) => {
 
       <input
         id="name"
-        className="terminology_input name_input input_field"
+        className="terminology_input input_field"
         type="text"
         value={terminology.name}
         onChange={evt => {

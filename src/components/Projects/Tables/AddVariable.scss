@@ -10,7 +10,7 @@
 }
 
 .var_description_input {
-  width: 29vw;
+  width: 28vw;
 }
 
 .data_type_select_input {
@@ -40,4 +40,11 @@
 
 .min_input {
   width: 14vw;
+  padding-left: 0.7vw;
+}
+
+.max_input {
+  width: 28vw;
+
+  padding-left: 0.7vw;
 }

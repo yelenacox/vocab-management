@@ -1,0 +1,13 @@
+@import '../../Styling/Variables';
+
+.edit_var_name {
+  @include input_field($margin: 0 0 0 0);
+  width: 14vw;
+  padding-left: 0.7vw;
+}
+
+.edit_var_desc {
+  @include input_field($margin: 0 0 0 0);
+  padding-left: 0.8vw;
+  width: 28vw;
+}

@@ -59,7 +59,7 @@ export const AddTable = () => {
           <input
             autoFocus
             id="name"
-            className="add_term_input name_input"
+            className="add_term_input"
             type="text"
             value={table?.name}
             onChange={evt => {

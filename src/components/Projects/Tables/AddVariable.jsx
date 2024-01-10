@@ -6,7 +6,7 @@ import CancelIcon from '../../../../assets/cancel_icon.png';
 import { AddVariableDataType } from './AddVariableDataType';
 
 export const AddVariable = ({ variable, newVars, setNewVars, tableId, i }) => {
-  const { table, setTable } = useContext(myContext);
+  const { table, setTable, vocabUrl } = useContext(myContext);
   const [thisVariable, setThisVariable] = useState(variable);
 
   useEffect(() => {
@@ -27,13 +27,17 @@ export const AddVariable = ({ variable, newVars, setNewVars, tableId, i }) => {
     setNewVars(newInput);
   };
 
-  const handleAddCode = (e, i) => {
+  const handleAddVariable = (e, i) => {
     const filterByRowId = newVars.filter(r => r.id === thisVariable.id);
     const newVariablesDTO = filterByRowId.map(variable => {
       return {
         name: variable.name,
         description: variable.description,
         data_type: variable.data_type,
+        min: variable.min,
+        max: variable.max,
+        units: variable.units,
+        enumerations: { reference: variable.enumerations.reference },
       };
     });
     const newTable = {
@@ -64,7 +68,7 @@ export const AddVariable = ({ variable, newVars, setNewVars, tableId, i }) => {
             className="small_icon"
             onClick={e =>
               thisVariable.name !== '' && thisVariable.description !== ''
-                ? handleAddCode(i)
+                ? handleAddVariable(i)
                 : window.alert('Please fill out the name and description.')
             }
             src={SaveIcon}
@@ -75,7 +79,7 @@ export const AddVariable = ({ variable, newVars, setNewVars, tableId, i }) => {
             src={CancelIcon}
           />
         </td>
-        <td className="row_input_cell first_cell input_no_border">
+        <td className="row_input_cell first_cell input_no_border name_input">
           <input
             autoFocus
             id="name"
