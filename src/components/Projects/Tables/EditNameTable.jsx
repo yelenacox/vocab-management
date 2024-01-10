@@ -26,7 +26,7 @@ export const EditNameTable = ({ table, setTable, setNameEdit }) => {
 
       <input
         id="name"
-        className="terminology_input name_input input_field"
+        className="terminology_input input_field"
         type="text"
         value={table.name}
         onChange={evt => {

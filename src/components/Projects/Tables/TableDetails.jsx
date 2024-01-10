@@ -195,9 +195,12 @@ export const TableDetails = () => {
                         handleOpen={handleOpen}
                         tableEdit={tableEdit}
                         active={active}
+                        setActive={setActive}
                         table={table}
                         setTable={setTable}
                         tableId={tableId}
+                        onEdit={onEdit}
+                        onCancel={onCancel}
                       />
                     </>
                   );

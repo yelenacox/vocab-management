@@ -68,7 +68,7 @@ export const AddTerminology = () => {
           <input
             autoFocus
             id="name"
-            className="add_term_input name_input"
+            className="add_term_input"
             type="text"
             value={terminology.name}
             onChange={evt => {

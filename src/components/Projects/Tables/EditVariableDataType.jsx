@@ -2,13 +2,13 @@ import { useContext, useEffect } from 'react';
 import { myContext } from '../../../App';
 import './AddVariable.scss';
 
-export const AddVariableDataType = ({ thisVariable, setThisVariable }) => {
+export const EditVariableDataType = ({ thisVar, setThisVar }) => {
   const { terminologies, setTerminologies, table, vocabUrl } =
     useContext(myContext);
 
   useEffect(() => {
-    thisVariable.data_type === 'ENUMERATION' ? getTerminologies() : '';
-  }, [thisVariable.data_type]);
+    thisVar.data_type === 'ENUMERATION' ? getTerminologies() : '';
+  }, [thisVar.data_type]);
 
   const getTerminologies = () => {
     fetch(`${vocabUrl}/Terminology`, {
@@ -26,8 +26,7 @@ export const AddVariableDataType = ({ thisVariable, setThisVariable }) => {
       <tr className="add_var_data_types">
         <td className="icon_cell"></td>
 
-        {thisVariable.data_type === 'INTEGER' ||
-        thisVariable.data_type === 'QUANTITY' ? (
+        {thisVar.data_type === 'INTEGER' || thisVar.data_type === 'QUANTITY' ? (
           <>
             <td className="min_cell row_input_cell">
               <label className="input_label" htmlFor="variable_min">
@@ -37,10 +36,10 @@ export const AddVariableDataType = ({ thisVariable, setThisVariable }) => {
                 id="variable_min"
                 className="min_input"
                 type="text"
-                value={table.min}
+                value={thisVar.min}
                 onChange={evt => {
-                  setThisVariable({
-                    ...thisVariable,
+                  setThisVar({
+                    ...thisVar,
                     min: evt.target.value,
                   });
                 }}
@@ -54,10 +53,10 @@ export const AddVariableDataType = ({ thisVariable, setThisVariable }) => {
                 id="variable_max"
                 className="max_input"
                 type="text"
-                value={table.max}
+                value={thisVar.max}
                 onChange={evt => {
-                  setThisVariable({
-                    ...thisVariable,
+                  setThisVar({
+                    ...thisVar,
                     max: evt.target.value,
                   });
                 }}
@@ -71,28 +70,28 @@ export const AddVariableDataType = ({ thisVariable, setThisVariable }) => {
                 id="variable_units"
                 className="units_input"
                 type="text"
-                value={table.units}
+                value={thisVar.units}
                 onChange={evt => {
-                  setThisVariable({
-                    ...thisVariable,
+                  setThisVar({
+                    ...thisVar,
                     units: evt.target.value,
                   });
                 }}
               />
             </td>
           </>
-        ) : thisVariable.data_type === 'ENUMERATION' ? (
+        ) : thisVar.data_type === 'ENUMERATION' ? (
           <>
-            <td className="row_input_cell">
+            <td className="">
               <label className="input_label" htmlFor="variable_data_type">
                 Terminology
               </label>
               <select
                 className="data_type_select"
-                value={table?.enumerations?.reference}
+                value={thisVar?.enumerations?.reference}
                 onChange={evt => {
-                  setThisVariable({
-                    ...thisVariable,
+                  setThisVar({
+                    ...thisVar,
                     enumerations: {
                       reference: evt.target.value,
                     },

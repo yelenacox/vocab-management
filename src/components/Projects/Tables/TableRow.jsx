@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Enumerations } from './Enumerations';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import { DeleteVariable } from './DeleteVariable';
+import { EditVariable } from './EditVariable';
 
 export const TableRow = ({
   v,
@@ -9,63 +10,66 @@ export const TableRow = ({
   handleOpen,
   tableEdit,
   active,
+  setActive,
   table,
   setTable,
   tableId,
+  onEdit,
+  onCancel,
 }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <tr key={index}>
-        {/* {active !== index ? (
-                        <> */}
-        <td className="icon_cell">
-          {tableEdit && active !== index ? (
-            <>
-              {/* <img
-                className="small_icon"
-                onClick={() => onEdit(index)}
-                src={PencilIcon}
-              /> */}
-              <DeleteVariable
-                index={index}
-                table={table}
-                setTable={setTable}
-                tableId={tableId}
-              />
-            </>
-          ) : (
-            ''
-          )}
-        </td>
-        <td className="first_cell">{v?.name}</td>
-        <td className="second_cell">{v?.description}</td>
-        <td className="third_cell">
-          {v?.data_type !== 'STRING' ? (
-            <div
-              className="row_header"
-              id={index}
-              onClick={() => handleOpen(!open, setOpen)}
-            >
-              {v?.data_type}
-            </div>
-          ) : (
-            v?.data_type
-          )}
-        </td>
-        {/* </>
-                      ) : terminologyEdit && active === index ? (
-                        <EditCode
-                          codeObject={r}
-                          index={index}
-                          onCancel={onCancel}
-                          setActive={setActive}
-                        />
-                      ) : (
-                        ''
-                      )} */}
-      </tr>
+      {active !== index ? (
+        <>
+          <tr key={index}>
+            <td className="icon_cell">
+              {tableEdit && active !== index ? (
+                <>
+                  <img
+                    className="small_icon"
+                    onClick={() => onEdit(index)}
+                    src={PencilIcon}
+                  />
+                  <DeleteVariable
+                    index={index}
+                    table={table}
+                    setTable={setTable}
+                    tableId={tableId}
+                  />
+                </>
+              ) : (
+                ''
+              )}
+            </td>
+            <td className="first_cell">{v?.name}</td>
+            <td className="second_cell">{v?.description}</td>
+            <td className="third_cell">
+              {v?.data_type !== 'STRING' ? (
+                <div
+                  className="row_header"
+                  id={index}
+                  onClick={() => handleOpen(!open, setOpen)}
+                >
+                  {v?.data_type}
+                </div>
+              ) : (
+                v?.data_type
+              )}
+            </td>
+          </tr>
+        </>
+      ) : tableEdit && active === index ? (
+        <EditVariable
+          varObject={v}
+          index={index}
+          onCancel={onCancel}
+          setActive={setActive}
+        />
+      ) : (
+        ''
+      )}
       {open ? (
         <>
           {v?.data_type === 'QUANTITY' || v?.data_type === 'INTEGER' ? (
