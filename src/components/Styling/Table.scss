@@ -1,7 +1,7 @@
 @import '../Styling/Variables';
 
 table,
-td:not(.icon_cell, .input_no_border) {
+td:not(.icon_cell, .input_no_border, .initial_cell) {
   border-bottom: 1px solid $greyColor;
   border-collapse: collapse;
 }
