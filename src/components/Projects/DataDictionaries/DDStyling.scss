@@ -1,3 +1,16 @@
 .initial_cell {
   width: 6%;
 }
+
+.tables_dd {
+  display: flex;
+  flex-flow: column wrap;
+  width: 50vw;
+  gap: 2vh;
+  max-height: 35vh;
+  margin: 0 0 2vh 0;
+}
+
+.tablesDD_checkbox {
+  margin-right: 0.8vw;
+}

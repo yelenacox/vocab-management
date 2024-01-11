@@ -10,6 +10,7 @@ import { AddTerminology } from './components/Projects/Terminologies/AddTerminolo
 import { TableDetails } from './components/Projects/Tables/TableDetails';
 import { AddTable } from './components/Projects/Tables/AddTable';
 import { DDDetails } from './components/Projects/DataDictionaries/DDDetails';
+import { AddDD } from './components/Projects/DataDictionaries/AddDD';
 
 export const myContext = createContext();
 
@@ -35,6 +36,7 @@ function App() {
   const [terminology, setTerminology] = useState(initialTerminology);
   const [tables, setTables] = useState([]);
   const [dataDictionaries, setDataDictionaries] = useState([]);
+  const [tablesDD, setTablesDD] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -152,6 +154,9 @@ function App() {
         setDataDictionaries,
         dataDictionary,
         setDataDictionary,
+        initialDD,
+        tablesDD,
+        setTablesDD,
       }}
     >
       <Routes>
@@ -169,10 +174,11 @@ function App() {
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/terminology/:terminologyId" element={<Terminology />} />
-          <Route path="/addTerminology" element={<AddTerminology />} />
+          <Route path="/add_terminology" element={<AddTerminology />} />
           <Route path="/table/:tableId" element={<TableDetails />} />
-          <Route path="/addTable" element={<AddTable />} />
+          <Route path="/add_table" element={<AddTable />} />
           <Route path="/data_dictionary/:DDId" element={<DDDetails />} />
+          <Route path="/add_DD" element={<AddDD />} />
         </Route>
       </Routes>
     </myContext.Provider>
