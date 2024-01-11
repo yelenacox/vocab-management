@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteTable } from './DeleteTable';
+import { getTables } from '../../Manager/TableManager';
 
 export const TableList = () => {
   const { loading, setLoading, vocabUrl, tables, setTables } =
@@ -12,23 +13,23 @@ export const TableList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getTables();
+    getTables(vocabUrl).then(data => setTables(data));
   }, []);
 
-  const getTables = () => {
-    setLoading(true);
-    fetch(`${vocabUrl}/Table`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(data => setTables(data))
-      .then(() => {
-        setLoading(false);
-      });
-  };
+  // const getTables = () => {
+  //   setLoading(true);
+  //   fetch(`${vocabUrl}/Table`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => setTables(data))
+  //     .then(() => {
+  //       setLoading(false);
+  //     });
+  // };
 
   return (
     <>
@@ -37,7 +38,7 @@ export const TableList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            onClick={() => navigate('/addTable')}
+            onClick={() => navigate('/add_table')}
           >
             Add Table
           </button>{' '}

@@ -38,7 +38,7 @@ export const TerminologyList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            onClick={() => navigate('/addTerminology')}
+            onClick={() => navigate('/add_terminology')}
           >
             Add Terminology
           </button>{' '}

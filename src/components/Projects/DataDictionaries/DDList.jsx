@@ -41,7 +41,7 @@ export const DDList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            onClick={() => navigate('/addDD')}
+            onClick={() => navigate('/add_DD')}
           >
             Add Data Dictionary
           </button>{' '}
