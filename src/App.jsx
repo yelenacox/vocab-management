@@ -9,6 +9,7 @@ import { Terminology } from './components/Projects/Terminologies/Terminology';
 import { AddTerminology } from './components/Projects/Terminologies/AddTerminology';
 import { TableDetails } from './components/Projects/Tables/TableDetails';
 import { AddTable } from './components/Projects/Tables/AddTable';
+import { DDDetails } from './components/Projects/DataDictionaries/DDDetails';
 
 export const myContext = createContext();
 
@@ -23,14 +24,17 @@ function App() {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const initialTerminology = { url: '', description: '', name: '', codes: [] };
   const initialTable = { name: '', description: '', url: '', variables: [] };
+  const initialDD = { name: '', description: '', tables: [] };
   const [codeId, setCodeId] = useState(0);
   const [variableId, setVariableId] = useState(0);
   const [table, setTable] = useState(initialTable);
+  const [dataDictionary, setDataDictionary] = useState(initialDD);
   const resetTable = () => setTable(initialTable);
   const [terminologies, setTerminologies] = useState([]);
 
   const [terminology, setTerminology] = useState(initialTerminology);
   const [tables, setTables] = useState([]);
+  const [dataDictionaries, setDataDictionaries] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -144,6 +148,10 @@ function App() {
         addTableVariable,
         updateTable,
         getVariableId,
+        dataDictionaries,
+        setDataDictionaries,
+        dataDictionary,
+        setDataDictionary,
       }}
     >
       <Routes>
@@ -164,6 +172,7 @@ function App() {
           <Route path="/addTerminology" element={<AddTerminology />} />
           <Route path="/table/:tableId" element={<TableDetails />} />
           <Route path="/addTable" element={<AddTable />} />
+          <Route path="/data_dictionary/:DDId" element={<DDDetails />} />
         </Route>
       </Routes>
     </myContext.Provider>
