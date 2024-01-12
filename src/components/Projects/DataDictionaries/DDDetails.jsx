@@ -5,11 +5,12 @@ import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import './DDStyling.scss';
+import { EditNameDD } from './EditNameDD';
+import { EditDescriptionDD } from './EditDescriptionDD';
 
 export const DDDetails = () => {
-  const [tableEdit, setTableEdit] = useState(false);
+  const [DDEdit, setDDEdit] = useState(false);
   const [nameEdit, setNameEdit] = useState(false);
-  const [urlEdit, setUrlEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [active, setActive] = useState(-1);
   const [newVars, setNewVars] = useState([]);
@@ -57,6 +58,7 @@ export const DDDetails = () => {
   };
 
   const getDDById = () => {
+    setLoading(true);
     fetch(`${vocabUrl}/DataDictionary/${DDId}`, {
       method: 'GET',
       headers: {
@@ -67,7 +69,8 @@ export const DDDetails = () => {
       .then(it => {
         return it;
       })
-      .then(data => setDataDictionary(data));
+      .then(data => setDataDictionary(data))
+      .then(() => setLoading(false));
   };
 
   return (
@@ -79,21 +82,21 @@ export const DDDetails = () => {
           <div className="image_container">
             <img className="background_image_results" src={Background} />
           </div>
-          {/* <div className="terminology_sub_nav">
+          <div className="terminology_sub_nav">
             <div className="add_code_link">
               <button
                 className="manage_term_button"
                 onClick={() => {
-                  setTableEdit(!tableEdit);
-                  onCancel(), setNameEdit(false);
-                  setDescriptionEdit(false);
-                  setUrlEdit(false);
+                  setDDEdit(!DDEdit);
+                  onCancel();
+                  //   setNameEdit(false);
+                  //   setDescriptionEdit(false);
                 }}
               >
-                {tableEdit ? 'View' : 'Manage'}
+                {DDEdit ? 'View' : 'Manage'}
               </button>
             </div>
-            {tableEdit ? (
+            {/*  {tableEdit ? (
               <div className="add_code_link">
                 <button className="manage_term_button" onClick={handleInputAdd}>
                   Add Variable
@@ -101,16 +104,18 @@ export const DDDetails = () => {
               </div>
             ) : (
               ''
-            )}
-          </div> */}
+            )}*/}
+          </div>
           <div className="terminology_details terminology_name">
-            {/* {!tableEdit ? (
-              <> */}
-            <div className="initial_div"></div>
+            {!DDEdit ? (
+              <>
+                <div className="initial_div"></div>
 
-            {dataDictionary?.name ? dataDictionary?.name : dataDictionary?.id}
-            {/* </>
-            ) : tableEdit && nameEdit === false ? (
+                {dataDictionary?.name
+                  ? dataDictionary?.name
+                  : dataDictionary?.id}
+              </>
+            ) : DDEdit && nameEdit === false ? (
               <>
                 <div className="edit_div">
                   <div className="initial_div">
@@ -120,30 +125,36 @@ export const DDDetails = () => {
                       src={PencilIcon}
                     />
                   </div>
-                  <div>{table?.name ? table?.name : table?.id}</div>
+                  <div>
+                    {dataDictionary?.name
+                      ? dataDictionary?.name
+                      : dataDictionary?.id}
+                  </div>
                 </div>
               </>
-            ) : tableEdit && nameEdit === true ? (
-              <EditNameTable
-                table={table}
-                setTable={setTable}
+            ) : DDEdit && nameEdit === true ? (
+              <EditNameDD
+                dataDictionary={dataDictionary}
+                setDataDictionary={setDataDictionary}
                 setNameEdit={setNameEdit}
               />
             ) : (
               ''
-            )} */}
+            )}
           </div>
           <div className="terminology_details terminology_desc">
-            {/* {!tableEdit ? (
-              <> */}
-            <div className="initial_div empty_description"></div>
-            {dataDictionary?.description ? (
-              dataDictionary?.description
-            ) : (
-              <span className="no_description">No description provided.</span>
-            )}
-            {/* </>
-            ) : tableEdit && descriptionEdit === false ? (
+            {!DDEdit ? (
+              <>
+                <div className="initial_div empty_description"></div>
+                {dataDictionary?.description ? (
+                  dataDictionary?.description
+                ) : (
+                  <span className="no_description">
+                    No description provided.
+                  </span>
+                )}
+              </>
+            ) : DDEdit && descriptionEdit === false ? (
               <>
                 <div className="initial_div empty_description">
                   <img
@@ -152,23 +163,23 @@ export const DDDetails = () => {
                     src={PencilIcon}
                   />
                 </div>
-                {table?.description ? (
-                  table?.description
+                {dataDictionary?.description ? (
+                  dataDictionary?.description
                 ) : (
                   <span className="no_description">
                     No description provided.
                   </span>
                 )}
               </>
-            ) : tableEdit && descriptionEdit === true ? (
-              <EditDescriptionTable
-                table={table}
-                setTable={setTable}
+            ) : DDEdit && descriptionEdit === true ? (
+              <EditDescriptionDD
+                dataDictionary={dataDictionary}
+                setDataDictionary={setDataDictionary}
                 setDescriptionEdit={setDescriptionEdit}
               />
             ) : (
               ''
-            )} */}
+            )}
           </div>
           <div className="table_container">
             <table className="table">

@@ -81,17 +81,6 @@ function App() {
       .then(res => res.json())
       .then(data => setTerminology(data));
 
-  const updateTable = () =>
-    fetch(`${vocabUrl}/Table/${table.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(table),
-    })
-      .then(res => res.json())
-      .then(data => setTable(data));
-
   const getCodeId = () => {
     const current = codeId;
     setCodeId(codeId + 1);
@@ -148,7 +137,7 @@ function App() {
         resetTableVariables,
         removeTableVariable,
         addTableVariable,
-        updateTable,
+        // updateTable,
         getVariableId,
         dataDictionaries,
         setDataDictionaries,
