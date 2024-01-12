@@ -7,6 +7,8 @@ import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import './DDStyling.scss';
 import { EditNameDD } from './EditNameDD';
 import { EditDescriptionDD } from './EditDescriptionDD';
+import { getDDById } from '../../Manager/DDManager';
+import { getTables } from '../../Manager/TableManager';
 
 export const DDDetails = () => {
   const [DDEdit, setDDEdit] = useState(false);
@@ -21,11 +23,16 @@ export const DDDetails = () => {
     loading,
     setLoading,
     getVariableId,
+    tablesDD,
+    setTablesDD,
   } = useContext(myContext);
   const { DDId } = useParams();
 
   useEffect(() => {
-    getDDById();
+    setLoading(true);
+    getDDById(vocabUrl, DDId).then(data => setDataDictionary(data));
+    getTables(vocabUrl).then(data => setTablesDD(data));
+    setLoading(false);
   }, []);
 
   useEffect(
@@ -34,6 +41,13 @@ export const DDDetails = () => {
     },
     [],
   );
+  const arrayOfIds = dataDictionary?.tables?.map(r => {
+    return r.reference.split('/')[1];
+  });
+
+  const selectedObj = tablesDD.filter(table => {
+    return arrayOfIds?.includes(table.id);
+  });
 
   const onEdit = index => {
     setActive(index);
@@ -55,22 +69,6 @@ export const DDDetails = () => {
       id: getVariableId(),
     };
     setNewVars([...newVars, newVar]);
-  };
-
-  const getDDById = () => {
-    setLoading(true);
-    fetch(`${vocabUrl}/DataDictionary/${DDId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(it => {
-        return it;
-      })
-      .then(data => setDataDictionary(data))
-      .then(() => setLoading(false));
   };
 
   return (
@@ -190,7 +188,7 @@ export const DDDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {dataDictionary?.tables?.map((r, index) => {
+                {selectedObj.map((r, index) => {
                   return (
                     <tr key={index}>
                       {/* {active !== index ? (
@@ -217,9 +215,7 @@ export const DDDetails = () => {
                       </td>
 
                       <td className="first_cell">
-                        <Link to={`/${r.reference}`}>
-                          {r?.reference.split('/')[1]}
-                        </Link>
+                        <Link to={`/Table/${r.id}`}>{r?.name}</Link>
                       </td>
                       {/* </>
                       ) : terminologyEdit && active === index ? (

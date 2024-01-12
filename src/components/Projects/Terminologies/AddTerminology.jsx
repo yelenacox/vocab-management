@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from 'react';
-import { Link, useAsyncError, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './AddTerminology.scss';
 import { myContext } from '../../../App';
 import { AdditionalCodeInput } from './AdditionalCodeInput';

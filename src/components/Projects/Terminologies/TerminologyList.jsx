@@ -18,8 +18,6 @@ export const TerminologyList = () => {
   const getTerminologies = () => {
     setLoading(true);
     fetch(`${vocabUrl}/Terminology`, {
-      // fetch(`${vocabUrl}/terminologies`, {
-      // mode: 'cors',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

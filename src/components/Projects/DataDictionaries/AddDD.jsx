@@ -14,8 +14,6 @@ export const AddDD = () => {
     initialDD,
     tablesDD,
     setTablesDD,
-    setTables,
-    tables,
   } = useContext(myContext);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -56,15 +54,13 @@ export const AddDD = () => {
       return item.id;
     });
     setSelectedItems(tableIds);
-
     if (tablesDD.length === selectedItems.length) {
       setSelectedItems([]);
     }
   };
 
   let DDDTO = () => {
-    const filterByCheckedId = selectedItems.filter(r => r.id === tablesDD.id);
-    const tablesDTO = filterByCheckedId.map(table => {
+    const tablesDTO = selectedItems.map(table => {
       return { reference: `Table/${table}` };
     });
     return { ...dataDictionary, tables: tablesDTO };
@@ -72,9 +68,9 @@ export const AddDD = () => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    postDD(vocabUrl, DDDTO)
-      .then(res => res.json())
-      .then(data => navigate(`/data_dictionary/${data?.id}`));
+    postDD(vocabUrl, DDDTO).then(data =>
+      navigate(`/data_dictionary/${data?.id}`),
+    );
   };
 
   return (

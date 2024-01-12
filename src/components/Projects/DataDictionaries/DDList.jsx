@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
+import { DeleteDD } from './DeleteDD';
 
 export const DDList = () => {
   const {
@@ -70,7 +71,10 @@ export const DDList = () => {
                       </td>
                       <td className="project_second_cell">{r?.description}</td>
                       <td className="delete_cell">
-                        {/* <DeleteTable table={r} setTables={setTables} /> */}
+                        <DeleteDD
+                          dataDictionary={r}
+                          setDataDictionaries={setDataDictionaries}
+                        />
                       </td>
                     </tr>
                   </>
