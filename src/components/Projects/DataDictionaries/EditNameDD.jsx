@@ -2,26 +2,28 @@ import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
-import { updateTable } from '../../Manager/TableManager';
+import './DDStyling.scss';
+import { updateDD } from '../../Manager/DDManager';
 
-export const EditNameTable = ({ table, setTable, setNameEdit }) => {
-  const [initialName, setInitialName] = useState(table.name);
+export const EditNameDD = ({
+  dataDictionary,
+  setDataDictionary,
+  setNameEdit,
+}) => {
+  const [initialName, setInitialName] = useState(dataDictionary.name);
   const { vocabUrl } = useContext(myContext);
 
   const updateName = () => {
-    updateTable(vocabUrl, table)
-      .then(res => res.json())
-      .then(data => setTable(data));
+    updateDD(vocabUrl, dataDictionary);
     setNameEdit(false);
   };
-
   return (
     <>
       <img className="small_icon" onClick={updateName} src={SaveIcon} />
       <img
         className="small_icon"
         onClick={() => {
-          setTable({ ...table, name: initialName });
+          setDataDictionary({ ...dataDictionary, name: initialName });
           setNameEdit(false);
         }}
         src={CancelIcon}
@@ -31,9 +33,9 @@ export const EditNameTable = ({ table, setTable, setNameEdit }) => {
         id="name"
         className="terminology_input input_field"
         type="text"
-        value={table.name}
+        value={dataDictionary.name}
         onChange={evt => {
-          setTable({ ...table, name: evt.target.value });
+          setDataDictionary({ ...dataDictionary, name: evt.target.value });
         }}
       />
     </>
