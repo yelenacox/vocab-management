@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import Background from '../../../../assets/Background.png';
 import { getTables } from '../../Manager/TableManager';
-import './DDStyling.scss';
 import { postDD } from '../../Manager/DDManager';
+import './DDStyling.scss';
 
 export const AddDD = () => {
   const {
@@ -15,7 +15,9 @@ export const AddDD = () => {
     tablesDD,
     setTablesDD,
     setTables,
+    tables,
   } = useContext(myContext);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const getTablesDD = () => {
     getTables(vocabUrl).then(data => setTablesDD(data));
@@ -35,38 +37,45 @@ export const AddDD = () => {
 
   const navigate = useNavigate();
 
+  const checkboxHandler = e => {
+    let isSelected = e.target.checked;
+    let checkboxValue = e.target.value;
+    if (isSelected) {
+      setSelectedItems([...selectedItems, checkboxValue]);
+    } else {
+      setSelectedItems(prevData => {
+        return prevData?.filter(id => {
+          return id !== checkboxValue;
+        });
+      });
+    }
+  };
+
+  const checkAllHandler = () => {
+    const tableIds = tablesDD.map(item => {
+      return item.id;
+    });
+    setSelectedItems(tableIds);
+
+    if (tablesDD.length === selectedItems.length) {
+      setSelectedItems([]);
+    }
+  };
+
   let DDDTO = () => {
-    const tablesDTO = dataDictionary.tables.map(table => {
-      return { reference: table.reference };
+    const filterByCheckedId = selectedItems.filter(r => r.id === tablesDD.id);
+    const tablesDTO = filterByCheckedId.map(table => {
+      return { reference: `Table/${table}` };
     });
     return { ...dataDictionary, tables: tablesDTO };
   };
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    const tableNames = [];
-    evt.target.tablesDD.forEach(t => {
-      if (t.checked) {
-        tableNames.push(t.name);
-      }
-    });
     postDD(vocabUrl, DDDTO)
       .then(res => res.json())
       .then(data => navigate(`/data_dictionary/${data?.id}`));
   };
-
-  //   const handleSubmit = event => {
-  //     event.preventDefault();
-  //     fetch(`${vocabUrl}/DataDictionary`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(DDDTO()),
-  //     })
-  //       .then(res => res.json())
-  //       .then(data => navigate(`/data_dictionary/${data?.id}`));
-  //   };
 
   return (
     <>
@@ -113,27 +122,36 @@ export const AddDD = () => {
         </div>
         <div className="tables_dd">
           <label className="input_label" htmlFor="dd_tables">
-            Tables
+            Tables{' '}
+            <button onClick={checkAllHandler}>
+              {tablesDD.length === selectedItems.length
+                ? 'Uncheck All'
+                : 'Check All'}
+            </button>
           </label>
-          {tablesDD.map((t, index) => {
+          {tablesDD.map((table, index) => {
             return (
               <>
                 <div>
                   <input
-                    key={t.id}
+                    key={index}
                     id="tablesDD_checkbox"
                     name="tableDD"
                     className="tablesDD_checkbox"
                     type="checkbox"
+                    value={table.id}
+                    checked={selectedItems?.includes(table.id)}
+                    onChange={checkboxHandler}
                   />
                   <label className="tableDD_reference" htmlFor="tableDD">
-                    {t.name}
+                    {table.name}
                   </label>
                 </div>
               </>
             );
           })}
         </div>
+        {console.log(selectedItems)}
 
         <button className="manage_term_button" onClick={handleSubmit}>
           Save
