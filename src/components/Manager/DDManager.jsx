@@ -1,5 +1,5 @@
 export const postDD = (vocabUrl, DDDTO) => {
-  fetch(`${vocabUrl}/DataDictionary`, {
+  return fetch(`${vocabUrl}/DataDictionary`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
