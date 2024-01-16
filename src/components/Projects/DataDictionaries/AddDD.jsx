@@ -147,7 +147,6 @@ export const AddDD = () => {
             );
           })}
         </div>
-        {console.log(selectedItems)}
 
         <button className="manage_term_button" onClick={handleSubmit}>
           Save

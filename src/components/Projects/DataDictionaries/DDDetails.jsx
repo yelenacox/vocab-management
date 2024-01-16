@@ -4,16 +4,20 @@ import { Link, useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
+import SaveIcon from '../../../../assets/cloud_save.png';
+import CancelIcon from '../../../../assets/cancel_icon.png';
 import './DDStyling.scss';
 import { EditNameDD } from './EditNameDD';
 import { EditDescriptionDD } from './EditDescriptionDD';
 import { getDDById } from '../../Manager/DDManager';
 import { getTables } from '../../Manager/TableManager';
+import { EditTablesDD } from './EditTablesDD';
 
 export const DDDetails = () => {
   const [DDEdit, setDDEdit] = useState(false);
   const [nameEdit, setNameEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
+  const [tablesDDEdit, setTablesDDEdit] = useState(false);
   const [active, setActive] = useState(-1);
   const [newVars, setNewVars] = useState([]);
   const {
@@ -183,7 +187,32 @@ export const DDDetails = () => {
             <table className="table">
               <thead className="header">
                 <tr className="header_row">
-                  <th></th>
+                  <div className="initial_div">
+                    {DDEdit && !tablesDDEdit ? (
+                      <img
+                        className="small_icon"
+                        onClick={() => setTablesDDEdit(true)}
+                        src={PencilIcon}
+                      />
+                    ) : DDEdit && tablesDDEdit ? (
+                      <>
+                        {' '}
+                        <img
+                          className="small_icon"
+                          // onClick={() => setTablesDDEdit(true)}
+                          src={SaveIcon}
+                        />
+                        <img
+                          className="small_icon"
+                          onClick={() => setTablesDDEdit(false)}
+                          src={CancelIcon}
+                        />
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+
                   <th className="first_cell">Table</th>
                 </tr>
               </thead>
@@ -191,65 +220,24 @@ export const DDDetails = () => {
                 {selectedObj.map((r, index) => {
                   return (
                     <tr key={index}>
-                      {/* {active !== index ? (
-                        <> */}
-                      <td className="initial_cell">
-                        {/* {' '}
-                            {terminologyEdit && active !== index ? (
-                              <>
-                                <img
-                                  className="small_icon"
-                                  onClick={() => onEdit(index)}
-                                  src={PencilIcon}
-                                />
-                                <DeleteCode
-                                  index={index}
-                                  terminology={terminology}
-                                  setTerminology={setTerminology}
-                                  terminologyId={terminologyId}
-                                />
-                              </>
-                            ) : (
-                              ''
-                            )} */}
-                      </td>
-
-                      <td className="first_cell">
-                        <Link to={`/Table/${r.id}`}>{r?.name}</Link>
-                      </td>
-                      {/* </>
-                      ) : terminologyEdit && active === index ? (
-                        <EditCode
-                          codeObject={r}
-                          index={index}
-                          onCancel={onCancel}
-                          setActive={setActive}
-                        />
+                      <td className="initial_cell"></td>
+                      {!tablesDDEdit ? (
+                        <td className="first_cell">
+                          <Link to={`/Table/${r.id}`}>{r?.name}</Link>
+                        </td>
                       ) : (
                         ''
-                      )} */}
+                      )}
                     </tr>
                   );
                 })}
-                {/* {newCodes?.map((newCode, i) => (
-                  <tr key={`newCode${newCode.id}`}>
-                    <AddCode
-                      code={newCode}
-                      i={i}
-                      newCode={newCode}
-                      newCodes={newCodes}
-                      setNewCodes={setNewCodes}
-                      terminologyId={terminologyId}
-                    />
-                  </tr>
-                ))} */}
+                {DDEdit && tablesDDEdit ? (
+                  <EditTablesDD selectedObj={selectedObj} tablesDD={tablesDD} />
+                ) : (
+                  ''
+                )}{' '}
               </tbody>
             </table>
-            {/* {newCodes?.length > 0 ? (
-            <button onClick={handleAddCode}>Save</button>
-          ) : (
-            ''
-          )} */}
           </div>
         </div>
       )}
