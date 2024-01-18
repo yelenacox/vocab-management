@@ -4,6 +4,7 @@ import { myContext } from '../../../App';
 import Background from '../../../../assets/Background.png';
 import { getTables } from '../../Manager/TableManager';
 import { postDD } from '../../Manager/DDManager';
+import { Checkbox } from 'antd';
 import './DDStyling.scss';
 
 export const AddDD = () => {
@@ -37,7 +38,7 @@ export const AddDD = () => {
 
   const checkboxHandler = e => {
     let isSelected = e.target.checked;
-    let checkboxValue = e.target.value;
+    let checkboxValue = e.target.id;
     if (isSelected) {
       setSelectedItems([...selectedItems, checkboxValue]);
     } else {
@@ -129,16 +130,16 @@ export const AddDD = () => {
             return (
               <>
                 <div>
-                  <input
+                  <Checkbox
                     key={index}
-                    id="tablesDD_checkbox"
                     name="tableDD"
                     className="tablesDD_checkbox"
                     type="checkbox"
-                    value={table.id}
+                    id={table.id}
                     checked={selectedItems?.includes(table.id)}
                     onChange={checkboxHandler}
                   />
+
                   <label className="tableDD_reference" htmlFor="tableDD">
                     {table.name}
                   </label>
