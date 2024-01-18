@@ -4,18 +4,22 @@ import { Link, useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
+import SaveIcon from '../../../../assets/cloud_save.png';
+import CancelIcon from '../../../../assets/cancel_icon.png';
+
 import './DDStyling.scss';
 import { EditNameDD } from './EditNameDD';
 import { EditDescriptionDD } from './EditDescriptionDD';
-import { getDDById } from '../../Manager/DDManager';
+import { getDDById, updateDD } from '../../Manager/DDManager';
 import { getTables } from '../../Manager/TableManager';
+import { EditTablesDD } from './EditTablesDD';
+import { Checkbox } from 'antd';
 
 export const DDDetails = () => {
   const [DDEdit, setDDEdit] = useState(false);
   const [nameEdit, setNameEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
-  const [active, setActive] = useState(-1);
-  const [newVars, setNewVars] = useState([]);
+  const [tablesDDEdit, setTablesDDEdit] = useState(false);
   const {
     dataDictionary,
     setDataDictionary,
@@ -41,35 +45,22 @@ export const DDDetails = () => {
     },
     [],
   );
+
+  const updateTablesDD = selectedIds => {
+    const dataDictionaryIds = selectedIds.filter(obj => !!obj);
+    const tablesDTO = dataDictionaryIds.map(dd => {
+      return { reference: { reference: `Table/${dd}` } };
+    });
+    updateDD(vocabUrl, { ...dataDictionary, tables: tablesDTO });
+  };
+
   const arrayOfIds = dataDictionary?.tables?.map(r => {
     return r.reference.split('/')[1];
   });
 
-  const selectedObj = tablesDD.filter(table => {
+  const selectedObjs = tablesDD.filter(table => {
     return arrayOfIds?.includes(table.id);
   });
-
-  const onEdit = index => {
-    setActive(index);
-  };
-
-  const onCancel = () => {
-    setActive(-1);
-  };
-
-  const handleOpen = (open, set) => {
-    set(open);
-  };
-
-  const handleInputAdd = () => {
-    const newVar = {
-      name: '',
-      description: '',
-      data_type: '',
-      id: getVariableId(),
-    };
-    setNewVars([...newVars, newVar]);
-  };
 
   return (
     <>
@@ -86,23 +77,14 @@ export const DDDetails = () => {
                 className="manage_term_button"
                 onClick={() => {
                   setDDEdit(!DDEdit);
-                  onCancel();
-                  //   setNameEdit(false);
-                  //   setDescriptionEdit(false);
+                  setNameEdit(false);
+                  setDescriptionEdit(false);
+                  setTablesDDEdit(false);
                 }}
               >
                 {DDEdit ? 'View' : 'Manage'}
               </button>
             </div>
-            {/*  {tableEdit ? (
-              <div className="add_code_link">
-                <button className="manage_term_button" onClick={handleInputAdd}>
-                  Add Variable
-                </button>
-              </div>
-            ) : (
-              ''
-            )}*/}
           </div>
           <div className="terminology_details terminology_name">
             {!DDEdit ? (
@@ -181,75 +163,15 @@ export const DDDetails = () => {
           </div>
           <div className="table_container">
             <table className="table">
-              <thead className="header">
-                <tr className="header_row">
-                  <th></th>
-                  <th className="first_cell">Table</th>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedObj.map((r, index) => {
-                  return (
-                    <tr key={index}>
-                      {/* {active !== index ? (
-                        <> */}
-                      <td className="initial_cell">
-                        {/* {' '}
-                            {terminologyEdit && active !== index ? (
-                              <>
-                                <img
-                                  className="small_icon"
-                                  onClick={() => onEdit(index)}
-                                  src={PencilIcon}
-                                />
-                                <DeleteCode
-                                  index={index}
-                                  terminology={terminology}
-                                  setTerminology={setTerminology}
-                                  terminologyId={terminologyId}
-                                />
-                              </>
-                            ) : (
-                              ''
-                            )} */}
-                      </td>
-
-                      <td className="first_cell">
-                        <Link to={`/Table/${r.id}`}>{r?.name}</Link>
-                      </td>
-                      {/* </>
-                      ) : terminologyEdit && active === index ? (
-                        <EditCode
-                          codeObject={r}
-                          index={index}
-                          onCancel={onCancel}
-                          setActive={setActive}
-                        />
-                      ) : (
-                        ''
-                      )} */}
-                    </tr>
-                  );
-                })}
-                {/* {newCodes?.map((newCode, i) => (
-                  <tr key={`newCode${newCode.id}`}>
-                    <AddCode
-                      code={newCode}
-                      i={i}
-                      newCode={newCode}
-                      newCodes={newCodes}
-                      setNewCodes={setNewCodes}
-                      terminologyId={terminologyId}
-                    />
-                  </tr>
-                ))} */}
-              </tbody>
+              <EditTablesDD
+                selectedObjs={selectedObjs}
+                tablesDD={tablesDD}
+                edit={tablesDDEdit}
+                setEdit={setTablesDDEdit}
+                DDEdit={DDEdit}
+                updateTablesDD={updateTablesDD}
+              />
             </table>
-            {/* {newCodes?.length > 0 ? (
-            <button onClick={handleAddCode}>Save</button>
-          ) : (
-            ''
-          )} */}
           </div>
         </div>
       )}

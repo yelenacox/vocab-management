@@ -14,3 +14,12 @@
 .tablesDD_checkbox {
   margin-right: 0.8vw;
 }
+
+.tables_dd_edit {
+  display: flex;
+  flex-flow: column wrap;
+  width: 50vw;
+  gap: 2vh;
+  max-height: 40vh;
+  background-color: powderblue;
+}
