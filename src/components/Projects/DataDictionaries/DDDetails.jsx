@@ -6,20 +6,20 @@ import { Spinner } from '../../Manager/Spinner';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
+
 import './DDStyling.scss';
 import { EditNameDD } from './EditNameDD';
 import { EditDescriptionDD } from './EditDescriptionDD';
-import { getDDById } from '../../Manager/DDManager';
+import { getDDById, updateDD } from '../../Manager/DDManager';
 import { getTables } from '../../Manager/TableManager';
 import { EditTablesDD } from './EditTablesDD';
+import { Checkbox } from 'antd';
 
 export const DDDetails = () => {
   const [DDEdit, setDDEdit] = useState(false);
   const [nameEdit, setNameEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [tablesDDEdit, setTablesDDEdit] = useState(false);
-  const [active, setActive] = useState(-1);
-  const [newVars, setNewVars] = useState([]);
   const {
     dataDictionary,
     setDataDictionary,
@@ -45,35 +45,22 @@ export const DDDetails = () => {
     },
     [],
   );
+
+  const updateTablesDD = selectedIds => {
+    const dataDictionaryIds = selectedIds.filter(obj => !!obj);
+    const tablesDTO = dataDictionaryIds.map(dd => {
+      return { reference: { reference: `Table/${dd}` } };
+    });
+    updateDD(vocabUrl, { ...dataDictionary, tables: tablesDTO });
+  };
+
   const arrayOfIds = dataDictionary?.tables?.map(r => {
     return r.reference.split('/')[1];
   });
 
-  const selectedObj = tablesDD.filter(table => {
+  const selectedObjs = tablesDD.filter(table => {
     return arrayOfIds?.includes(table.id);
   });
-
-  const onEdit = index => {
-    setActive(index);
-  };
-
-  const onCancel = () => {
-    setActive(-1);
-  };
-
-  const handleOpen = (open, set) => {
-    set(open);
-  };
-
-  const handleInputAdd = () => {
-    const newVar = {
-      name: '',
-      description: '',
-      data_type: '',
-      id: getVariableId(),
-    };
-    setNewVars([...newVars, newVar]);
-  };
 
   return (
     <>
@@ -90,23 +77,14 @@ export const DDDetails = () => {
                 className="manage_term_button"
                 onClick={() => {
                   setDDEdit(!DDEdit);
-                  onCancel();
-                  //   setNameEdit(false);
-                  //   setDescriptionEdit(false);
+                  setNameEdit(false);
+                  setDescriptionEdit(false);
+                  setTablesDDEdit(false);
                 }}
               >
                 {DDEdit ? 'View' : 'Manage'}
               </button>
             </div>
-            {/*  {tableEdit ? (
-              <div className="add_code_link">
-                <button className="manage_term_button" onClick={handleInputAdd}>
-                  Add Variable
-                </button>
-              </div>
-            ) : (
-              ''
-            )}*/}
           </div>
           <div className="terminology_details terminology_name">
             {!DDEdit ? (
@@ -185,58 +163,14 @@ export const DDDetails = () => {
           </div>
           <div className="table_container">
             <table className="table">
-              <thead className="header">
-                <tr className="header_row">
-                  <div className="initial_div">
-                    {DDEdit && !tablesDDEdit ? (
-                      <img
-                        className="small_icon"
-                        onClick={() => setTablesDDEdit(true)}
-                        src={PencilIcon}
-                      />
-                    ) : DDEdit && tablesDDEdit ? (
-                      <>
-                        {' '}
-                        <img
-                          className="small_icon"
-                          // onClick={() => setTablesDDEdit(true)}
-                          src={SaveIcon}
-                        />
-                        <img
-                          className="small_icon"
-                          onClick={() => setTablesDDEdit(false)}
-                          src={CancelIcon}
-                        />
-                      </>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-
-                  <th className="first_cell">Table</th>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedObj.map((r, index) => {
-                  return (
-                    <tr key={index}>
-                      <td className="initial_cell"></td>
-                      {!tablesDDEdit ? (
-                        <td className="first_cell">
-                          <Link to={`/Table/${r.id}`}>{r?.name}</Link>
-                        </td>
-                      ) : (
-                        ''
-                      )}
-                    </tr>
-                  );
-                })}
-                {DDEdit && tablesDDEdit ? (
-                  <EditTablesDD selectedObj={selectedObj} tablesDD={tablesDD} />
-                ) : (
-                  ''
-                )}{' '}
-              </tbody>
+              <EditTablesDD
+                selectedObjs={selectedObjs}
+                tablesDD={tablesDD}
+                edit={tablesDDEdit}
+                setEdit={setTablesDDEdit}
+                DDEdit={DDEdit}
+                updateTablesDD={updateTablesDD}
+              />
             </table>
           </div>
         </div>
