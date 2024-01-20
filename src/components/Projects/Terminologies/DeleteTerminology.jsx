@@ -22,6 +22,14 @@ export const DeleteTerminology = ({ terminology, setTerminologies }) => {
   };
 
   return (
-    <img className="small_icon" onClick={handleDelete} src={DeleteTrash} />
+    <img
+      className="small_icon"
+      onClick={evt =>
+        handleDelete(evt, vocabUrl, 'Terminology', terminology).then(data =>
+          setTerminologies(data),
+        )
+      }
+      src={DeleteTrash}
+    />
   );
 };

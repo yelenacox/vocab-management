@@ -29,7 +29,7 @@ export const EditTablesDD = ({
   const handleOnChange = e => {
     const checked = e.target.checked;
     const value = e.target.id;
-    const index = selectedObjs.findIndex(obj => obj.id === value);
+    const index = tablesDD.findIndex(obj => obj.id === value);
     if (index >= 0) {
       const tempIds = selectedIds;
       if (!checked) {
@@ -57,7 +57,10 @@ export const EditTablesDD = ({
                 {' '}
                 <img
                   className="small_icon"
-                  onClick={() => updateTablesDD(selectedIds)}
+                  onClick={() => {
+                    updateTablesDD(selectedIds);
+                    setEdit(false);
+                  }}
                   src={SaveIcon}
                 />
                 <img
@@ -75,29 +78,55 @@ export const EditTablesDD = ({
         </tr>
       </thead>
       <tbody>
-        {tablesDD.map((r, index) => {
-          const checked = selectedIds?.includes(r.id);
-          return (
-            <tr key={index}>
-              <td className="initial_cell">
-                {edit ? (
-                  <Checkbox
-                    id={r.id}
-                    defaultChecked={checked}
-                    onChange={handleOnChange}
-                  />
-                ) : (
-                  ''
-                )}
-              </td>
-              {
-                <td className="first_cell">
-                  <Link to={`/Table/${r.id}`}>{r?.name}</Link>
-                </td>
-              }
-            </tr>
-          );
-        })}{' '}
+        {!edit
+          ? selectedObjs.map((r, index) => {
+              const checked = selectedIds?.includes(r.id);
+              return (
+                <tr key={index}>
+                  <td className="initial_cell">
+                    {edit ? (
+                      <Checkbox
+                        id={r.id}
+                        defaultChecked={checked}
+                        onChange={handleOnChange}
+                      />
+                    ) : (
+                      ''
+                    )}
+                  </td>
+                  {
+                    <td className="first_cell">
+                      <Link to={`/Table/${r.id}`}>{r?.name}</Link>
+                    </td>
+                  }
+                </tr>
+              );
+            })
+          : DDEdit && edit
+          ? tablesDD.map((r, index) => {
+              const checked = selectedIds?.includes(r.id);
+              return (
+                <tr key={index}>
+                  <td className="initial_cell">
+                    {edit ? (
+                      <Checkbox
+                        id={r.id}
+                        defaultChecked={checked}
+                        onChange={handleOnChange}
+                      />
+                    ) : (
+                      ''
+                    )}
+                  </td>
+                  {
+                    <td className="first_cell">
+                      <Link to={`/Table/${r.id}`}>{r?.name}</Link>
+                    </td>
+                  }
+                </tr>
+              );
+            })
+          : ''}{' '}
       </tbody>
     </>
   );
