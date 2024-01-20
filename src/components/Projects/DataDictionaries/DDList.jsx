@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-// import './TableStyling.scss';
+import './DDStyling.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteDD } from './DeleteDD';
+import { getAll } from '../../Manager/FetchManager';
 
 export const DDList = () => {
   const {
@@ -17,23 +18,10 @@ export const DDList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getDDs();
-  }, []);
-
-  const getDDs = () => {
     setLoading(true);
-    fetch(`${vocabUrl}/DataDictionary`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(data => setDataDictionaries(data))
-      .then(() => {
-        setLoading(false);
-      });
-  };
+    getAll(vocabUrl, 'DataDictionary').then(data => setDataDictionaries(data));
+    setLoading(false);
+  }, []);
 
   return (
     <>
@@ -65,7 +53,7 @@ export const DDList = () => {
                   <>
                     <tr key={index}>
                       <td className="project_first_cell">
-                        <Link to={`/data_dictionary/${r?.id}`}>
+                        <Link to={`/DataDictionary/${r?.id}`}>
                           {r?.name ? r?.name : r?.id}
                         </Link>
                       </td>

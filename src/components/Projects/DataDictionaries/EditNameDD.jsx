@@ -3,18 +3,18 @@ import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
 import './DDStyling.scss';
-import { updateDD } from '../../Manager/DDManager';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditNameDD = ({
   dataDictionary,
   setDataDictionary,
   setNameEdit,
 }) => {
-  const [initialName, setInitialName] = useState(dataDictionary.name);
+  const [initialName, setInitialName] = useState(dataDictionary?.name);
   const { vocabUrl } = useContext(myContext);
 
   const updateName = () => {
-    updateDD(vocabUrl, dataDictionary);
+    handleUpdate(vocabUrl, 'DataDictionary', dataDictionary);
     setNameEdit(false);
   };
   return (
@@ -23,7 +23,10 @@ export const EditNameDD = ({
       <img
         className="small_icon"
         onClick={() => {
-          setDataDictionary({ ...dataDictionary, name: initialName });
+          setDataDictionary({
+            ...dataDictionary,
+            name: initialName,
+          });
           setNameEdit(false);
         }}
         src={CancelIcon}
@@ -33,7 +36,7 @@ export const EditNameDD = ({
         id="name"
         className="terminology_input input_field"
         type="text"
-        value={dataDictionary.name}
+        value={dataDictionary?.name}
         onChange={evt => {
           setDataDictionary({ ...dataDictionary, name: evt.target.value });
         }}

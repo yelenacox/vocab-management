@@ -2,16 +2,14 @@ import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
-import { updateTable } from '../../Manager/TableManager';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditNameTable = ({ table, setTable, setNameEdit }) => {
   const [initialName, setInitialName] = useState(table.name);
   const { vocabUrl } = useContext(myContext);
 
   const updateName = () => {
-    updateTable(vocabUrl, table)
-      .then(res => res.json())
-      .then(data => setTable(data));
+    handleUpdate(vocabUrl, 'Table', table).then(data => setTable(data));
     setNameEdit(false);
   };
 

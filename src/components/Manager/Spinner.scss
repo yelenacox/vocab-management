@@ -1,8 +1,13 @@
+.loading_screen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .spinner {
   vertical-align: center;
   text-align: center;
-  padding: 50px;
-  margin-left: 30vw;
+  padding: 3vw 38vw;
   background-color: rgb(79, 79, 79, 0.1);
   border: 1px solid rgb(79, 79, 79, 0.4);
 }

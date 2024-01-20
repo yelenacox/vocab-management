@@ -11,6 +11,8 @@ import { TableDetails } from './components/Projects/Tables/TableDetails';
 import { AddTable } from './components/Projects/Tables/AddTable';
 import { DDDetails } from './components/Projects/DataDictionaries/DDDetails';
 import { AddDD } from './components/Projects/DataDictionaries/AddDD';
+import { StudyDetails } from './components/Projects/Studies/StudyDetails';
+import { AddStudy } from './components/Projects/Studies/AddStudy';
 
 export const myContext = createContext();
 
@@ -26,10 +28,19 @@ function App() {
   const initialTerminology = { url: '', description: '', name: '', codes: [] };
   const initialTable = { name: '', description: '', url: '', variables: [] };
   const initialDD = { name: '', description: '', tables: [] };
+  const initialStudy = {
+    identifier_prefix: '',
+    datadictionary: [],
+    name: '',
+    description: '',
+    title: '',
+    url: '',
+  };
   const [codeId, setCodeId] = useState(0);
   const [variableId, setVariableId] = useState(0);
   const [table, setTable] = useState(initialTable);
   const [dataDictionary, setDataDictionary] = useState(initialDD);
+  const [study, setStudy] = useState(initialStudy);
   const resetTable = () => setTable(initialTable);
   const [terminologies, setTerminologies] = useState([]);
 
@@ -37,6 +48,8 @@ function App() {
   const [tables, setTables] = useState([]);
   const [dataDictionaries, setDataDictionaries] = useState([]);
   const [tablesDD, setTablesDD] = useState([]);
+  const [studies, setStudies] = useState([]);
+  const [studyDDs, setStudyDDs] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -70,16 +83,6 @@ function App() {
       }
     }
   };
-  const updateTerminology = () =>
-    fetch(`${vocabUrl}/Terminology/${terminology.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(terminology),
-    })
-      .then(res => res.json())
-      .then(data => setTerminology(data));
 
   const getCodeId = () => {
     const current = codeId;
@@ -125,7 +128,6 @@ function App() {
         setTerminologies,
         codeId,
         setCodeId,
-        updateTerminology,
         getCodeId,
         handleCodeAdd,
         tables,
@@ -146,6 +148,13 @@ function App() {
         initialDD,
         tablesDD,
         setTablesDD,
+        studies,
+        setStudies,
+        study,
+        setStudy,
+        initialStudy,
+        studyDDs,
+        setStudyDDs,
       }}
     >
       <Routes>
@@ -166,8 +175,10 @@ function App() {
           <Route path="/add_terminology" element={<AddTerminology />} />
           <Route path="/table/:tableId" element={<TableDetails />} />
           <Route path="/add_table" element={<AddTable />} />
-          <Route path="/data_dictionary/:DDId" element={<DDDetails />} />
+          <Route path="/DataDictionary/:DDId" element={<DDDetails />} />
           <Route path="/add_DD" element={<AddDD />} />
+          <Route path="/study/:studyId" element={<StudyDetails />} />
+          <Route path="/add_study" element={<AddStudy />} />
         </Route>
       </Routes>
     </myContext.Provider>

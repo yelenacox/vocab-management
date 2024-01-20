@@ -3,7 +3,7 @@ import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
 import './DDStyling.scss';
-import { updateDD } from '../../Manager/DDManager';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditDescriptionDD = ({
   dataDictionary,
@@ -16,7 +16,7 @@ export const EditDescriptionDD = ({
   const { vocabUrl } = useContext(myContext);
 
   const updateDescription = () => {
-    updateDD(vocabUrl, dataDictionary);
+    handleUpdate(vocabUrl, 'DataDictionary', dataDictionary);
     setDescriptionEdit(false);
   };
   return (

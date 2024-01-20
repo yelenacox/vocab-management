@@ -2,23 +2,21 @@ import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
-import './Terminology.scss';
+import './StudyStyling.scss';
 import { handleUpdate } from '../../Manager/FetchManager';
 
-export const EditDescription = ({
-  terminology,
-  setTerminology,
+export const EditStudyDescription = ({
+  study,
+  setStudy,
   setDescriptionEdit,
 }) => {
   const [initialDescription, setInitialDescription] = useState(
-    terminology.description,
+    study.description,
   );
   const { vocabUrl } = useContext(myContext);
 
   const updateDescription = () => {
-    handleUpdate(vocabUrl, 'Terminology', terminology)
-      .then(res => res.json())
-      .then(data => setTerminology(data));
+    handleUpdate(vocabUrl, 'Study', study);
     setDescriptionEdit(false);
   };
   return (
@@ -27,18 +25,25 @@ export const EditDescription = ({
       <img
         className="small_icon"
         onClick={() => {
-          setTerminology({ ...terminology, description: initialDescription });
+          setStudy({
+            ...study,
+            description: initialDescription,
+          });
           setDescriptionEdit(false);
         }}
         src={CancelIcon}
       />
+
       <input
         id="description"
-        className="terminology_input description_input input_field"
+        className="terminology_input input_field"
         type="text"
-        value={terminology?.description}
+        value={study.description}
         onChange={evt => {
-          setTerminology({ ...terminology, description: evt.target.value });
+          setStudy({
+            ...study,
+            description: evt.target.value,
+          });
         }}
       />
     </>

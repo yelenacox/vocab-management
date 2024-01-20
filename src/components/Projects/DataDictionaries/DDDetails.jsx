@@ -10,10 +10,9 @@ import CancelIcon from '../../../../assets/cancel_icon.png';
 import './DDStyling.scss';
 import { EditNameDD } from './EditNameDD';
 import { EditDescriptionDD } from './EditDescriptionDD';
-import { getDDById, updateDD } from '../../Manager/DDManager';
-import { getTables } from '../../Manager/TableManager';
 import { EditTablesDD } from './EditTablesDD';
 import { Checkbox } from 'antd';
+import { getAll, getById, handleUpdate } from '../../Manager/FetchManager';
 
 export const DDDetails = () => {
   const [DDEdit, setDDEdit] = useState(false);
@@ -34,8 +33,10 @@ export const DDDetails = () => {
 
   useEffect(() => {
     setLoading(true);
-    getDDById(vocabUrl, DDId).then(data => setDataDictionary(data));
-    getTables(vocabUrl).then(data => setTablesDD(data));
+    getById(vocabUrl, 'DataDictionary', DDId).then(data =>
+      setDataDictionary(data),
+    );
+    getAll(vocabUrl, 'Table').then(data => setTablesDD(data));
     setLoading(false);
   }, []);
 
@@ -48,10 +49,14 @@ export const DDDetails = () => {
 
   const updateTablesDD = selectedIds => {
     const dataDictionaryIds = selectedIds.filter(obj => !!obj);
+    console.log('PEEPEE', dataDictionaryIds);
     const tablesDTO = dataDictionaryIds.map(dd => {
-      return { reference: { reference: `Table/${dd}` } };
+      return { reference: `Table/${dd}` };
     });
-    updateDD(vocabUrl, { ...dataDictionary, tables: tablesDTO });
+    handleUpdate(vocabUrl, 'DataDictionary', {
+      ...dataDictionary,
+      tables: tablesDTO,
+    }).then(data => setDataDictionary(data));
   };
 
   const arrayOfIds = dataDictionary?.tables?.map(r => {

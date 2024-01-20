@@ -3,14 +3,17 @@ import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
 import './Terminology.scss';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
   const [thisCode, setThisCode] = useState(codeObject);
-  const { terminology, updateTerminology } = useContext(myContext);
+  const { terminology, vocabUrl, setTerminology } = useContext(myContext);
 
   const updateCode = (code, index) => {
     terminology.codes[index] = code;
-    updateTerminology();
+    handleUpdate(vocabUrl, 'Terminology', terminology)
+      .then(res => res.json())
+      .then(data => setTerminology(data));
     setActive(-1);
   };
 

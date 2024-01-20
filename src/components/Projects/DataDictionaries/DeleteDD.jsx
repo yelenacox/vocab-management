@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import DeleteTrash from '../../../../assets/trash_transparent.png';
-import { handleDeleteDD } from '../../Manager/DDManager';
+import { handleDelete } from '../../Manager/FetchManager';
 
 export const DeleteDD = ({ dataDictionary, setDataDictionaries }) => {
   const { vocabUrl } = useContext(myContext);
@@ -10,8 +10,8 @@ export const DeleteDD = ({ dataDictionary, setDataDictionaries }) => {
     <img
       className="small_icon"
       onClick={evt =>
-        handleDeleteDD(evt, vocabUrl, dataDictionary).then(data =>
-          setDataDictionaries(data),
+        handleDelete(evt, vocabUrl, 'DataDictionary', dataDictionary).then(
+          data => setDataDictionaries(data),
         )
       }
       src={DeleteTrash}

@@ -4,14 +4,15 @@ import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
 import './EditVariable.scss';
 import { EditVariableDataType } from './EditVariableDataType';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditVariable = ({ varObject, onCancel, index, setActive }) => {
   const [thisVar, setThisVar] = useState(varObject);
-  const { table, updateTable } = useContext(myContext);
+  const { table, setTable, vocabUrl } = useContext(myContext);
 
   const updateVariable = (variable, index) => {
     table.variables[index] = variable;
-    updateTable();
+    handleUpdate(vocabUrl, 'Table', table).then(data => setTable(data));
     setActive(-1);
   };
 

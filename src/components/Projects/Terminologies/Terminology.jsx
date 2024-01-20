@@ -11,6 +11,7 @@ import { EditCode } from './EditCode';
 import { EditName } from './EditName';
 import { EditDescription } from './EditDescription';
 import { EditUrl } from './EditUrl';
+import { getById } from '../../Manager/FetchManager';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
@@ -31,24 +32,14 @@ export const Terminology = () => {
   } = useContext(myContext);
 
   const [newCodes, setNewCodes] = useState([]);
-  useEffect(() => {
-    getTerminologyById();
-  }, []);
 
-  const getTerminologyById = () => {
+  useEffect(() => {
     setLoading(true);
-    fetch(`${vocabUrl}/Terminology/${terminologyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(data => setTerminology(data))
-      .then(() => {
-        setLoading(false);
-      });
-  };
+    getById(vocabUrl, 'Terminology', terminologyId).then(data =>
+      setTerminology(data),
+    );
+    setLoading(false);
+  }, []);
 
   const handleInputAdd = () => {
     const newCode = { code: '', display: '', id: getCodeId() };

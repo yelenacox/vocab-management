@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteTable } from './DeleteTable';
-import { getTables } from '../../Manager/TableManager';
+import { getAll } from '../../Manager/FetchManager';
 
 export const TableList = () => {
   const { loading, setLoading, vocabUrl, tables, setTables } =
@@ -13,23 +13,10 @@ export const TableList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getTables(vocabUrl).then(data => setTables(data));
+    setLoading(true);
+    getAll(vocabUrl, 'Table').then(data => setTables(data));
+    setLoading(false);
   }, []);
-
-  // const getTables = () => {
-  //   setLoading(true);
-  //   fetch(`${vocabUrl}/Table`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => setTables(data))
-  //     .then(() => {
-  //       setLoading(false);
-  //     });
-  // };
 
   return (
     <>

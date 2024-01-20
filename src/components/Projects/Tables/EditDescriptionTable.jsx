@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditDescriptionTable = ({
   table,
@@ -11,10 +12,10 @@ export const EditDescriptionTable = ({
   const [initialDescription, setInitialDescription] = useState(
     table.description,
   );
-  const { updateTable } = useContext(myContext);
+  const { vocabUrl } = useContext(myContext);
 
   const updateDescription = () => {
-    updateTable();
+    handleUpdate(vocabUrl, 'Table', table).then(data => setTable(data));
     setDescriptionEdit(false);
   };
   return (

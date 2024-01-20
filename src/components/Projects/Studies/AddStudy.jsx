@@ -3,32 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import Background from '../../../../assets/Background.png';
 import { Checkbox } from 'antd';
-import './DDStyling.scss';
+import './StudyStyling.scss';
 import { getAll, handlePost } from '../../Manager/FetchManager';
 
-export const AddDD = () => {
-  const {
-    vocabUrl,
-    dataDictionary,
-    setDataDictionary,
-    initialDD,
-    tablesDD,
-    setTablesDD,
-  } = useContext(myContext);
+export const AddStudy = () => {
+  const { vocabUrl, study, setStudy, initialStudy, studyDDs, setStudyDDs } =
+    useContext(myContext);
   const [selectedItems, setSelectedItems] = useState([]);
 
-  const getTablesDD = () => {
-    getAll(vocabUrl, 'Table').then(data => setTablesDD(data));
+  const getStudyDD = () => {
+    getAll(vocabUrl, 'DataDictionary').then(data => setStudyDDs(data));
   };
 
   useEffect(() => {
-    setDataDictionary(initialDD);
-    getTablesDD();
+    setStudy(initialStudy);
+    getStudyDD();
   }, []);
 
   useEffect(
     () => () => {
-      setDataDictionary(initialDD);
+      setStudy(initialStudy);
     },
     [],
   );
@@ -50,26 +44,26 @@ export const AddDD = () => {
   };
 
   const checkAllHandler = () => {
-    const tableIds = tablesDD.map(item => {
+    const DDIds = studyDDs.map(item => {
       return item.id;
     });
-    setSelectedItems(tableIds);
-    if (tablesDD.length === selectedItems.length) {
+    setSelectedItems(DDIds);
+    if (studyDDs.length === selectedItems.length) {
       setSelectedItems([]);
     }
   };
 
-  let DDDTO = () => {
-    const tablesDTO = selectedItems.map(table => {
-      return { reference: `Table/${table}` };
+  let studyDTO = () => {
+    const DDDTO = selectedItems.map(dd => {
+      return { reference: `DataDictionary/${dd}` };
     });
-    return { ...dataDictionary, tables: tablesDTO };
+    return { ...study, datadictionary: DDDTO };
   };
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    handlePost(vocabUrl, 'DataDictionary', DDDTO()).then(data =>
-      navigate(`/DataDictionary/${data?.id}`),
+    handlePost(vocabUrl, 'Study', studyDTO()).then(data =>
+      navigate(`/study/${data?.id}`),
     );
   };
 
@@ -79,7 +73,25 @@ export const AddDD = () => {
         <div className="image_container">
           <img className="background_image_results" src={Background} />
         </div>
-        <h2>New Data Dictionary</h2>
+        <h2>New Study</h2>
+        <div className="name form_wrapper">
+          <label className="input_label" htmlFor="study_identifier">
+            Identifier Prefix
+          </label>
+          <input
+            autoFocus
+            id="identifier_prefix"
+            className="add_term_input"
+            type="text"
+            value={study?.identifier_prefix}
+            onChange={evt => {
+              setStudy({
+                ...study,
+                identifier_prefix: evt.target.value,
+              });
+            }}
+          />
+        </div>
         <div className="name form_wrapper">
           <label className="input_label" htmlFor="terminology_name">
             Name
@@ -89,10 +101,10 @@ export const AddDD = () => {
             id="name"
             className="add_term_input"
             type="text"
-            value={dataDictionary?.name}
+            value={study?.name}
             onChange={evt => {
-              setDataDictionary({
-                ...dataDictionary,
+              setStudy({
+                ...study,
                 name: evt.target.value,
               });
             }}
@@ -107,25 +119,60 @@ export const AddDD = () => {
             id="display"
             className="add_term_input description_input"
             type="text"
-            value={dataDictionary?.description}
+            value={study?.description}
             onChange={evt => {
-              setDataDictionary({
-                ...dataDictionary,
+              setStudy({
+                ...study,
                 description: evt.target.value,
+              });
+            }}
+          />
+        </div>
+        <div className="description form_wrapper">
+          <label className="input_label" htmlFor="table_description">
+            Title
+          </label>
+          <input
+            id="display"
+            className="add_term_input description_input"
+            type="text"
+            value={study?.title}
+            onChange={evt => {
+              setStudy({
+                ...study,
+                title: evt.target.value,
+              });
+            }}
+          />
+        </div>
+        <div className="name form_wrapper">
+          <label className="input_label" htmlFor="study_url">
+            URL
+          </label>
+          <input
+            autoFocus
+            id="identifier_prefix"
+            className="add_term_input"
+            type="text"
+            value={study?.url}
+            onChange={evt => {
+              setStudy({
+                ...study,
+                url: evt.target.value,
               });
             }}
           />
         </div>
         <div className="tables_dd">
           <label className="input_label" htmlFor="dd_tables">
-            Tables{' '}
+            Data Dictionaries
             <button onClick={checkAllHandler}>
-              {tablesDD.length === selectedItems.length
+              {studyDDs.length === selectedItems.length
                 ? 'Uncheck All'
                 : 'Check All'}
             </button>
           </label>
-          {tablesDD.map((table, index) => {
+          {studyDDs.map((dd, index) => {
             return (
               <>
                 <div>
@@ -134,13 +181,13 @@ export const AddDD = () => {
                     name="tableDD"
                     className="tablesDD_checkbox"
                     type="checkbox"
-                    id={table.id}
-                    checked={selectedItems?.includes(table.id)}
+                    id={dd.id}
+                    checked={selectedItems?.includes(dd.id)}
                     onChange={checkboxHandler}
                   />
 
                   <label className="tableDD_reference" htmlFor="tableDD">
-                    {table.name}
+                    {dd.name ? dd.name : dd.id}
                   </label>
                 </div>
               </>
