@@ -1,25 +1,19 @@
 import { useContext, useEffect } from 'react';
 import { myContext } from '../../../App';
 import './AddVariable.scss';
+import { getAll } from '../../Manager/FetchManager';
 
 export const EditVariableDataType = ({ thisVar, setThisVar }) => {
   const { terminologies, setTerminologies, table, vocabUrl } =
     useContext(myContext);
 
   useEffect(() => {
-    thisVar.data_type === 'ENUMERATION' ? getTerminologies() : '';
+    thisVar.data_type === 'ENUMERATION'
+      ? getAll(vocabUrl, 'Terminology')
+          .then(res => res.json())
+          .then(data => setTerminologies(data))
+      : '';
   }, [thisVar.data_type]);
-
-  const getTerminologies = () => {
-    fetch(`${vocabUrl}/Terminology`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(data => setTerminologies(data));
-  };
 
   return (
     <>

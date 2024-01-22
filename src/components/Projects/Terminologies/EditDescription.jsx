@@ -16,9 +16,9 @@ export const EditDescription = ({
   const { vocabUrl } = useContext(myContext);
 
   const updateDescription = () => {
-    handleUpdate(vocabUrl, 'Terminology', terminology)
-      .then(res => res.json())
-      .then(data => setTerminology(data));
+    handleUpdate(vocabUrl, 'Terminology', terminology).then(data =>
+      setTerminology(data),
+    );
     setDescriptionEdit(false);
   };
   return (

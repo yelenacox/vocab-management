@@ -5,7 +5,7 @@ import DeleteTrash from '../../../../assets/trash_transparent.png';
 export const DeleteVariable = ({ index, table, setTable, tableId }) => {
   const { vocabUrl } = useContext(myContext);
 
-  const handleDelete = index => {
+  const handleVariableDelete = index => {
     table.variables.splice(index, 1);
     fetch(`${vocabUrl}/Table/${tableId}`, {
       method: 'PUT',
@@ -23,7 +23,7 @@ export const DeleteVariable = ({ index, table, setTable, tableId }) => {
   return (
     <img
       className="small_icon"
-      onClick={() => handleDelete(index)}
+      onClick={() => handleVariableDelete(index)}
       src={DeleteTrash}
     />
   );

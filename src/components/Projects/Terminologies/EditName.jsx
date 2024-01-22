@@ -10,9 +10,9 @@ export const EditName = ({ terminology, setTerminology, setNameEdit }) => {
   const { vocabUrl } = useContext(myContext);
 
   const updateName = () => {
-    handleUpdate(vocabUrl, 'Terminology', terminology)
-      .then(res => res.json())
-      .then(data => setTerminology(data));
+    handleUpdate(vocabUrl, 'Terminology', terminology).then(data =>
+      setTerminology(data),
+    );
     setNameEdit(false);
   };
   return (
