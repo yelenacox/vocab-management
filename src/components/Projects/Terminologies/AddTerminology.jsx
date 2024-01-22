@@ -4,6 +4,7 @@ import './AddTerminology.scss';
 import { myContext } from '../../../App';
 import { AdditionalCodeInput } from './AdditionalCodeInput';
 import Background from '../../../../assets/Background.png';
+import { handlePost } from '../../Manager/FetchManager';
 
 export const AddTerminology = () => {
   const {
@@ -13,6 +14,8 @@ export const AddTerminology = () => {
     initialTerminology,
     handleCodeAdd,
   } = useContext(myContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTerminology(initialTerminology);
@@ -31,9 +34,6 @@ export const AddTerminology = () => {
     }
   });
 
-  // console.log('TERMINOLOGY: ', JSON.stringify(terminology));
-  const navigate = useNavigate();
-
   let terminologyDTO = () => {
     const codesDTO = terminology.codes.map(code => {
       return { code: code.code, display: code.display };
@@ -43,15 +43,9 @@ export const AddTerminology = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    fetch(`${vocabUrl}/Terminology`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(terminologyDTO()),
-    })
-      .then(res => res.json())
-      .then(data => navigate(`/terminology/${data?.id}`));
+    handlePost(vocabUrl, 'Terminology', terminologyDTO()).then(data =>
+      navigate(`/terminology/${data?.id}`),
+    );
   };
 
   return (

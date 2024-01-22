@@ -1,18 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './TableStyling.scss';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
-import { Enumerations } from './Enumerations';
-import { render } from 'react-dom';
 import { TableRow } from './TableRow';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
 import { EditNameTable } from './EditNameTable';
 import { EditDescriptionTable } from './EditDescriptionTable';
 import { EditUrlTable } from './EditUrlTable';
 import { AddVariable } from './AddVariable';
-import { AddVariableDataType } from './AddVariableDataType';
+import { getById } from '../../Manager/FetchManager';
 
 export const TableDetails = () => {
   const [tableEdit, setTableEdit] = useState(false);
@@ -26,7 +24,9 @@ export const TableDetails = () => {
   const { tableId } = useParams();
 
   useEffect(() => {
-    getTableById();
+    setLoading(true);
+    getById(vocabUrl, 'Table', tableId).then(data => setTable(data));
+    setLoading(false);
   }, []);
 
   useEffect(
@@ -56,20 +56,6 @@ export const TableDetails = () => {
       id: getVariableId(),
     };
     setNewVars([...newVars, newVar]);
-  };
-
-  const getTableById = () => {
-    fetch(`${vocabUrl}/Table/${tableId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(it => {
-        return it;
-      })
-      .then(data => setTable(data));
   };
 
   return (

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './AdditionalVariableInputs.scss';
+import { getAll } from '../../Manager/FetchManager';
 
 export const AdditionalVariableInput = props => {
   const { variable, index } = props;
@@ -26,12 +27,7 @@ export const AdditionalVariableInput = props => {
 
   const getTerminologies = () => {
     setLoading(true);
-    fetch(`${vocabUrl}/Terminology`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    getAll(vocabUrl, 'Terminology')
       .then(res => res.json())
       .then(data => setTerminologies(data))
       .then(() => setLoading(false));

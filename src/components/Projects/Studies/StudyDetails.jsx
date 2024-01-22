@@ -1,15 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
-import SaveIcon from '../../../../assets/cloud_save.png';
-import CancelIcon from '../../../../assets/cancel_icon.png';
-
 import './StudyStyling.scss';
-
-import { Checkbox } from 'antd';
 import { getAll, getById, handleUpdate } from '../../Manager/FetchManager';
 import { EditStudyDescription } from './EditStudyDescription';
 import { EditStudyDD } from './EditStudyDD';

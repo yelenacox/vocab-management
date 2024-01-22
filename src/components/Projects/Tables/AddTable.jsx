@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import Background from '../../../../assets/Background.png';
 import { AdditionalVariableInput } from './AdditionalVariableInput';
+import { handlePost } from '../../Manager/FetchManager';
 
 export const AddTable = () => {
   const { vocabUrl, table, setTable, resetTable, addTableVariable } =
@@ -34,15 +35,9 @@ export const AddTable = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    fetch(`${vocabUrl}/Table`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(tableDTO()),
-    })
-      .then(res => res.json())
-      .then(data => navigate(`/table/${data?.id}`));
+    handlePost(vocabUrl, 'Table', tableDTO()).then(data =>
+      navigate(`/table/${data?.id}`),
+    );
   };
 
   return (

@@ -11,9 +11,9 @@ export const EditCode = ({ codeObject, onCancel, index, setActive }) => {
 
   const updateCode = (code, index) => {
     terminology.codes[index] = code;
-    handleUpdate(vocabUrl, 'Terminology', terminology)
-      .then(res => res.json())
-      .then(data => setTerminology(data));
+    handleUpdate(vocabUrl, 'Terminology', terminology).then(data =>
+      setTerminology(data),
+    );
     setActive(-1);
   };
 
