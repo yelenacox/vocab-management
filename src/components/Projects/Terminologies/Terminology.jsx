@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { myContext } from '../../../App';
 import './Terminology.scss';
 import { Spinner } from '../../Manager/Spinner';
@@ -32,6 +32,7 @@ export const Terminology = () => {
   } = useContext(myContext);
 
   const [newCodes, setNewCodes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);

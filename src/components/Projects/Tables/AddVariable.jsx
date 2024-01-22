@@ -105,7 +105,6 @@ export const AddVariable = ({ variable, newVars, setNewVars, tableId, i }) => {
                 ...thisVariable,
                 description: evt.target.value,
               });
-              console.log(thisVariable);
             }}
           />
         </td>

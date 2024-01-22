@@ -10,17 +10,17 @@ import CancelIcon from '../../../../assets/cancel_icon.png';
 import './StudyStyling.scss';
 
 import { Checkbox } from 'antd';
-import { getAll, getById } from '../../Manager/FetchManager';
+import { getAll, getById, handleUpdate } from '../../Manager/FetchManager';
 import { EditStudyDescription } from './EditStudyDescription';
 import { EditStudyDD } from './EditStudyDD';
 import { EditStudyUrl } from './EditStudyUrl';
 import { EditStudyIdentifierPrefix } from './EditStudyIdentifierPrefix';
-import { EditNameDD } from '../DataDictionaries/EditNameDD';
+import { EditStudyName } from './EditStudyName';
 
 export const StudyDetails = () => {
   const [studyEdit, setStudyEdit] = useState(false);
   const [studyDDEdit, setStudyDDEdit] = useState(false);
-  const [nameEdit, setNameEdit] = useState(false);
+  const [studyNameEdit, setStudyNameEdit] = useState(false);
   const [urlEdit, setUrlEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [identifierEdit, setIdentifierEdit] = useState(false);
@@ -53,15 +53,15 @@ export const StudyDetails = () => {
   const updateStudyDD = selectedIds => {
     const studyIds = selectedIds.filter(obj => !!obj);
     const studyDTO = studyIds.map(dd => {
-      return { reference: `dataDictionary/${dd}` };
+      return { reference: `DataDictionary/${dd}` };
     });
     handleUpdate(vocabUrl, 'Study', {
       ...study,
-      dataDictionary: studyDTO,
-    });
+      datadictionary: studyDTO,
+    }).then(data => setStudy(data));
   };
 
-  const arrayOfIds = study?.dataDictionary?.map(r => {
+  const arrayOfIds = study?.datadictionary?.map(r => {
     return r.reference.split('/')[1];
   });
 
@@ -84,9 +84,9 @@ export const StudyDetails = () => {
                 className="manage_term_button"
                 onClick={() => {
                   setStudyEdit(!studyEdit);
-                  setNameEdit(false);
+                  setStudyNameEdit(false);
                   setDescriptionEdit(false);
-                  setTablesDDEdit(false);
+                  setStudyDDEdit(false);
                 }}
               >
                 {studyEdit ? 'View' : 'Manage'}
@@ -100,24 +100,24 @@ export const StudyDetails = () => {
 
                 {study?.name ? study?.name : study?.id}
               </>
-            ) : studyEdit && nameEdit === false ? (
+            ) : studyEdit && studyNameEdit === false ? (
               <>
                 <div className="edit_div">
                   <div className="initial_div">
                     <img
                       className="small_icon"
-                      onClick={() => setNameEdit(true)}
+                      onClick={() => setStudyNameEdit(true)}
                       src={PencilIcon}
                     />
                   </div>
                   <div>{study?.name ? study?.name : study?.id}</div>
                 </div>
               </>
-            ) : studyEdit && nameEdit === true ? (
-              <EditNameDD
+            ) : studyEdit && studyNameEdit === true ? (
+              <EditStudyName
                 study={study}
                 setStudy={setStudy}
-                setNameEdit={setNameEdit}
+                setStudyNameEdit={setStudyNameEdit}
               />
             ) : (
               ''

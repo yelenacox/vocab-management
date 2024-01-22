@@ -49,7 +49,6 @@ export const DDDetails = () => {
 
   const updateTablesDD = selectedIds => {
     const dataDictionaryIds = selectedIds.filter(obj => !!obj);
-    console.log('PEEPEE', dataDictionaryIds);
     const tablesDTO = dataDictionaryIds.map(dd => {
       return { reference: `Table/${dd}` };
     });
