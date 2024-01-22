@@ -2,9 +2,11 @@ import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditStudyUrl = ({ study, setStudy, setUrlEdit }) => {
   const [initialUrl, setInitialUrl] = useState(study.url);
+  const { vocabUrl } = useContext(myContext);
 
   const updateUrl = () => {
     handleUpdate(vocabUrl, 'Study', study);

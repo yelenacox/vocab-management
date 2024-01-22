@@ -2,12 +2,14 @@ import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
+import { handleUpdate } from '../../Manager/FetchManager';
 
 export const EditStudyIdentifierPrefix = ({
   study,
   setStudy,
   setIdentifierEdit,
 }) => {
+  const { vocabUrl } = useContext(myContext);
   const [initialIdentifier, setInitialIdentifier] = useState(
     study.identifier_prefix,
   );

@@ -2,25 +2,25 @@ import { useContext, useState } from 'react';
 import { myContext } from '../../../App';
 import SaveIcon from '../../../../assets/cloud_save.png';
 import CancelIcon from '../../../../assets/cancel_icon.png';
-import './DDStyling.scss';
+import './StudyStyling.scss';
 import { handleUpdate } from '../../Manager/FetchManager';
 
-export const EditStudyName = ({ study, setStudy, setNameEdit }) => {
-  const [initialName, setInitialName] = useState(study.name);
+export const EditStudyName = ({ study, setStudy, setStudyNameEdit }) => {
+  const [initialStudyName, setInitialStudyName] = useState(study?.name);
   const { vocabUrl } = useContext(myContext);
 
-  const updateName = () => {
+  const updateStudyName = () => {
     handleUpdate(vocabUrl, 'Study', study);
-    setNameEdit(false);
+    setStudyNameEdit(false);
   };
   return (
     <>
-      <img className="small_icon" onClick={updateName} src={SaveIcon} />
+      <img className="small_icon" onClick={updateStudyName} src={SaveIcon} />
       <img
         className="small_icon"
         onClick={() => {
-          setStudy({ ...study, name: initialName });
-          setNameEdit(false);
+          setStudy({ ...study, name: initialStudyName });
+          setStudyNameEdit(false);
         }}
         src={CancelIcon}
       />
@@ -29,7 +29,7 @@ export const EditStudyName = ({ study, setStudy, setNameEdit }) => {
         id="name"
         className="terminology_input input_field"
         type="text"
-        value={study.name}
+        value={study?.name}
         onChange={evt => {
           setStudy({ ...study, name: evt.target.value });
         }}
