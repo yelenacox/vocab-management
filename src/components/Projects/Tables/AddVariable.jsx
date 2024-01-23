@@ -30,7 +30,7 @@ export const AddVariable = ({ variable, newVars, setNewVars, tableId, i }) => {
   const handleAddVariable = (e, i) => {
     const filterByRowId = newVars.filter(r => r.id === thisVariable.id);
     const newVariablesDTO = filterByRowId.map(variable => {
-      const maybe = variable.enumerations?.reference;
+      const enumerationType = variable.enumerations?.reference;
       return {
         name: variable.name,
         description: variable.description,
@@ -38,7 +38,9 @@ export const AddVariable = ({ variable, newVars, setNewVars, tableId, i }) => {
         min: variable.min,
         max: variable.max,
         units: variable.units,
-        enumerations: maybe ? { reference: maybe } : undefined,
+        enumerations: enumerationType
+          ? { reference: enumerationType }
+          : undefined,
       };
     });
     const newTable = {
