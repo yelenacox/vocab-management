@@ -5,10 +5,19 @@ import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteStudy } from './DeleteStudy';
 import { getAll } from '../../Manager/FetchManager';
+import { Modal } from 'antd';
+import { AddStudy } from './AddStudy';
 
 export const StudyList = () => {
-  const { loading, setLoading, vocabUrl, studies, setStudies } =
-    useContext(myContext);
+  const {
+    loading,
+    setLoading,
+    vocabUrl,
+    studies,
+    setStudies,
+    // addStudy,
+    // setAddStudy,
+  } = useContext(myContext);
 
   const navigate = useNavigate();
 
@@ -25,6 +34,7 @@ export const StudyList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
+            // onClick={() => setAddStudy(true)}
             onClick={() => navigate('/add_study')}
           >
             Add Study
@@ -64,6 +74,15 @@ export const StudyList = () => {
           </table>
         </div>
       )}
+      {/* <Modal
+        open={addStudy}
+        width={'100%'}
+        onOk={() => submitNewStudy}
+        onCancel={() => setAddStudy(false)}
+        maskClosable={true}
+      >
+        <AddStudy />
+      </Modal> */}
     </>
   );
 };

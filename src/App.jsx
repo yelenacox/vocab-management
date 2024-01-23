@@ -50,6 +50,7 @@ function App() {
   const [tablesDD, setTablesDD] = useState([]);
   const [studies, setStudies] = useState([]);
   const [studyDDs, setStudyDDs] = useState([]);
+  // const [addStudy, setAddStudy] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -155,6 +156,8 @@ function App() {
         initialStudy,
         studyDDs,
         setStudyDDs,
+        // addStudy,
+        // setAddStudy,
       }}
     >
       <Routes>
