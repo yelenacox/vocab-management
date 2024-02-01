@@ -6,46 +6,36 @@ import { handlePost } from '../../Manager/FetchManager';
 import Papa from 'papaparse';
 
 export const UploadTable = () => {
-  const { vocabUrl } = useContext(myContext);
-  const [file, setFile] = useState();
-  const [uploadTable, setUploadTable] = useState([]);
-  const [fileName, setFileName] = useState({});
+  const { vocabUrl, table, setTable, resetTable } = useContext(myContext);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
-    setUploadTable([]);
+    resetTable();
   }, []);
 
   useEffect(
     () => () => {
-      setUploadTable([]);
+      resetTable();
     },
-    [file],
+    [],
   );
 
   const navigate = useNavigate();
 
   const handleOnChange = e => {
     setFile(e.target.files[0]);
-    console.log(file);
   };
 
-  let uploadDTO = item => {
-    return { ...uploadTable, csvContents: item };
+  let tableDTO = item => {
+    return { ...table, filename: file.name, csvContents: item };
   };
-
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  // handlePost(vocabUrl, 'Table', tableDTO()).then(data =>
-  //   navigate(`/table/${data?.id}`),
-  // );
-  // };
 
   const handleSubmit = e => {
     e.preventDefault();
     Papa.parse(file, {
       header: true,
       complete: function (result) {
-        console.log(uploadDTO(result.data));
+        console.log(tableDTO(result.data));
         // handlePost(vocabUrl, 'Table', tableDTO(result.data)).then(data =>
         //   navigate(`/table/${data?.id}`),
         // );
@@ -69,10 +59,10 @@ export const UploadTable = () => {
             id="name"
             className="add_term_input"
             type="text"
-            value={uploadTable?.name}
+            value={table?.name}
             onChange={evt => {
-              setUploadTable({
-                ...uploadTable,
+              setTable({
+                ...table,
                 name: evt.target.value,
               });
             }}
@@ -87,10 +77,10 @@ export const UploadTable = () => {
             id="display"
             className="add_term_input description_input"
             type="text"
-            value={uploadTable?.description}
+            value={table?.description}
             onChange={evt => {
-              setUploadTable({
-                ...uploadTable,
+              setTable({
+                ...table,
                 description: evt.target.value,
               });
             }}
@@ -106,10 +96,10 @@ export const UploadTable = () => {
             id="url"
             className="add_term_input url_input"
             type="text"
-            value={uploadTable?.url}
+            value={table?.url}
             onChange={evt => {
-              setUploadTable({
-                ...uploadTable,
+              setTable({
+                ...table,
                 url: evt.target.value,
               });
             }}
