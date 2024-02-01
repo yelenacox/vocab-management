@@ -6,16 +6,17 @@ import { handlePost } from '../../Manager/FetchManager';
 import Papa from 'papaparse';
 
 export const UploadTable = () => {
-  const { vocabUrl, table, setTable, resetTable } = useContext(myContext);
+  const { vocabUrl, table, setTable, resetTable, resetUpload } =
+    useContext(myContext);
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    resetTable();
+    resetUpload();
   }, []);
 
   useEffect(
     () => () => {
-      resetTable();
+      resetUpload();
     },
     [],
   );
