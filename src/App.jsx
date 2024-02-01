@@ -13,6 +13,7 @@ import { DDDetails } from './components/Projects/DataDictionaries/DDDetails';
 import { AddDD } from './components/Projects/DataDictionaries/AddDD';
 import { StudyDetails } from './components/Projects/Studies/StudyDetails';
 import { AddStudy } from './components/Projects/Studies/AddStudy';
+import { UploadTable } from './components/Projects/Tables/UploadTable';
 
 export const myContext = createContext();
 
@@ -178,6 +179,7 @@ function App() {
           <Route path="/add_terminology" element={<AddTerminology />} />
           <Route path="/table/:tableId" element={<TableDetails />} />
           <Route path="/add_table" element={<AddTable />} />
+          <Route path="/upload_table" element={<UploadTable />} />
           <Route path="/DataDictionary/:DDId" element={<DDDetails />} />
           <Route path="/add_DD" element={<AddDD />} />
           <Route path="/study/:studyId" element={<StudyDetails />} />

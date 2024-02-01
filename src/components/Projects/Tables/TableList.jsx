@@ -25,10 +25,16 @@ export const TableList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
+            onClick={() => navigate('/upload_table')}
+          >
+            Upload Table
+          </button>
+          <button
+            className="manage_term_button"
             onClick={() => navigate('/add_table')}
           >
-            Add Table
-          </button>{' '}
+            Create Table
+          </button>
         </div>
       </div>
       {loading ? (

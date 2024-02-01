@@ -20,6 +20,7 @@
 
 .manage_term_button {
   @include manage_term_button;
+  margin-left: 3px;
 }
 .manage_term_button:hover {
   @include manage_term_button_hover;
