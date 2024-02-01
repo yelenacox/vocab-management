@@ -53,8 +53,6 @@ export const Terminology = () => {
     return current;
   };
 
-  const activeRows = [];
-
   const onEdit = index => {
     setActive(index);
   };

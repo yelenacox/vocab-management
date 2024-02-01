@@ -121,6 +121,17 @@ export const TableDetails = () => {
               ''
             )}
           </div>
+          {table?.filename ? (
+            <>
+              <div className="terminology_details terminology_name">
+                <div className="initial_div"></div>
+                File name: {table?.filename}
+              </div>
+            </>
+          ) : (
+            ''
+          )}
+
           <div className="terminology_details terminology_desc">
             {!tableEdit ? (
               <>
