@@ -28,6 +28,7 @@ function App() {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const initialTerminology = { url: '', description: '', name: '', codes: [] };
   const initialTable = { name: '', description: '', url: '', variables: [] };
+  const initialUpload = { name: '', description: '', url: '', csvContents: [] };
   const initialDD = { name: '', description: '', tables: [] };
   const initialStudy = {
     identifier_prefix: '',
@@ -43,6 +44,7 @@ function App() {
   const [dataDictionary, setDataDictionary] = useState(initialDD);
   const [study, setStudy] = useState(initialStudy);
   const resetTable = () => setTable(initialTable);
+  const resetUpload = () => setTable(initialUpload);
   const [terminologies, setTerminologies] = useState([]);
 
   const [terminology, setTerminology] = useState(initialTerminology);
@@ -159,6 +161,8 @@ function App() {
         setStudyDDs,
         // addStudy,
         // setAddStudy,
+        resetUpload,
+        initialUpload,
       }}
     >
       <Routes>
