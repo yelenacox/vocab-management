@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from 'react';
+import { React, useContext, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import DeleteTrash from '../../../../assets/trash_transparent.png';
@@ -32,6 +32,11 @@ export const UploadTable = () => {
 
   const navigate = useNavigate();
 
+  const fileRef = useRef(null);
+  const handleFileReset = () => {
+    fileRef.current.value = null;
+  };
+
   const handleOnChange = e => {
     setFile(e.target.files[0]);
   };
@@ -44,9 +49,10 @@ export const UploadTable = () => {
     e.preventDefault();
     Papa.parse(file, {
       header: true,
+      skipEmptyLines: true,
       complete: function (result) {
         console.log(tableDTO(result.data));
-        // handlePost(vocabUrl, 'Table', tableDTO(result.data)).then(data =>
+        // handlePost(vocabUrl, 'LoadTable', tableDTO(result.data)).then(data =>
         //   navigate(`/table/${data?.id}`),
         // );
       },
@@ -119,11 +125,19 @@ export const UploadTable = () => {
           <form>
             <input
               type={'file'}
+              ref={fileRef}
               id={'csvFileInput'}
               className="csv_input"
               accept={'.csv'}
               onChange={handleOnChange}
             />
+            {/* {file ? (
+              <button className="transparent_button" onClick={handleFileReset}>
+                <img className="small_icon" src={DeleteTrash} />
+              </button>
+            ) : (
+              ''
+            )} */}
           </form>
         </div>
         {table.name !== '' && table.url !== '' && file
