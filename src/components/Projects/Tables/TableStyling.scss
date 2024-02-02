@@ -38,3 +38,34 @@
   flex-direction: row;
   justify-content: center;
 }
+
+// .csv_input {
+//   border: 3px dotted blue;
+// }
+
+input::file-selector-button {
+  @include manage_term_button;
+  margin: 0 1vw 2vh 0;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+input::file-selector-button:hover {
+  @include manage_term_button_hover;
+}
+
+.button_disabled {
+  padding: 1vh 2.5vh;
+  border: 1px solid darkgrey;
+  color: gray;
+  border-radius: 25px;
+  font: {
+    size: 0.7rem;
+    weight: 800;
+  }
+}
+
+.transparent_button {
+  border: none;
+  background-color: transparent;
+}

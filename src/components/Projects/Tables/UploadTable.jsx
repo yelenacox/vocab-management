@@ -1,13 +1,22 @@
 import { React, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
+import DeleteTrash from '../../../../assets/trash_transparent.png';
+
 import Background from '../../../../assets/Background.png';
 import { handlePost } from '../../Manager/FetchManager';
 import Papa from 'papaparse';
+import './TableStyling.scss';
 
 export const UploadTable = () => {
-  const { vocabUrl, table, setTable, resetTable, resetUpload } =
-    useContext(myContext);
+  const {
+    vocabUrl,
+    table,
+    setTable,
+    resetUpload,
+    buttonDisabled,
+    setButtonDisabled,
+  } = useContext(myContext);
   const [file, setFile] = useState(null);
 
   useEffect(() => {
@@ -107,21 +116,29 @@ export const UploadTable = () => {
           />
         </div>
         <div>
-          <input
-            type={'file'}
-            id={'csvFileInput'}
-            accept={'.csv'}
-            onChange={handleOnChange}
-          />
+          <form>
+            <input
+              type={'file'}
+              id={'csvFileInput'}
+              className="csv_input"
+              accept={'.csv'}
+              onChange={handleOnChange}
+            />
+          </form>
         </div>
+        {table.name !== '' && table.url !== '' && file
+          ? setButtonDisabled(false)
+          : setButtonDisabled(true)}
+
         <button
-          className="manage_term_button"
+          className={!buttonDisabled ? 'manage_term_button' : 'button_disabled'}
           onClick={e => {
-            handleSubmit(e);
+            !buttonDisabled ? handleSubmit(e) : '';
           }}
         >
           Upload{' '}
         </button>
+
         {/* <button
           className="manage_term_button"
           onClick={() => navigate('/projects')}
