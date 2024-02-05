@@ -123,7 +123,7 @@ export const TableDetails = () => {
           </div>
           {table?.filename ? (
             <>
-              <div className="terminology_details terminology_name">
+              <div className="terminology_details terminology_desc">
                 <div className="initial_div"></div>
                 File name: {table?.filename}
               </div>

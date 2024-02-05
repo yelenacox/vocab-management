@@ -52,9 +52,9 @@ export const UploadTable = () => {
       skipEmptyLines: true,
       complete: function (result) {
         console.log(tableDTO(result.data));
-        // handlePost(vocabUrl, 'LoadTable', tableDTO(result.data)).then(data =>
-        //   navigate(`/table/${data?.id}`),
-        // );
+        handlePost(vocabUrl, 'LoadTable', tableDTO(result.data)).then(data =>
+          navigate(`/table/${data?.id}`),
+        );
       },
     });
   };

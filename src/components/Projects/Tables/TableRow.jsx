@@ -46,7 +46,9 @@ export const TableRow = ({
             <td className="first_cell">{v?.name}</td>
             <td className="second_cell">{v?.description}</td>
             <td className="third_cell">
-              {v?.data_type !== 'STRING' ? (
+              {v?.data_type === 'QUANTITY' ||
+              v?.data_type === 'INTEGER' ||
+              v?.data_type === 'ENUMERATION' ? (
                 <div
                   className="row_header"
                   id={index}
