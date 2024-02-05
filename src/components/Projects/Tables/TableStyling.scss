@@ -39,10 +39,6 @@
   justify-content: center;
 }
 
-// .csv_input {
-//   border: 3px dotted blue;
-// }
-
 input::file-selector-button {
   @include manage_term_button;
   margin: 0 1vw 2vh 0;
