@@ -4,7 +4,7 @@ $linkColor: #fffc31;
 nav {
   width: 100vw;
   background-color: $navColor;
-  height: 17vh;
+  height: 14vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -17,14 +17,14 @@ nav {
     text-decoration: none;
     color: $navColor;
     font: {
-      size: 1.2rem;
+      size: 1.2em;
       weight: 800;
     }
   }
 }
 
 .nav_body {
-  width: 100vw;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
 }
@@ -39,7 +39,7 @@ nav {
   color: white;
   font: {
     weight: 800;
-    size: 1.7rem;
+    size: 1.3rem;
   }
   text-align: left;
   text-decoration: none;
@@ -59,8 +59,8 @@ nav {
   align-items: center;
   justify-content: center;
   background-color: $linkColor;
-  height: 3.9rem;
-  width: 7.9rem;
+  height: 9vh;
+  width: 9vw;
   border-radius: 10px;
 }
 

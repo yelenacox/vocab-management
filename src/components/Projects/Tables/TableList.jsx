@@ -5,10 +5,20 @@ import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteTable } from './DeleteTable';
 import { getAll } from '../../Manager/FetchManager';
+import { AddTable } from './AddTable';
+import { Modal, Form } from 'antd';
 
 export const TableList = () => {
-  const { loading, setLoading, vocabUrl, tables, setTables } =
-    useContext(myContext);
+  const [form] = Form.useForm();
+  const {
+    loading,
+    setLoading,
+    vocabUrl,
+    tables,
+    setTables,
+    addTable,
+    setAddTable,
+  } = useContext(myContext);
 
   const navigate = useNavigate();
 
@@ -31,7 +41,9 @@ export const TableList = () => {
           </button>
           <button
             className="manage_term_button"
-            onClick={() => navigate('/add_table')}
+            onClick={() => setAddTable(true)}
+
+            // onClick={() => navigate('/add_table')}
           >
             Create Table
           </button>
@@ -70,6 +82,27 @@ export const TableList = () => {
           </table>
         </div>
       )}
+      <Modal
+        open={addTable}
+        width={'70%'}
+        onOk={
+          () =>
+            form.validateFields().then(values => {
+              form.resetFields();
+              // onCreate(values);
+            })
+          //   .catch(info => {
+          //     console.log('Validate Failed:', info);
+          //   })
+        }
+        onCancel={() => {
+          form.resetFields();
+          setAddTable(false);
+        }}
+        maskClosable={true}
+      >
+        <AddTable form={form} />
+      </Modal>
     </>
   );
 };
