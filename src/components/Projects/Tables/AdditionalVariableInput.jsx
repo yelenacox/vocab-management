@@ -2,22 +2,33 @@ import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './AdditionalVariableInputs.scss';
 import { getAll } from '../../Manager/FetchManager';
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import TextArea from 'antd/es/input/TextArea';
 
 export const AdditionalVariableInput = props => {
   const { variable, index, form } = props;
   const {
     vocabUrl,
     table,
-    addTableVariable,
+    // addTableVariable,
     terminologies,
     setTerminologies,
     updateTableVariable,
     setLoading,
+    getVariableId,
     removeTableVariable,
   } = useContext(myContext);
   const [thisVariable, setThisVariable] = useState(variable);
+
+  const addTableVariable = () => {
+    const tableVars = table.variables;
+    tableVars.push({ id: getVariableId() });
+    setTable({
+      ...table,
+      variables: tableVars,
+    });
+  };
 
   const formItemLayout = {
     labelCol: {
@@ -68,47 +79,119 @@ export const AdditionalVariableInput = props => {
 
   return (
     <>
-      <Form.List name="variables">
-        {(fields, { add, remove }) => (
+      <Form.List
+        name="variables"
+        rules={[
+          {
+            validator: async (_, variables) => {
+              if (!variables || variables.length < 1) {
+                return Promise.reject(
+                  new Error('At least 1 variable is required.'),
+                );
+              }
+            },
+          },
+        ]}
+      >
+        {(fields, { add, remove }, { errors }) => (
           <>
-            {fields.map(({ key, name, ...restField }) => (
+            {fields.map(({ field, index }) => (
               <Space
-                key={key}
+                key={index}
                 style={{
                   display: 'flex',
-                  marginBottom: 30,
+                  marginBottom: 3,
                 }}
                 align="baseline"
               >
                 <Form.Item
-                  {...restField}
-                  name={[variable, 'variable']}
+                  {...field}
+                  validateTrigger={['onChange', 'onBlur']}
+                  label="Variable name"
+                  value={table.varName}
                   rules={[
                     {
                       required: true,
-                      message: 'Missing variable name.',
+                      // whitespace: true,
+                      message: 'Variable name is required.',
                     },
                   ]}
+                  onChange={evt => {
+                    setThisVariable({
+                      ...thisVariable,
+                      name: evt.target.value,
+                    });
+                  }}
                 >
-                  <Input placeholder="Variable Name" />
+                  <Input
+                    style={{
+                      width: '15vw',
+                      flexShrink: 1,
+                    }}
+                    placeholder="Variable Name"
+                  />
                 </Form.Item>
                 <Form.Item
-                  {...restField}
-                  name={[variable, 'description']}
+                  {...field}
+                  label="Variable description"
+                  value={table.varDescription}
                   rules={[
                     {
                       required: true,
-                      message: 'Missing variable description.',
+                      message: 'Variable description is required.',
                     },
                   ]}
+                  onChange={evt => {
+                    setThisVariable({
+                      ...thisVariable,
+                      description: evt.target.value,
+                    });
+                  }}
                 >
-                  <Input placeholder="Variable Description" />
+                  <Input
+                    style={{
+                      width: '39vw',
+                    }}
+                    placeholder="Variable Description"
+                  />
                 </Form.Item>
-                <MinusCircleOutlined onClick={() => remove(name)} />
+
+                <Form.Item
+                  label="Data Type"
+                  value={table.data_type}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Data type is required.',
+                    },
+                  ]}
+                  onChange={evt => {
+                    setThisVariable({
+                      ...thisVariable,
+                      data_type: evt.target.value,
+                    });
+                  }}
+                >
+                  <Select
+                    style={{ width: '9vw' }}
+                    placeholder="Select data type"
+                    allowClear
+                  >
+                    <Option value="string">String</Option>
+                    <Option value="integer">Integer</Option>
+                    <Option value="quantity">Quantity</Option>
+                    <Option value="enumeration">Enumeration</Option>
+                  </Select>
+                </Form.Item>
+                {fields.length === 1 ? null : (
+                  <MinusCircleOutlined onClick={() => remove(field.name)} />
+                )}
               </Space>
             ))}
+
             <Form.Item>
               <Button
+                style={{ width: 250 }}
                 type="dashed"
                 onClick={() => add()}
                 block
@@ -117,6 +200,7 @@ export const AdditionalVariableInput = props => {
                 Add variable
               </Button>
             </Form.Item>
+            <Form.ErrorList errors={errors} />
           </>
         )}
       </Form.List>

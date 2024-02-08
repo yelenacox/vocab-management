@@ -53,21 +53,42 @@ export const AddTable = ({ form }) => {
         <Form.Item
           name="name"
           label="Name"
+          value={table.name}
           rules={[{ required: true, message: 'Please input Table name.' }]}
+          onChange={evt => {
+            setTable({
+              ...table,
+              name: evt.target.value,
+            });
+          }}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="description"
           label="Description"
+          value={table.description}
           rules={[{ required: false }]}
+          onChange={evt => {
+            setTable({
+              ...table,
+              description: evt.target.value,
+            });
+          }}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="url"
           label="URL"
+          value={table.url}
           rules={[{ required: true, message: 'Please input Table URL.' }]}
+          onChange={evt => {
+            setTable({
+              ...table,
+              url: evt.target.value,
+            });
+          }}
         >
           <Input />
         </Form.Item>
