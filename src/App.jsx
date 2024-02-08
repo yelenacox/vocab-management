@@ -53,6 +53,7 @@ function App() {
   const [tablesDD, setTablesDD] = useState([]);
   const [studies, setStudies] = useState([]);
   const [studyDDs, setStudyDDs] = useState([]);
+  const [addTable, setAddTable] = useState(false);
   // const [addStudy, setAddStudy] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -161,6 +162,8 @@ function App() {
         setStudyDDs,
         // addStudy,
         // setAddStudy,
+        addTable,
+        setAddTable,
         resetUpload,
         initialUpload,
       }}
