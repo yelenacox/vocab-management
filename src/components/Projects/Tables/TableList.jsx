@@ -16,6 +16,8 @@ export const TableList = () => {
     vocabUrl,
     tables,
     setTables,
+    table,
+    setTable,
     addTable,
     setAddTable,
   } = useContext(myContext);
@@ -27,6 +29,21 @@ export const TableList = () => {
     getAll(vocabUrl, 'Table').then(data => setTables(data));
     setLoading(false);
   }, []);
+
+  let tableDTO = () => {
+    const variablesDTO = table.variables.map(variable => {
+      return { ...variable, id: undefined };
+    });
+    return { ...table, variables: variablesDTO };
+  };
+
+  const handleSubmit = event => {
+    // event.preventDefault();
+    console.log('NEW TABLE PLEASE', tableDTO());
+    // handlePost(vocabUrl, 'Table', tableDTO()).then(data =>
+    //   navigate(`/table/${data?.id}`),
+    // );
+  };
 
   return (
     <>
@@ -90,6 +107,7 @@ export const TableList = () => {
             form.validateFields().then(values => {
               form.resetFields();
               // onCreate(values);
+              handleSubmit(values);
             })
           //   .catch(info => {
           //     console.log('Validate Failed:', info);
