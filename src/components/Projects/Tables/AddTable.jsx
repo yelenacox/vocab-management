@@ -4,7 +4,8 @@ import { myContext } from '../../../App';
 import Background from '../../../../assets/Background.png';
 import { AdditionalVariableInput } from './AdditionalVariableInput';
 import { handlePost } from '../../Manager/FetchManager';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Space, Select } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 export const AddTable = ({ form }) => {
   const { vocabUrl, table, setTable, resetTable, addTableVariable } =
@@ -20,27 +21,27 @@ export const AddTable = ({ form }) => {
     [],
   );
 
-  useEffect(() => {
-    if (table?.variables?.length === 0) {
-      addTableVariable();
-    }
-  });
+  // useEffect(() => {
+  //   if (table?.variables?.length === 0) {
+  //     addTableVariable();
+  //   }
+  // });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  let tableDTO = () => {
-    const variablesDTO = table.variables.map(variable => {
-      return { ...variable, id: undefined };
-    });
-    return { ...table, variables: variablesDTO };
-  };
+  // let tableDTO = () => {
+  //   const variablesDTO = table.variables.map(variable => {
+  //     return { ...variable, id: undefined };
+  //   });
+  //   return { ...table, variables: variablesDTO };
+  // };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    handlePost(vocabUrl, 'Table', tableDTO()).then(data =>
-      navigate(`/table/${data?.id}`),
-    );
-  };
+  // const handleSubmit = event => {
+  //   event.preventDefault();
+  //   handlePost(vocabUrl, 'Table', tableDTO()).then(data =>
+  //     navigate(`/table/${data?.id}`),
+  //   );
+  // };
 
   return (
     <>
@@ -48,57 +49,51 @@ export const AddTable = ({ form }) => {
         form={form}
         layout="vertical"
         name="form_in_modal"
-        initialValues={{ modifier: 'public' }}
+        // initialValues={{ modifier: 'public' }}
       >
         <Form.Item
           name="name"
           label="Name"
-          value={table.name}
+          // value={table.name}
           rules={[{ required: true, message: 'Please input Table name.' }]}
-          onChange={evt => {
-            setTable({
-              ...table,
-              name: evt.target.value,
-            });
-          }}
+          // onChange={evt => {
+          //   setTable({
+          //     ...table,
+          //     name: evt.target.value,
+          //   });
+          // }}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="description"
           label="Description"
-          value={table.description}
+          // value={table.description}
           rules={[{ required: false }]}
-          onChange={evt => {
-            setTable({
-              ...table,
-              description: evt.target.value,
-            });
-          }}
+          // onChange={evt => {
+          //   setTable({
+          //     ...table,
+          //     description: evt.target.value,
+          //   });
+          // }}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="url"
           label="URL"
-          value={table.url}
+          // value={table.url}
           rules={[{ required: true, message: 'Please input Table URL.' }]}
-          onChange={evt => {
-            setTable({
-              ...table,
-              url: evt.target.value,
-            });
-          }}
+          // onChange={evt => {
+          //   setTable({
+          //     ...table,
+          //     url: evt.target.value,
+          //   });
+          // }}
         >
           <Input />
         </Form.Item>
-        {table?.variables?.map((variable, index) => (
-          <AdditionalVariableInput
-            variable={variable}
-            index={index}
-            form={form}
-          />
-        ))}
+        <AdditionalVariableInput />
       </Form>
     </>
   );

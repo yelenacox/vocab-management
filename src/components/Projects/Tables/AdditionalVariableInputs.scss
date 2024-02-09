@@ -26,3 +26,17 @@
     family: 'Wix Madefor Display', sans-serif;
   }
 }
+
+.dynamic-delete-button {
+  position: relative;
+  top: 4px;
+  // background-color: pink;
+  // margin: 0 0 0 2px;
+  color: #999;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.dynamic-delete-button:hover {
+  color: #777;
+}
