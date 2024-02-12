@@ -18,12 +18,6 @@ export const AdditionalVariableInput = () => {
     getVariableId,
   } = useContext(myContext);
 
-  // const [dataType, setDataType] = useState();
-
-  // useEffect(() => {
-  //   thisVariable.data_type === 'ENUMERATION' ? getTerminologies() : '';
-  // }, [thisVariable.data_type]);
-
   const getTerminologies = () => {
     setLoading(true);
     getAll(vocabUrl, 'Terminology')
