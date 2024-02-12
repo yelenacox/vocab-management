@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import Background from '../../../../assets/Background.png';
 import { AdditionalVariableInput } from './AdditionalVariableInput';
-import { handlePost } from '../../Manager/FetchManager';
-import { Button, Form, Input, Space, Select } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, Input } from 'antd';
 
 export const AddTable = ({ form }) => {
   const { vocabUrl, table, setTable, resetTable, addTableVariable } =
@@ -35,6 +33,7 @@ export const AddTable = ({ form }) => {
         name="form_in_modal"
         // initialValues={{ modifier: 'public' }}
       >
+        <h2>Create Table</h2>
         <Form.Item
           name="name"
           label="Name"
