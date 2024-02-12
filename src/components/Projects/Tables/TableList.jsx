@@ -30,16 +30,9 @@ export const TableList = () => {
     setLoading(false);
   }, []);
 
-  let tableDTO = () => {
-    const variablesDTO = table.variables.map(variable => {
-      return { ...variable, id: undefined };
-    });
-    return { ...table, variables: variablesDTO };
-  };
-
-  const handleSubmit = event => {
+  const handleSubmit = values => {
     // event.preventDefault();
-    console.log('NEW TABLE PLEASE', tableDTO());
+    console.log('NEW TABLE PLEASE', values);
     // handlePost(vocabUrl, 'Table', tableDTO()).then(data =>
     //   navigate(`/table/${data?.id}`),
     // );
@@ -102,16 +95,11 @@ export const TableList = () => {
       <Modal
         open={addTable}
         width={'70%'}
-        onOk={
-          () =>
-            form.validateFields().then(values => {
-              form.resetFields();
-              // onCreate(values);
-              handleSubmit(values);
-            })
-          //   .catch(info => {
-          //     console.log('Validate Failed:', info);
-          //   })
+        onOk={() =>
+          form.validateFields().then(values => {
+            handleSubmit(values);
+            form.resetFields();
+          })
         }
         onCancel={() => {
           form.resetFields();
