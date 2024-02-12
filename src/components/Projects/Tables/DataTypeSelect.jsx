@@ -32,7 +32,7 @@ function DataTypeSelect({ name, restField }) {
           placeholder="Select data type"
           onChange={value => {
             setType(value);
-          }} //{value => setDataType(value)}
+          }}
           options={[
             { value: 'STRING', label: 'String' },
             { value: 'INTEGER', label: 'Integer' },
@@ -47,7 +47,7 @@ function DataTypeSelect({ name, restField }) {
         <Form.Item
           {...restField}
           label="Terminology"
-          name={[name, 'enumerations: {reference: }']}
+          name={[name, 'enumerations', 'reference']}
           rules={[
             {
               required: true,
@@ -59,7 +59,10 @@ function DataTypeSelect({ name, restField }) {
             style={{ width: '9vw' }}
             placeholder="Select Terminology"
             options={terminologies.map(term => {
-              return { value: `Terminology/${term?.id}`, label: term?.name };
+              return {
+                value: `Terminology/${term?.id}`,
+                label: term?.name,
+              };
             })}
           />
         </Form.Item>

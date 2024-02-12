@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteTable } from './DeleteTable';
-import { getAll } from '../../Manager/FetchManager';
+import { getAll, handlePost } from '../../Manager/FetchManager';
 import { AddTable } from './AddTable';
 import { Modal, Form } from 'antd';
 import { UploadTable } from './UploadTable';
@@ -36,10 +36,10 @@ export const TableList = () => {
 
   const handleSubmit = values => {
     // event.preventDefault();
-    console.log('NEW TABLE PLEASE', values);
-    // handlePost(vocabUrl, 'Table', tableDTO()).then(data =>
-    //   navigate(`/table/${data?.id}`),
-    // );
+    // console.log('NEW TABLE PLEASE', values);
+    handlePost(vocabUrl, 'Table', values).then(data =>
+      navigate(`/table/${data?.id}`),
+    );
   };
 
   const handleUpload = values => {
