@@ -7,6 +7,8 @@ import { DeleteTable } from './DeleteTable';
 import { getAll } from '../../Manager/FetchManager';
 import { AddTable } from './AddTable';
 import { Modal, Form } from 'antd';
+import { UploadTable } from './UploadTable';
+import Papa from 'papaparse';
 
 export const TableList = () => {
   const [form] = Form.useForm();
@@ -20,6 +22,8 @@ export const TableList = () => {
     setTable,
     addTable,
     setAddTable,
+    loadTable,
+    setLoadTable,
   } = useContext(myContext);
 
   const navigate = useNavigate();
@@ -38,6 +42,22 @@ export const TableList = () => {
     // );
   };
 
+  const handleUpload = values => {
+    console.log('LOOOOOOOAD', values);
+
+    // e.preventDefault();
+    // Papa.parse(file, {
+    //   header: true,
+    //   skipEmptyLines: true,
+    //   complete: function (result) {
+    //     console.log(tableDTO(result.data));
+    //     handlePost(vocabUrl, 'LoadTable', tableDTO(result.data)).then(data =>
+    //       navigate(`/table/${data?.id}`),
+    //     );
+    //   },
+    // });
+  };
+
   return (
     <>
       <div className="projects_sub_nav">
@@ -45,15 +65,15 @@ export const TableList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            onClick={() => navigate('/upload_table')}
+            onClick={() => setLoadTable(true)}
+
+            // onClick={() => navigate('/upload_table')}
           >
             Upload Table
           </button>
           <button
             className="manage_term_button"
             onClick={() => setAddTable(true)}
-
-            // onClick={() => navigate('/add_table')}
           >
             Create Table
           </button>
@@ -105,9 +125,26 @@ export const TableList = () => {
           form.resetFields();
           setAddTable(false);
         }}
-        maskClosable={true}
+        maskClosable={false}
       >
         <AddTable form={form} />
+      </Modal>
+      <Modal
+        open={loadTable}
+        width={'70%'}
+        onOk={() =>
+          form.validateFields().then(values => {
+            handleUpload(values);
+            form.resetFields();
+          })
+        }
+        onCancel={() => {
+          form.resetFields();
+          setLoadTable(false);
+        }}
+        maskClosable={false}
+      >
+        <UploadTable form={form} />
       </Modal>
     </>
   );

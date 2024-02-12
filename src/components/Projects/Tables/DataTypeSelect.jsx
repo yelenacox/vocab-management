@@ -7,7 +7,6 @@ import { myContext } from '../../../App';
 function DataTypeSelect({ name, restField }) {
   const { vocabUrl, setTerminologies, terminologies } = useContext(myContext);
   const [type, setType] = useState();
-  console.log(terminologies);
 
   useEffect(() => {
     type === 'ENUMERATION'
@@ -59,12 +58,9 @@ function DataTypeSelect({ name, restField }) {
           <Select
             style={{ width: '9vw' }}
             placeholder="Select Terminology"
-            options={[
-              //   { value: 'poop', label: 'POOP' },
-              terminologies?.map(term => {
-                return { value: `Terminology/${term?.id}`, label: term?.name };
-              }),
-            ]}
+            options={terminologies.map(term => {
+              return { value: `Terminology/${term?.id}`, label: term?.name };
+            })}
           />
         </Form.Item>
       ) : (
