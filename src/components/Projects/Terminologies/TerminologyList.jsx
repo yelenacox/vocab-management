@@ -4,11 +4,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteTerminology } from './DeleteTerminology';
-import { getAll } from '../../Manager/FetchManager';
+import { getAll, handlePost } from '../../Manager/FetchManager';
+import { Modal, Form } from 'antd';
+import { AddTerminology } from './AddTerminology';
 
 export const TerminologyList = () => {
-  const { loading, setLoading, vocabUrl, terminologies, setTerminologies } =
-    useContext(myContext);
+  const [form] = Form.useForm();
+
+  const {
+    loading,
+    setLoading,
+    vocabUrl,
+    terminologies,
+    setTerminologies,
+    setAddTerm,
+    addTerm,
+  } = useContext(myContext);
 
   const navigate = useNavigate();
 
@@ -18,6 +29,12 @@ export const TerminologyList = () => {
     setLoading(false);
   }, []);
 
+  const handleSubmit = values => {
+    handlePost(vocabUrl, 'Terminology', values).then(data =>
+      navigate(`/terminology/${data?.id}`),
+    );
+  };
+
   return (
     <>
       <div className="projects_sub_nav">
@@ -25,9 +42,11 @@ export const TerminologyList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            onClick={() => navigate('/add_terminology')}
+            onClick={() => setAddTerm(true)}
+
+            // onClick={() => navigate('/add_terminology')}
           >
-            Add Terminology
+            Create Terminology
           </button>{' '}
         </div>
       </div>
@@ -67,6 +86,23 @@ export const TerminologyList = () => {
           </table>
         </div>
       )}
+      <Modal
+        open={addTerm}
+        width={'70%'}
+        onOk={() =>
+          form.validateFields().then(values => {
+            handleSubmit(values);
+            form.resetFields();
+          })
+        }
+        onCancel={() => {
+          form.resetFields();
+          setAddTerm(false);
+        }}
+        maskClosable={false}
+      >
+        <AddTerminology form={form} />
+      </Modal>
     </>
   );
 };
