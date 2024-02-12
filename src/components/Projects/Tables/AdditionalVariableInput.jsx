@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { myContext } from '../../../App';
 import './AdditionalVariableInputs.scss';
 import { getAll } from '../../Manager/FetchManager';
 import { Button, Form, Input, Space, Select, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import DataTypeSelect from './DataTypeSelect';
 
 export const AdditionalVariableInput = () => {
   const {
@@ -16,15 +17,8 @@ export const AdditionalVariableInput = () => {
     setLoading,
     getVariableId,
   } = useContext(myContext);
-  console.log(table.variables);
-  // const addTableVariable = () => {
-  //   const tableVars = table.variables;
-  //   tableVars.push({ id: getVariableId() });
-  //   setTable({
-  //     ...table,
-  //     variables: tableVars,
-  //   });
-  // };
+
+  // const [dataType, setDataType] = useState();
 
   // useEffect(() => {
   //   thisVariable.data_type === 'ENUMERATION' ? getTerminologies() : '';
@@ -41,17 +35,17 @@ export const AdditionalVariableInput = () => {
   return (
     <Form.List
       name="variables"
-      // rules={[
-      //   {
-      //     validator: async (_, variables) => {
-      //       if (!variables || variables.length < 1) {
-      //         return Promise.reject(
-      //           new Error('At least 1 variable is required.'),
-      //         );
-      //       }
-      //     },
-      //   },
-      // ]}
+      rules={[
+        {
+          validator: async (_, variables) => {
+            if (!variables || variables.length < 1) {
+              return Promise.reject(
+                new Error('At least 1 variable is required.'),
+              );
+            }
+          },
+        },
+      ]}
     >
       {(fields, { add, remove }, { errors }) => (
         <>
@@ -103,27 +97,7 @@ export const AdditionalVariableInput = () => {
                   />
                 </Form.Item>
 
-                <Form.Item
-                  {...restField}
-                  label="Data Type"
-                  name={[name, 'data_type']}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Data type is required.',
-                    },
-                  ]}
-                >
-                  <Select
-                    style={{ width: '9vw' }}
-                    placeholder="Select data type"
-                  >
-                    <Option value="STRING">String</Option>
-                    <Option value="INTEGER">Integer</Option>
-                    <Option value="QUANTITY">Quantity</Option>
-                    <Option value="ENUMERATION">Enumeration</Option>
-                  </Select>
-                </Form.Item>
+                <DataTypeSelect name={name} restField={restField} />
                 <MinusCircleOutlined
                   className="dynamic-delete-button"
                   onClick={() => remove(name)}
