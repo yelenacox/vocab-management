@@ -2,7 +2,7 @@ import { useContext, useEffect, useState, useRef } from 'react';
 import { myContext } from '../../../App';
 import './AdditionalVariableInputs.scss';
 import { getAll } from '../../Manager/FetchManager';
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input, Space, Select, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import DataTypeSelect from './DataTypeSelect';
 

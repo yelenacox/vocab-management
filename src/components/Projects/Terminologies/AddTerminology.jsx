@@ -5,50 +5,35 @@ import { myContext } from '../../../App';
 import { AdditionalCodeInput } from './AdditionalCodeInput';
 import Background from '../../../../assets/Background.png';
 import { handlePost } from '../../Manager/FetchManager';
-import { Button, Form, Input, Space, Select } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, Input } from 'antd';
 
 export const AddTerminology = ({ form }) => {
-  const {
-    vocabUrl,
-    terminology,
-    setTerminology,
-    initialTerminology,
-    handleCodeAdd,
-  } = useContext(myContext);
+  // const {
+  //   vocabUrl,
+  //   terminology,
+  //   setTerminology,
+  //   initialTerminology,
+  //   handleCodeAdd,
+  // } = useContext(myContext);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    setTerminology(initialTerminology);
-  }, []);
+  // useEffect(() => {
+  //   setTerminology(initialTerminology);
+  // }, []);
 
-  useEffect(
-    () => () => {
-      setTerminology(initialTerminology);
-    },
-    [],
-  );
+  // useEffect(
+  //   () => () => {
+  //     setTerminology(initialTerminology);
+  //   },
+  //   [],
+  // );
 
-  useEffect(() => {
-    if (terminology?.codes?.length === 0) {
-      handleCodeAdd();
-    }
-  });
-
-  let terminologyDTO = () => {
-    const codesDTO = terminology.codes.map(code => {
-      return { code: code.code, display: code.display };
-    });
-    return { ...terminology, codes: codesDTO };
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    handlePost(vocabUrl, 'Terminology', terminologyDTO()).then(data =>
-      navigate(`/terminology/${data?.id}`),
-    );
-  };
+  // useEffect(() => {
+  //   if (terminology?.codes?.length === 0) {
+  //     handleCodeAdd();
+  //   }
+  // });
 
   return (
     <Form

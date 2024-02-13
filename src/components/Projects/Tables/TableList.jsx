@@ -12,6 +12,8 @@ import Papa from 'papaparse';
 
 export const TableList = () => {
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState([]);
+
   const {
     loading,
     setLoading,
@@ -45,7 +47,6 @@ export const TableList = () => {
   const handleUpload = values => {
     console.log('LOOOOOOOAD', values);
 
-    // e.preventDefault();
     // Papa.parse(file, {
     //   header: true,
     //   skipEmptyLines: true,
@@ -119,6 +120,7 @@ export const TableList = () => {
           form.validateFields().then(values => {
             handleSubmit(values);
             form.resetFields();
+            setAddTable(false);
           })
         }
         onCancel={() => {
@@ -141,10 +143,15 @@ export const TableList = () => {
         onCancel={() => {
           form.resetFields();
           setLoadTable(false);
+          setFileList([]);
         }}
         maskClosable={false}
       >
-        <UploadTable form={form} />
+        <UploadTable
+          form={form}
+          fileList={fileList}
+          setFileList={setFileList}
+        />
       </Modal>
     </>
   );
