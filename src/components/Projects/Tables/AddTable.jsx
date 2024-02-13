@@ -1,30 +1,7 @@
-import { React, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { myContext } from '../../../App';
-import Background from '../../../../assets/Background.png';
 import { AdditionalVariableInput } from './AdditionalVariableInput';
 import { Form, Input } from 'antd';
 
 export const AddTable = ({ form }) => {
-  const { vocabUrl, table, setTable, resetTable, addTableVariable } =
-    useContext(myContext);
-
-  useEffect(() => {
-    resetTable();
-  }, []);
-  useEffect(
-    () => () => {
-      resetTable();
-    },
-    [],
-  );
-
-  // useEffect(() => {
-  //   if (table?.variables?.length === 0) {
-  //     addTableVariable();
-  //   }
-  // });
-
   return (
     <>
       <Form
@@ -55,7 +32,7 @@ export const AddTable = ({ form }) => {
         >
           <Input />
         </Form.Item>
-        <AdditionalVariableInput />
+        <AdditionalVariableInput form={form} />
       </Form>
     </>
   );

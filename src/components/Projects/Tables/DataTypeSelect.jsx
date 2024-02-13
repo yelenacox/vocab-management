@@ -6,8 +6,7 @@ import { myContext } from '../../../App';
 
 function DataTypeSelect({ name, restField }) {
   const { vocabUrl, setTerminologies, terminologies } = useContext(myContext);
-  const [type, setType] = useState();
-
+  const [type, setType] = useState(null);
   useEffect(() => {
     type === 'ENUMERATION'
       ? getAll(vocabUrl, 'Terminology').then(data => setTerminologies(data))
@@ -28,7 +27,7 @@ function DataTypeSelect({ name, restField }) {
         ]}
       >
         <Select
-          style={{ width: '9vw' }}
+          style={{ width: '10vw' }}
           placeholder="Select data type"
           onChange={value => {
             setType(value);
@@ -56,8 +55,20 @@ function DataTypeSelect({ name, restField }) {
           ]}
         >
           <Select
-            style={{ width: '9vw' }}
-            placeholder="Select Terminology"
+            showSearch
+            style={{
+              width: '10vw',
+            }}
+            placeholder="Search to Select"
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              (option?.label ?? '').includes(input)
+            }
+            filterSort={(optionA, optionB) =>
+              (optionA?.label ?? '')
+                .toLowerCase()
+                .localeCompare((optionB?.label ?? '').toLowerCase())
+            }
             options={terminologies.map(term => {
               return {
                 value: `Terminology/${term?.id}`,

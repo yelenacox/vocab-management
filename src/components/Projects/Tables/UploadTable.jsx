@@ -1,15 +1,15 @@
 import { React, useContext, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
-import { Button, Form, Input, Space, Select } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 import Background from '../../../../assets/Background.png';
 import { handlePost } from '../../Manager/FetchManager';
 import Papa from 'papaparse';
 import './TableStyling.scss';
 
-export const UploadTable = ({ form }) => {
+export const UploadTable = ({ form, fileList, setFileList }) => {
   const {
     vocabUrl,
     table,
@@ -60,6 +60,20 @@ export const UploadTable = ({ form }) => {
     });
   };
 
+  const props = {
+    onRemove: file => {
+      const index = fileList.indexOf(file);
+      const newFileList = fileList.slice();
+      newFileList.splice(index, 1);
+      setFileList(newFileList);
+    },
+    beforeUpload: file => {
+      setFileList([...fileList, file]);
+      return false;
+    },
+    fileList,
+  };
+
   return (
     <>
       <Form
@@ -68,6 +82,7 @@ export const UploadTable = ({ form }) => {
         name="form_in_modal"
         // initialValues={{ modifier: 'public' }}
       >
+        <h2>Upload Table</h2>
         <Form.Item
           name="name"
           label="Name"
@@ -88,6 +103,11 @@ export const UploadTable = ({ form }) => {
           rules={[{ required: true, message: 'Please input Table URL.' }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item name="csvContents" extra="CSV files only">
+          <Upload {...props} accept=".csv">
+            <Button icon={<UploadOutlined />}>Select File</Button>
+          </Upload>
         </Form.Item>
       </Form>
     </>

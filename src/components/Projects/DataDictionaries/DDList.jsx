@@ -5,14 +5,19 @@ import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteDD } from './DeleteDD';
 import { getAll } from '../../Manager/FetchManager';
+import { Modal, Form } from 'antd';
+import { AddDD } from './AddDD';
 
 export const DDList = () => {
+  const [form] = Form.useForm();
   const {
     loading,
     setLoading,
     vocabUrl,
     dataDictionaries,
     setDataDictionaries,
+    addDD,
+    setAddDD,
   } = useContext(myContext);
 
   const navigate = useNavigate();
@@ -23,6 +28,14 @@ export const DDList = () => {
     setLoading(false);
   }, []);
 
+  const handleSubmit = values => {
+    console.log(values);
+    // evt.preventDefault();
+    // handlePost(vocabUrl, 'DataDictionary', DDDTO()).then(data =>
+    //   navigate(`/DataDictionary/${data?.id}`),
+    // );
+  };
+
   return (
     <>
       <div className="projects_sub_nav">
@@ -30,9 +43,10 @@ export const DDList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            onClick={() => navigate('/add_DD')}
+            // onClick={() => navigate('/add_DD')}
+            onClick={() => setAddDD(true)}
           >
-            Add Data Dictionary
+            Create Data Dictionary
           </button>{' '}
         </div>
       </div>
@@ -72,6 +86,24 @@ export const DDList = () => {
           </table>
         </div>
       )}
+      <Modal
+        open={addDD}
+        width={'70%'}
+        onOk={() =>
+          form.validateFields().then(values => {
+            handleSubmit(values);
+            form.resetFields();
+            setAddDD(false);
+          })
+        }
+        onCancel={() => {
+          form.resetFields();
+          setAddDD(false);
+        }}
+        maskClosable={false}
+      >
+        <AddDD form={form} />
+      </Modal>
     </>
   );
 };

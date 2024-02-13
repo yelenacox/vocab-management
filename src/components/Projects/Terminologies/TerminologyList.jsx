@@ -43,8 +43,6 @@ export const TerminologyList = () => {
           <button
             className="manage_term_button"
             onClick={() => setAddTerm(true)}
-
-            // onClick={() => navigate('/add_terminology')}
           >
             Create Terminology
           </button>{' '}
@@ -93,6 +91,7 @@ export const TerminologyList = () => {
           form.validateFields().then(values => {
             handleSubmit(values);
             form.resetFields();
+            setAddTerm(false);
           })
         }
         onCancel={() => {
