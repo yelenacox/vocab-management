@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteDD } from './DeleteDD';
-import { getAll } from '../../Manager/FetchManager';
+import { getAll, handlePost } from '../../Manager/FetchManager';
 import { Modal, Form } from 'antd';
 import { AddDD } from './AddDD';
 
@@ -29,11 +29,12 @@ export const DDList = () => {
   }, []);
 
   const handleSubmit = values => {
-    console.log(values);
-    // evt.preventDefault();
-    // handlePost(vocabUrl, 'DataDictionary', DDDTO()).then(data =>
-    //   navigate(`/DataDictionary/${data?.id}`),
-    // );
+    values.tables = values.tables?.map(ref => {
+      return { reference: `Table/${ref}` };
+    });
+    handlePost(vocabUrl, 'DataDictionary', values).then(data =>
+      navigate(`/DataDictionary/${data?.id}`),
+    );
   };
 
   return (

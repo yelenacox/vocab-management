@@ -1,20 +1,13 @@
 import { React, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
-import Background from '../../../../assets/Background.png';
 import { Form, Input, Select } from 'antd';
 import './DDStyling.scss';
 import { getAll, handlePost } from '../../Manager/FetchManager';
 
 export const AddDD = ({ form }) => {
-  const {
-    vocabUrl,
-    dataDictionary,
-    setDataDictionary,
-    initialDD,
-    tablesDD,
-    setTablesDD,
-  } = useContext(myContext);
+  const { vocabUrl, dataDictionary, tablesDD, setTablesDD } =
+    useContext(myContext);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const getTablesDD = () => {
@@ -22,16 +15,8 @@ export const AddDD = ({ form }) => {
   };
 
   useEffect(() => {
-    // setDataDictionary(initialDD);
     getTablesDD();
   }, []);
-
-  // useEffect(
-  //   () => () => {
-  //     setDataDictionary(initialDD);
-  //   },
-  //   [],
-  // );
 
   const navigate = useNavigate();
 
@@ -98,7 +83,7 @@ export const AddDD = ({ form }) => {
         <Input />
       </Form.Item>
       <Form.Item
-        name={['tables', 'reference']}
+        name={['tables']}
         label="Table"
         rules={[{ required: true, message: 'Please select at least 1 Table.' }]}
       >
@@ -109,7 +94,7 @@ export const AddDD = ({ form }) => {
           onChange={checkboxHandler}
           options={tablesDD.map(table => {
             return {
-              value: table.name,
+              value: table.id,
               label: table.name,
             };
           })}
