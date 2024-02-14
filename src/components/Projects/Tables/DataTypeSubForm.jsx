@@ -30,7 +30,7 @@ function DataTypeSubForm({ restField }) {
           <Select
             showSearch
             style={{
-              width: '10vw',
+              width: '50%',
             }}
             placeholder="Search to Select"
             optionFilterProp="children"

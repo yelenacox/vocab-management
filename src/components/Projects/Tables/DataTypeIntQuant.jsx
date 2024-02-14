@@ -12,11 +12,9 @@ export const DataTypeIntQuant = ({ name, restField }) => {
       >
         <Form.Item
           {...restField}
-          // style={{
-          //   colSpan: '3',
-          //   display: 'inline-block',
-          // }}
-          // noStyle
+          style={{
+            flex: 1,
+          }}
           label="Min"
           name={[name, 'min']}
           rules={[
@@ -27,11 +25,9 @@ export const DataTypeIntQuant = ({ name, restField }) => {
           ]}
         >
           <Input
-            style={
-              {
-                // width: '39vw',
-              }
-            }
+            style={{
+              flex: 1,
+            }}
             placeholder="Min"
           />
         </Form.Item>
@@ -47,11 +43,9 @@ export const DataTypeIntQuant = ({ name, restField }) => {
           ]}
         >
           <Input
-            style={
-              {
-                // width: '39vw',
-              }
-            }
+            style={{
+              flex: 1,
+            }}
             placeholder="Max"
           />
         </Form.Item>

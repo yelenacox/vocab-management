@@ -20,43 +20,43 @@ export const AddDD = ({ form }) => {
 
   const navigate = useNavigate();
 
-  const checkboxHandler = e => {
-    let isSelected = e.target.checked;
-    let checkboxValue = e.target.id;
-    if (isSelected) {
-      setSelectedItems([...selectedItems, checkboxValue]);
-    } else {
-      setSelectedItems(prevData => {
-        return prevData?.filter(id => {
-          return id !== checkboxValue;
-        });
-      });
-    }
-  };
+  // const checkboxHandler = e => {
+  //   let isSelected = e.target.checked;
+  //   let checkboxValue = e.target.id;
+  //   if (isSelected) {
+  //     setSelectedItems([...selectedItems, checkboxValue]);
+  //   } else {
+  //     setSelectedItems(prevData => {
+  //       return prevData?.filter(id => {
+  //         return id !== checkboxValue;
+  //       });
+  //     });
+  //   }
+  // };
 
-  const checkAllHandler = () => {
-    const tableIds = tablesDD.map(item => {
-      return item.id;
-    });
-    setSelectedItems(tableIds);
-    if (tablesDD.length === selectedItems.length) {
-      setSelectedItems([]);
-    }
-  };
+  // const checkAllHandler = () => {
+  //   const tableIds = tablesDD.map(item => {
+  //     return item.id;
+  //   });
+  //   setSelectedItems(tableIds);
+  //   if (tablesDD.length === selectedItems.length) {
+  //     setSelectedItems([]);
+  //   }
+  // };
 
-  let DDDTO = () => {
-    const tablesDTO = selectedItems.map(table => {
-      return { reference: `Table/${table}` };
-    });
-    return { ...dataDictionary, tables: tablesDTO };
-  };
+  // let DDDTO = () => {
+  //   const tablesDTO = selectedItems.map(table => {
+  //     return { reference: `Table/${table}` };
+  //   });
+  //   return { ...dataDictionary, tables: tablesDTO };
+  // };
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    handlePost(vocabUrl, 'DataDictionary', DDDTO()).then(data =>
-      navigate(`/DataDictionary/${data?.id}`),
-    );
-  };
+  // const handleSubmit = evt => {
+  //   evt.preventDefault();
+  //   handlePost(vocabUrl, 'DataDictionary', DDDTO()).then(data =>
+  //     navigate(`/DataDictionary/${data?.id}`),
+  //   );
+  // };
 
   return (
     <Form
@@ -91,7 +91,8 @@ export const AddDD = ({ form }) => {
           mode="multiple"
           allowClear
           placeholder="Select Table"
-          onChange={checkboxHandler}
+          // onChange={checkboxHandler}
+          style={{ width: '50%' }}
           options={tablesDD.map(table => {
             return {
               value: table.id,
