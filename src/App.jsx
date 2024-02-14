@@ -176,8 +176,8 @@ function App() {
         setAddTerm,
         addDD,
         setAddDD,
-        // type,
-        // setType,
+        type,
+        setType,
       }}
     >
       <Routes>
