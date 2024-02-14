@@ -5,6 +5,7 @@ import { getAll } from '../../Manager/FetchManager';
 import { Button, Form, Input, Space, Select, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import DataTypeSelect from './DataTypeSelect';
+import DataTypeSubForm from './DataTypeSubForm';
 
 export const AdditionalVariableInput = () => {
   const { vocabUrl, setTerminologies, setLoading } = useContext(myContext);
@@ -34,62 +35,65 @@ export const AdditionalVariableInput = () => {
     >
       {(fields, { add, remove }, { errors }) => (
         <>
-          {fields.map(({ key, name, ...restField }) => (
-            <>
-              <Space
-                key={key}
-                style={{
-                  display: 'flex',
-                  marginBottom: 3,
-                }}
-                align="baseline"
-              >
-                <Form.Item
-                  {...restField}
-                  name={[name, 'name']}
-                  validateTrigger={['onChange', 'onBlur']}
-                  label="Variable name"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Variable name is required.',
-                    },
-                  ]}
+          {fields.map(({ key, name, ...restField }) => {
+            return (
+              <>
+                <Space
+                  key={key}
+                  style={{
+                    display: 'flex',
+                    marginBottom: 3,
+                  }}
+                  align="baseline"
                 >
-                  <Input
-                    style={{
-                      width: '15vw',
-                    }}
-                    placeholder="Variable Name"
-                  />
-                </Form.Item>
-                <Form.Item
-                  {...restField}
-                  label="Variable description"
-                  name={[name, 'description']}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Variable description is required.',
-                    },
-                  ]}
-                >
-                  <Input
-                    style={{
-                      width: '39vw',
-                    }}
-                    placeholder="Variable Description"
-                  />
-                </Form.Item>
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'name']}
+                    validateTrigger={['onChange', 'onBlur']}
+                    label="Variable name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Variable name is required.',
+                      },
+                    ]}
+                  >
+                    <Input
+                      style={{
+                        width: '15vw',
+                      }}
+                      placeholder="Variable Name"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    {...restField}
+                    label="Variable description"
+                    name={[name, 'description']}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Variable description is required.',
+                      },
+                    ]}
+                  >
+                    <Input
+                      style={{
+                        width: '39vw',
+                      }}
+                      placeholder="Variable Description"
+                    />
+                  </Form.Item>
 
-                <DataTypeSelect name={name} restField={restField} />
-                <MinusCircleOutlined
-                  className="dynamic-delete-button"
-                  onClick={() => remove(name)}
-                />
-              </Space>
-            </>
-          ))}
+                  <DataTypeSelect name={name} restField={restField} />
+                  <MinusCircleOutlined
+                    className="dynamic-delete-button"
+                    onClick={() => remove(name)}
+                  />
+                </Space>
+                <DataTypeSubForm restField={restField} />
+              </>
+            );
+          })}
 
           <Form.Item>
             <Button

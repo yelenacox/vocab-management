@@ -57,7 +57,7 @@ function App() {
   const [addTerm, setAddTerm] = useState(false);
   const [addDD, setAddDD] = useState(false);
   const [loadTable, setLoadTable] = useState(false);
-  // const [addStudy, setAddStudy] = useState(false);
+  const [addStudy, setAddStudy] = useState(false);
   const [type, setType] = useState();
 
   const [loading, setLoading] = useState(false);
@@ -164,8 +164,8 @@ function App() {
         initialStudy,
         studyDDs,
         setStudyDDs,
-        // addStudy,
-        // setAddStudy,
+        addStudy,
+        setAddStudy,
         addTable,
         setAddTable,
         resetUpload,
@@ -176,8 +176,8 @@ function App() {
         setAddTerm,
         addDD,
         setAddDD,
-        // type,
-        // setType,
+        type,
+        setType,
       }}
     >
       <Routes>

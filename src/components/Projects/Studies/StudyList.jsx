@@ -5,18 +5,19 @@ import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteStudy } from './DeleteStudy';
 import { getAll } from '../../Manager/FetchManager';
-import { Modal } from 'antd';
+import { Modal, Form } from 'antd';
 import { AddStudy } from './AddStudy';
 
 export const StudyList = () => {
+  const [form] = Form.useForm();
   const {
     loading,
     setLoading,
     vocabUrl,
     studies,
     setStudies,
-    // addStudy,
-    // setAddStudy,
+    addStudy,
+    setAddStudy,
   } = useContext(myContext);
 
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ export const StudyList = () => {
         <div className="menu_buttons_container">
           <button
             className="manage_term_button"
-            // onClick={() => setAddStudy(true)}
-            onClick={() => navigate('/add_study')}
+            onClick={() => setAddStudy(true)}
+            // onClick={() => navigate('/add_study')}
           >
             Add Study
           </button>{' '}
@@ -74,15 +75,24 @@ export const StudyList = () => {
           </table>
         </div>
       )}
-      {/* <Modal
+      <Modal
         open={addStudy}
-        width={'100%'}
-        onOk={() => submitNewStudy}
-        onCancel={() => setAddStudy(false)}
-        maskClosable={true}
+        width={'70%'}
+        onOk={() =>
+          form.validateFields().then(values => {
+            handleSubmit(values);
+            form.resetFields();
+            setAddStudy(false);
+          })
+        }
+        onCancel={() => {
+          form.resetFields();
+          setAddStudy(false);
+        }}
+        maskClosable={false}
       >
-        <AddStudy />
-      </Modal> */}
+        <AddStudy form={form} />
+      </Modal>
     </>
   );
 };
