@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteStudy } from './DeleteStudy';
-import { getAll } from '../../Manager/FetchManager';
+import { getAll, handlePost } from '../../Manager/FetchManager';
 import { Modal, Form } from 'antd';
 import { AddStudy } from './AddStudy';
 
@@ -13,11 +13,11 @@ export const StudyList = () => {
   const {
     loading,
     setLoading,
-    vocabUrl,
     studies,
     setStudies,
     addStudy,
     setAddStudy,
+    vocabUrl,
   } = useContext(myContext);
 
   const navigate = useNavigate();
@@ -27,6 +27,16 @@ export const StudyList = () => {
     getAll(vocabUrl, 'Study').then(data => setStudies(data));
     setLoading(false);
   }, []);
+
+  const handleSubmit = values => {
+    // console.log(values);
+    values.datadictionary = values.datadictionary?.map(ref => {
+      return { reference: `DataDictionary/${ref}` };
+    });
+    handlePost(vocabUrl, 'Study', values).then(data =>
+      navigate(`/study/${data?.id}`),
+    );
+  };
 
   return (
     <>
