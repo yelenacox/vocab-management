@@ -7,7 +7,7 @@ import './StudyStyling.scss';
 import { getAll, handlePost } from '../../Manager/FetchManager';
 import { Form, Input, Select } from 'antd';
 
-export const AddStudy = () => {
+export const AddStudy = ({ form }) => {
   const { vocabUrl, study, setStudy, initialStudy, studyDDs, setStudyDDs } =
     useContext(myContext);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -17,56 +17,56 @@ export const AddStudy = () => {
   };
 
   useEffect(() => {
-    setStudy(initialStudy);
+    // setStudy(initialStudy);
     getStudyDD();
   }, []);
 
-  useEffect(
-    () => () => {
-      setStudy(initialStudy);
-    },
-    [],
-  );
+  // useEffect(
+  //   () => () => {
+  //     setStudy(initialStudy);
+  //   },
+  //   [],
+  // );
 
   const navigate = useNavigate();
 
-  const checkboxHandler = e => {
-    let isSelected = e.target.checked;
-    let checkboxValue = e.target.id;
-    if (isSelected) {
-      setSelectedItems([...selectedItems, checkboxValue]);
-    } else {
-      setSelectedItems(prevData => {
-        return prevData?.filter(id => {
-          return id !== checkboxValue;
-        });
-      });
-    }
-  };
+  // const checkboxHandler = e => {
+  //   let isSelected = e.target.checked;
+  //   let checkboxValue = e.target.id;
+  //   if (isSelected) {
+  //     setSelectedItems([...selectedItems, checkboxValue]);
+  //   } else {
+  //     setSelectedItems(prevData => {
+  //       return prevData?.filter(id => {
+  //         return id !== checkboxValue;
+  //       });
+  //     });
+  //   }
+  // };
 
-  const checkAllHandler = () => {
-    const DDIds = studyDDs.map(item => {
-      return item.id;
-    });
-    setSelectedItems(DDIds);
-    if (studyDDs.length === selectedItems.length) {
-      setSelectedItems([]);
-    }
-  };
+  // const checkAllHandler = () => {
+  //   const DDIds = studyDDs.map(item => {
+  //     return item.id;
+  //   });
+  //   setSelectedItems(DDIds);
+  //   if (studyDDs.length === selectedItems.length) {
+  //     setSelectedItems([]);
+  //   }
+  // };
 
-  let studyDTO = () => {
-    const DDDTO = selectedItems.map(dd => {
-      return { reference: `DataDictionary/${dd}` };
-    });
-    return { ...study, datadictionary: DDDTO };
-  };
+  // let studyDTO = () => {
+  //   const DDDTO = selectedItems.map(dd => {
+  //     return { reference: `DataDictionary/${dd}` };
+  //   });
+  //   return { ...study, datadictionary: DDDTO };
+  // };
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    handlePost(vocabUrl, 'Study', studyDTO()).then(data =>
-      navigate(`/study/${data?.id}`),
-    );
-  };
+  // const handleSubmit = evt => {
+  //   evt.preventDefault();
+  //   handlePost(vocabUrl, 'Study', studyDTO()).then(data =>
+  //     navigate(`/study/${data?.id}`),
+  //   );
+  // };
 
   return (
     <Form
@@ -75,16 +75,15 @@ export const AddStudy = () => {
       name="form_in_modal"
       // initialValues={{ modifier: 'public' }}
     >
-      <h2>Create Data Dictionary</h2>
+      <h2>Create Study</h2>
       <Form.Item
         name="name"
         label="Name"
-        rules={[
-          { required: true, message: 'Please input Data Dictionary name.' },
-        ]}
+        rules={[{ required: true, message: 'Please input Study name.' }]}
       >
         <Input />
       </Form.Item>
+
       <Form.Item
         name="description"
         label="Description"
@@ -92,10 +91,37 @@ export const AddStudy = () => {
       >
         <Input />
       </Form.Item>
+      <Form.Item name="title" label="Title" rules={[{ required: false }]}>
+        <Input />
+      </Form.Item>
       <Form.Item
-        name={['tables']}
-        label="Table"
-        rules={[{ required: true, message: 'Please select at least 1 Table.' }]}
+        name="identifier_prefix"
+        label="Identifier Prefix"
+        rules={[
+          {
+            required: true,
+            message: 'Please input Study identifier prefix.',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="url"
+        label="URL"
+        rules={[{ required: true, message: 'Please input Study URL.' }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name={['datadictionary']}
+        label="Data Dictionary"
+        rules={[
+          {
+            required: true,
+            message: 'Please select at least 1 Data Dictionary.',
+          },
+        ]}
       >
         <Select
           mode="multiple"
@@ -103,10 +129,10 @@ export const AddStudy = () => {
           placeholder="Select Table"
           // onChange={checkboxHandler}
           style={{ width: '50%' }}
-          options={tablesDD.map(table => {
+          options={studyDDs.map(dd => {
             return {
-              value: table.id,
-              label: table.name,
+              value: dd.id,
+              label: dd.name,
             };
           })}
         />
