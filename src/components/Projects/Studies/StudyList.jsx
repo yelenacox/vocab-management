@@ -29,7 +29,6 @@ export const StudyList = () => {
   }, []);
 
   const handleSubmit = values => {
-    // console.log(values);
     values.datadictionary = values.datadictionary?.map(ref => {
       return { reference: `DataDictionary/${ref}` };
     });
