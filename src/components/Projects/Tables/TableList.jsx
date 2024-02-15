@@ -44,19 +44,31 @@ export const TableList = () => {
     );
   };
 
-  const handleUpload = values => {
-    console.log('LOOOOOOOAD', values);
+  const jsonParse = item => {
+    Papa.parse(item, {
+      header: true,
+      skipEmptyLines: true,
+      complete: function (result) {
+        console.log(result.data);
+        // handlePost(vocabUrl, 'LoadTable', tableDTO(result.data)).then(data =>
+        //   navigate(`/table/${data?.id}`),
+        // );
+      },
+    });
+  };
 
-    // Papa.parse(file, {
-    //   header: true,
-    //   skipEmptyLines: true,
-    //   complete: function (result) {
-    //     console.log(tableDTO(result.data));
-    //     handlePost(vocabUrl, 'LoadTable', tableDTO(result.data)).then(data =>
-    //       navigate(`/table/${data?.id}`),
-    //     );
-    //   },
-    // });
+  const handleUpload = values => {
+    Papa.parse(values.csvContents.file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: function (result) {
+        values.filename = values.csvContents.file.name;
+        values.csvContents = result.data;
+        handlePost(vocabUrl, 'LoadTable', values).then(data =>
+          navigate(`/table/${data?.id}`),
+        );
+      },
+    });
   };
 
   return (
@@ -138,6 +150,7 @@ export const TableList = () => {
           form.validateFields().then(values => {
             handleUpload(values);
             form.resetFields();
+            setLoadTable(false);
           })
         }
         onCancel={() => {
