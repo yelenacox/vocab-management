@@ -3,9 +3,8 @@ import { myContext } from '../../../App';
 import { Form, Select } from 'antd';
 import { getAll } from '../../Manager/FetchManager';
 import { DataTypeIntQuant } from './DataTypeIntQuant';
-function DataTypeSubForm({ restField }) {
-  const { type, terminologies, setTerminologies, vocabUrl } =
-    useContext(myContext);
+function DataTypeSubForm({ type, restField, name }) {
+  const { terminologies, setTerminologies, vocabUrl } = useContext(myContext);
   useEffect(() => {
     type === 'ENUMERATION'
       ? getAll(vocabUrl, 'Terminology').then(data => setTerminologies(data))
