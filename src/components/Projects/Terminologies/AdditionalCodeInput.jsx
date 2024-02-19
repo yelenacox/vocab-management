@@ -48,7 +48,7 @@ export const AdditionalCodeInput = props => {
                 <Form.Item
                   {...restField}
                   name={[name, 'code']}
-                  validateTrigger={['onChange', 'onBlur']}
+                  validateTrigger={['onChange']}
                   label="Code"
                   rules={[
                     {

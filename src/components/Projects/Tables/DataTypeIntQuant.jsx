@@ -7,7 +7,7 @@ export const DataTypeIntQuant = ({ name, restField }) => {
         style={{
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'space-evenly',
         }}
       >
         <Form.Item
@@ -26,9 +26,10 @@ export const DataTypeIntQuant = ({ name, restField }) => {
         >
           <Input
             style={{
-              flex: 1,
+              width: '15vw',
             }}
             placeholder="Min"
+            autoFocus
           />
         </Form.Item>
         <Form.Item
@@ -44,7 +45,7 @@ export const DataTypeIntQuant = ({ name, restField }) => {
         >
           <Input
             style={{
-              flex: 1,
+              width: '15vw',
             }}
             placeholder="Max"
           />
@@ -61,11 +62,9 @@ export const DataTypeIntQuant = ({ name, restField }) => {
           ]}
         >
           <Input
-            style={
-              {
-                // width: '39vw',
-              }
-            }
+            style={{
+              width: '15vw',
+            }}
             placeholder="Units"
           />
         </Form.Item>

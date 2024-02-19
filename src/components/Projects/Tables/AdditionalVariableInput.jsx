@@ -49,7 +49,7 @@ export const AdditionalVariableInput = () => {
                   <Form.Item
                     {...restField}
                     name={[name, 'name']}
-                    validateTrigger={['onChange', 'onBlur']}
+                    validateTrigger={['onChange']}
                     label="Variable name"
                     rules={[
                       {
@@ -63,6 +63,7 @@ export const AdditionalVariableInput = () => {
                         width: '15vw',
                       }}
                       placeholder="Variable Name"
+                      autoFocus
                     />
                   </Form.Item>
                   <Form.Item
