@@ -1,13 +1,7 @@
-import { Form, Input, Select, Space } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
-import { DataTypeIntQuant } from './DataTypeIntQuant';
-import { getAll } from '../../Manager/FetchManager';
-import { myContext } from '../../../App';
+import { Form, Select } from 'antd';
+import React from 'react';
 
-function DataTypeSelect({ name, restField }) {
-  const { vocabUrl, setTerminologies, terminologies, setType } =
-    useContext(myContext);
-
+function DataTypeSelect({ name, restField, setType }) {
   return (
     <>
       <Form.Item
