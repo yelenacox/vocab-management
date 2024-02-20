@@ -14,6 +14,7 @@ import { AddDD } from './components/Projects/DataDictionaries/AddDD';
 import { StudyDetails } from './components/Projects/Studies/StudyDetails';
 import { AddStudy } from './components/Projects/Studies/AddStudy';
 import { UploadTable } from './components/Projects/Tables/UploadTable';
+import { StudyList } from './components/Projects/Studies/StudyList';
 
 export const myContext = createContext();
 
@@ -193,7 +194,8 @@ function App() {
         >
           <Route index element={<OntologySearch />} />
           <Route path="/search/:query" element={<SearchResults />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/studies" element={<StudyList />} />
+          {/* <Route path="/projects" element={<Projects />} /> */}
           <Route path="/terminology/:terminologyId" element={<Terminology />} />
           <Route path="/add_terminology" element={<AddTerminology />} />
           <Route path="/table/:tableId" element={<TableDetails />} />

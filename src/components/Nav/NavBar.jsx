@@ -17,11 +17,14 @@ export const NavBar = () => {
             <NavLink to="/">
               <li className="nav_link">Search</li>
             </NavLink>
-            <NavLink to="/projects">
+            <NavLink to="/studies">
+              <li className="nav_link">Studies</li>
+            </NavLink>
+            {/* <NavLink to="/projects">
               <li className="nav_link" to="/projects">
                 Projects
               </li>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/help">
               <li className="nav_link">Help</li>
             </NavLink>

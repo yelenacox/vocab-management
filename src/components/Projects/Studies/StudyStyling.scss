@@ -1,0 +1,19 @@
+.studies_container {
+  margin: 17vh 10vw 10vh 10vw;
+  min-height: 73vh;
+}
+
+.cards_container {
+  margin: 3vh 0 0 0;
+}
+
+.card_content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 18vh;
+  max-height: 18vh;
+  border: 1px lightgray solid;
+  border-radius: 5px;
+  padding: 8px;
+}
