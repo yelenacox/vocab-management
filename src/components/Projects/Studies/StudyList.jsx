@@ -5,8 +5,10 @@ import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteStudy } from './DeleteStudy';
 import { getAll, handlePost } from '../../Manager/FetchManager';
-import { Modal, Form } from 'antd';
+import { Modal, Form, Row, Col, Card, Button } from 'antd';
 import { AddStudy } from './AddStudy';
+import Background from '../../../../assets/Background.png';
+const { Meta } = Card;
 
 export const StudyList = () => {
   const [form] = Form.useForm();
@@ -21,6 +23,13 @@ export const StudyList = () => {
   } = useContext(myContext);
 
   const navigate = useNavigate();
+  const ellipsisString = str => {
+    if (typeof str == 'string' && str.length > 236) {
+      return str.slice(0, 236) + '...';
+    } else {
+      return str;
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -39,22 +48,69 @@ export const StudyList = () => {
 
   return (
     <>
-      <div className="projects_sub_nav">
-        <h2>Studies</h2>
-        <div className="menu_buttons_container">
-          <button
-            className="manage_term_button"
-            onClick={() => setAddStudy(true)}
-            // onClick={() => navigate('/add_study')}
-          >
-            Add Study
-          </button>{' '}
+      <div className="studies_container">
+        <div className="image_container">
+          <img className="background_image_results" src={Background} />
         </div>
-      </div>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div className="table_container">
+        <div className="projects_sub_nav">
+          <h2>My Studies</h2>
+          <div className="menu_buttons_container">
+            <button
+              className="manage_term_button"
+              onClick={() => setAddStudy(true)}
+            >
+              Add Study
+            </button>{' '}
+          </div>
+        </div>
+        {/* {loading ? (
+          <Spinner />
+        ) : ( */}
+        <div className="cards_container">
+          <Row gutter={[20, 24]}>
+            {studies?.map((study, index) => {
+              return (
+                <Col span={6}>
+                  <Card
+                    title={study?.name ? study?.name : study?.id}
+                    bordered={true}
+                    style={{
+                      border: '1px solid darkgray',
+                      height: '42vh',
+                    }}
+                    actions={[
+                      <Link to={`/study/${study?.id}`}>
+                        <button
+                          className="manage_term_button"
+                          // /                          style={{}}
+                        >
+                          Edit
+                        </button>
+                      </Link>,
+                    ]}
+                  >
+                    {/* <div className="card_content">
+                      {ellipsisString(study?.description)}
+                    </div> */}
+                    <Meta
+                      style={{
+                        height: '21vh',
+                        border: '1px lightgray solid',
+                        borderRadius: '5px',
+                        padding: '5px',
+                      }}
+                      description={ellipsisString(study?.description)}
+                    />
+
+                    {/* <DeleteStudy study={study} setStudies={setStudies} /> */}
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        </div>
+
+        {/* <div className="table_container">
           <table className="table">
             <thead className="header">
               <tr className="header_row">
@@ -82,26 +138,27 @@ export const StudyList = () => {
               })}
             </tbody>
           </table>
-        </div>
-      )}
-      <Modal
-        open={addStudy}
-        width={'70%'}
-        onOk={() =>
-          form.validateFields().then(values => {
-            handleSubmit(values);
+        </div> */}
+        {/* )} */}
+        <Modal
+          open={addStudy}
+          width={'70%'}
+          onOk={() =>
+            form.validateFields().then(values => {
+              handleSubmit(values);
+              form.resetFields();
+              setAddStudy(false);
+            })
+          }
+          onCancel={() => {
             form.resetFields();
             setAddStudy(false);
-          })
-        }
-        onCancel={() => {
-          form.resetFields();
-          setAddStudy(false);
-        }}
-        maskClosable={false}
-      >
-        <AddStudy form={form} />
-      </Modal>
+          }}
+          maskClosable={false}
+        >
+          <AddStudy form={form} />
+        </Modal>
+      </div>
     </>
   );
 };
