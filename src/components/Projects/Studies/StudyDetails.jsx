@@ -11,7 +11,8 @@ import { EditStudyDD } from './EditStudyDD';
 import { EditStudyUrl } from './EditStudyUrl';
 import { EditStudyIdentifierPrefix } from './EditStudyIdentifierPrefix';
 import { EditStudyName } from './EditStudyName';
-
+import { DownOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Space } from 'antd';
 export const StudyDetails = () => {
   const [studyEdit, setStudyEdit] = useState(false);
   const [studyDDEdit, setStudyDDEdit] = useState(false);
@@ -31,11 +32,10 @@ export const StudyDetails = () => {
   const { studyId } = useParams();
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     getById(vocabUrl, 'Study', studyId).then(data => setStudy(data));
     getAll(vocabUrl, 'DataDictionary').then(data => setStudyDDs(data));
-
-    setLoading(false);
+    // setLoading(false);
   }, []);
 
   useEffect(
@@ -64,9 +64,74 @@ export const StudyDetails = () => {
     return arrayOfIds?.includes(dd.id);
   });
 
+  // const items = [
+  //   { key: '0', label: 'Edit' },
+  //   { key: '1', label: 'Invite collaborators' },
+  //   { key: '2', danger: true, label: 'Delete' },
+  // ];
+  const handleMenuClick = e => {
+    // message.info('Click on menu item.');
+    console.log('click', e);
+  };
+  const items = [
+    {
+      label: 'Edit',
+      key: '0',
+    },
+    {
+      label: 'Invite collaborators',
+      key: '1',
+    },
+    {
+      label: 'Delete',
+      key: '2',
+      danger: true,
+    },
+  ];
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
   return (
     <>
-      {loading ? (
+      <div className="studies_container">
+        <div className="image_container">
+          <img className="background_image_results" src={Background} />
+        </div>
+        <div className="study_details_container">
+          <div className="study_details">
+            <div className="study_name">
+              <h2>{study?.name ? study?.name : study?.id}</h2>
+            </div>
+            <div className="study_desc">
+              {study?.description ? (
+                study?.description
+              ) : (
+                <span className="no_description">No description provided.</span>
+              )}
+            </div>
+          </div>
+          <div className="study_dropdown">
+            <Dropdown menu={menuProps} style={{ width: '30vw' }}>
+              <Button>
+                <Space
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: 100,
+                  }}
+                >
+                  Settings
+                  <DownOutlined />
+                </Space>
+              </Button>
+            </Dropdown>
+          </div>
+        </div>
+      </div>
+
+      {/* {loading ? (
         <Spinner />
       ) : (
         <div className="table_id_container">
@@ -224,7 +289,7 @@ export const StudyDetails = () => {
             )}
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

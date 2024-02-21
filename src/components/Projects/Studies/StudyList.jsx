@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './StudyStyling.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
@@ -72,6 +72,7 @@ export const StudyList = () => {
               return (
                 <Col span={6}>
                   <Card
+                    loading={loading}
                     title={study?.name ? study?.name : study?.id}
                     bordered={true}
                     style={{
