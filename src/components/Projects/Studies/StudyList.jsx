@@ -5,7 +5,7 @@ import { myContext } from '../../../App';
 import { Spinner } from '../../Manager/Spinner';
 import { DeleteStudy } from './DeleteStudy';
 import { getAll, handlePost } from '../../Manager/FetchManager';
-import { Modal, Form, Row, Col, Card, Button } from 'antd';
+import { Modal, Form, Row, Col, Card, Button, Skeleton } from 'antd';
 import { AddStudy } from './AddStudy';
 import Background from '../../../../assets/Background.png';
 const { Meta } = Card;
@@ -13,19 +13,20 @@ const { Meta } = Card;
 export const StudyList = () => {
   const [form] = Form.useForm();
   const {
-    loading,
-    setLoading,
+    // loading,
+    // setLoading,
     studies,
     setStudies,
     addStudy,
     setAddStudy,
     vocabUrl,
   } = useContext(myContext);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const ellipsisString = str => {
-    if (typeof str == 'string' && str.length > 236) {
-      return str.slice(0, 236) + '...';
+    if (typeof str == 'string' && str.length > 240) {
+      return str.slice(0, 240) + '...';
     } else {
       return str;
     }
@@ -70,9 +71,9 @@ export const StudyList = () => {
           <Row gutter={[20, 24]}>
             {studies?.map((study, index) => {
               return (
-                <Col span={6}>
+                <Col span={6} key={index}>
                   <Card
-                    loading={loading}
+                    // loading={loading}
                     title={study?.name ? study?.name : study?.id}
                     bordered={true}
                     style={{
@@ -93,15 +94,17 @@ export const StudyList = () => {
                     {/* <div className="card_content">
                       {ellipsisString(study?.description)}
                     </div> */}
-                    <Meta
-                      style={{
-                        height: '21vh',
-                        border: '1px lightgray solid',
-                        borderRadius: '5px',
-                        padding: '5px',
-                      }}
-                      description={ellipsisString(study?.description)}
-                    />
+                    <Skeleton loading={loading}>
+                      <Meta
+                        style={{
+                          height: '21vh',
+                          border: '1px lightgray solid',
+                          borderRadius: '5px',
+                          padding: '5px',
+                        }}
+                        description={ellipsisString(study?.description)}
+                      />
+                    </Skeleton>
 
                     {/* <DeleteStudy study={study} setStudies={setStudies} /> */}
                   </Card>

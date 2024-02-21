@@ -2,6 +2,7 @@ $navColor: #080705;
 $linkColor: #fffc31;
 
 nav {
+  z-index: 1;
   width: 100vw;
   background-color: $navColor;
   height: 14vh;
