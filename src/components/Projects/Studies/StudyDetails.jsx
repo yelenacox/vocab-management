@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 import PencilIcon from '../../../../assets/pencil_yellow_transparent.png';
@@ -12,7 +12,18 @@ import { EditStudyUrl } from './EditStudyUrl';
 import { EditStudyIdentifierPrefix } from './EditStudyIdentifierPrefix';
 import { EditStudyName } from './EditStudyName';
 import { DownOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Space } from 'antd';
+import {
+  Button,
+  Dropdown,
+  Space,
+  Row,
+  Col,
+  Divider,
+  Skeleton,
+  Card,
+} from 'antd';
+const { Meta } = Card;
+
 export const StudyDetails = () => {
   const [studyEdit, setStudyEdit] = useState(false);
   const [studyDDEdit, setStudyDDEdit] = useState(false);
@@ -31,12 +42,33 @@ export const StudyDetails = () => {
   } = useContext(myContext);
   const { studyId } = useParams();
 
+  const arrayOfIds = study?.datadictionary?.map(r => {
+    return r.reference.split('/')[1];
+  });
+
+  // const selectedObjs = studyDDs.filter(dd => {
+  //   return arrayOfIds?.includes(dd.id);
+  // });
+
+  const getStudyDDs = () => {
+    arrayOfIds?.map(dd =>
+      getById(vocabUrl, 'DataDictionary', dd).then(data =>
+        setStudyDDs(data.tables),
+      ),
+    );
+  };
+
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     getById(vocabUrl, 'Study', studyId).then(data => setStudy(data));
-    getAll(vocabUrl, 'DataDictionary').then(data => setStudyDDs(data));
-    // setLoading(false);
+    setLoading(false);
   }, []);
+  useEffect(() => {
+    setLoading(true);
+    getStudyDDs();
+    // getAll(vocabUrl, 'DataDictionary').then(data => setStudyDDs(data));
+    setLoading(false);
+  }, [study]);
 
   useEffect(
     () => () => {
@@ -55,14 +87,6 @@ export const StudyDetails = () => {
       datadictionary: studyDTO,
     }).then(data => setStudy(data));
   };
-
-  const arrayOfIds = study?.datadictionary?.map(r => {
-    return r.reference.split('/')[1];
-  });
-
-  const selectedObjs = studyDDs.filter(dd => {
-    return arrayOfIds?.includes(dd.id);
-  });
 
   // const items = [
   //   { key: '0', label: 'Edit' },
@@ -99,53 +123,106 @@ export const StudyDetails = () => {
         <div className="image_container">
           <img className="background_image_results" src={Background} />
         </div>
-        <div className="study_details_container">
-          <div className="study_details">
-            <div className="study_name">
-              <h2>{study?.name ? study?.name : study?.id}</h2>
-            </div>
-            <div className="study_desc">
-              {study?.description ? (
-                study?.description
-              ) : (
-                <span className="no_description">No description provided.</span>
-              )}
-            </div>
+        <Row gutter={16}>
+          <div className="study_details_container">
+            <Col span={15}>
+              <div className="study_details">
+                <div className="study_name">
+                  <h2>{study?.name ? study?.name : study?.id}</h2>
+                </div>
+                <div className="study_desc">
+                  {study?.description ? (
+                    study?.description
+                  ) : (
+                    <span className="no_description">
+                      No description provided.
+                    </span>
+                  )}
+                </div>
+              </div>
+            </Col>
+            <Col span={6}>
+              <div className="study_details_right">
+                <div className="study_dropdown">
+                  <Dropdown menu={menuProps} style={{ width: '30vw' }}>
+                    <Button>
+                      <Space
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          width: 100,
+                        }}
+                      >
+                        Settings
+                        <DownOutlined />
+                      </Space>
+                    </Button>
+                  </Dropdown>
+                </div>
+                <div className="study_url">URL: {study.url}</div>
+              </div>
+            </Col>
           </div>
-          <div className="study_dropdown">
-            <Dropdown menu={menuProps} style={{ width: '30vw' }}>
-              <Button>
-                <Space
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    width: 100,
-                  }}
-                >
-                  Settings
-                  <DownOutlined />
-                </Space>
-              </Button>
-            </Dropdown>
-          </div>
-        </div>
+        </Row>
+        <Divider></Divider>
+        <Row>
+          <Col span={15}>
+            {studyDDs?.map((dd, index) => (
+              <Card
+                key={index}
+                // loading={loading}
+                title={dd?.name}
+                bordered={true}
+                style={{
+                  border: '1px solid darkgray',
+                  height: '42vh',
+                }}
+                actions={[
+                  <Link to={`/tables/${dd?.id}`}>
+                    <button
+                      className="manage_term_button"
+                      // /                          style={{}}
+                    >
+                      Edit
+                    </button>
+                  </Link>,
+                ]}
+              >
+                {/* <div className="card_content">
+                      {ellipsisString(study?.description)}
+                    </div> */}
+                <Skeleton loading={loading}>
+                  <Meta
+                    style={{
+                      height: '21vh',
+                      border: '1px lightgray solid',
+                      borderRadius: '5px',
+                      padding: '5px',
+                    }}
+                    // description={ellipsisString(study?.description)}
+                  />
+                </Skeleton>
+              </Card>
+            ))}
+          </Col>
+        </Row>
       </div>
 
       {/* {loading ? (
         <Spinner />
-      ) : (
-        <div className="table_id_container">
+        ) : (
+          <div className="table_id_container">
           <div className="image_container">
-            <img className="background_image_results" src={Background} />
+          <img className="background_image_results" src={Background} />
           </div>
           <div className="terminology_sub_nav">
-            <div className="add_code_link">
-              <button
-                className="manage_term_button"
-                onClick={() => {
-                  setStudyEdit(!studyEdit);
-                  setStudyNameEdit(false);
-                  setDescriptionEdit(false);
+          <div className="add_code_link">
+          <button
+          className="manage_term_button"
+          onClick={() => {
+            setStudyEdit(!studyEdit);
+            setStudyNameEdit(false);
+            setDescriptionEdit(false);
                   setStudyDDEdit(false);
                 }}
               >

@@ -1,6 +1,7 @@
 .studies_container {
   margin: 17vh 10vw 10vh 10vw;
   min-height: 73vh;
+  line-height: 1.5rem;
 }
 
 .cards_container {
@@ -23,7 +24,8 @@
 }
 
 .study_details {
-  width: 50vw;
+  // background-color: khaki;
+  // width: 50vw;
 }
 
 .study_desc {
@@ -36,6 +38,14 @@
   justify-content: space-between;
 }
 
-.study_dropdown {
+.study_details_right {
+  display: flex;
+  flex-direction: column;
+  // background-color: aquamarine;
+  // width: 20vw;
   margin: 2.5vh 0 0 0;
+}
+
+.study_dropdown {
+  margin: 0 0 2vh 0;
 }
