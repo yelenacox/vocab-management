@@ -179,7 +179,7 @@ export const StudyDetails = () => {
         <div className="study_details_cards_container">
           <Row gutter={[20, 24]}>
             {studyDDs?.map((dd, index) => (
-              <Col span={6}>
+              <Col span={6} key={index}>
                 <Card
                   key={index}
                   // loading={loading}
