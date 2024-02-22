@@ -22,6 +22,7 @@ import {
   Skeleton,
   Card,
 } from 'antd';
+import { ellipsisString } from '../../Manager/Utilitiy';
 const { Meta } = Card;
 
 export const StudyDetails = () => {
@@ -51,11 +52,11 @@ export const StudyDetails = () => {
   // });
 
   const getStudyDDs = () => {
-    arrayOfIds?.map(dd =>
-      getById(vocabUrl, 'DataDictionary', dd).then(data =>
-        setStudyDDs(data.tables),
-      ),
+    let dDPromises = [];
+    arrayOfIds?.forEach(id =>
+      dDPromises.push(getById(vocabUrl, 'DataDictionary', id)),
     );
+    Promise.all(dDPromises).then(data => setStudyDDs(data));
   };
 
   useEffect(() => {
@@ -123,7 +124,7 @@ export const StudyDetails = () => {
         <div className="image_container">
           <img className="background_image_results" src={Background} />
         </div>
-        <Row gutter={16}>
+        <Row gutter={30}>
           <div className="study_details_container">
             <Col span={15}>
               <div className="study_details">
@@ -164,48 +165,62 @@ export const StudyDetails = () => {
             </Col>
           </div>
         </Row>
-        <Divider></Divider>
-        <Row>
-          <Col span={15}>
+        <Divider
+          orientation="left"
+          orientationMargin="0"
+          className="divider"
+          // style={{
+          //   fontFamily: "'Wix Madefor Display' sans-serif'",
+          //   fontSize: '24px',
+          // }}
+        >
+          <h4>Data Dictionaries</h4>
+        </Divider>
+        <div className="study_details_cards_container">
+          <Row gutter={[20, 24]}>
             {studyDDs?.map((dd, index) => (
-              <Card
-                key={index}
-                // loading={loading}
-                title={dd?.name}
-                bordered={true}
-                style={{
-                  border: '1px solid darkgray',
-                  height: '42vh',
-                }}
-                actions={[
-                  <Link to={`/tables/${dd?.id}`}>
-                    <button
-                      className="manage_term_button"
-                      // /                          style={{}}
-                    >
-                      Edit
-                    </button>
-                  </Link>,
-                ]}
-              >
-                {/* <div className="card_content">
-                      {ellipsisString(study?.description)}
-                    </div> */}
-                <Skeleton loading={loading}>
-                  <Meta
-                    style={{
-                      height: '21vh',
-                      border: '1px lightgray solid',
-                      borderRadius: '5px',
-                      padding: '5px',
-                    }}
-                    // description={ellipsisString(study?.description)}
-                  />
-                </Skeleton>
-              </Card>
+              <Col span={6}>
+                <Card
+                  key={index}
+                  // loading={loading}
+                  title={dd?.name ? dd?.name : dd?.id}
+                  bordered={true}
+                  style={{
+                    border: '1px solid darkgray',
+                    height: '42vh',
+                  }}
+                  actions={[
+                    <Link to={`/DataDictionary/${dd?.id}`}>
+                      <button className="manage_term_button">
+                        View / Edit
+                      </button>
+                      ,
+                    </Link>,
+                  ]}
+                >
+                  <Skeleton loading={loading}>
+                    <Meta
+                      style={{
+                        height: '15vh',
+                        border: '1px lightgray solid',
+                        borderRadius: '5px',
+                        padding: '5px',
+                      }}
+                      description={ellipsisString(dd?.description, '180')}
+                    />
+                    <Meta
+                      style={{
+                        padding: '0 5px',
+                        margin: '3vh 0 0 0',
+                      }}
+                      description={'# of Tables: ' + dd?.tables.length}
+                    />
+                  </Skeleton>
+                </Card>
+              </Col>
             ))}
-          </Col>
-        </Row>
+          </Row>
+        </div>
       </div>
 
       {/* {loading ? (
