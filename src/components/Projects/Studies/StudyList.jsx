@@ -63,6 +63,22 @@ export const StudyList = () => {
         ) : ( */}
         <div className="cards_container">
           <Row gutter={[20, 24]}>
+            <Col span={6}>
+              <span onClick={() => setAddStudy(true)}>
+                <Card
+                  hoverable
+                  bordered={true}
+                  style={{
+                    border: '1px solid darkgray',
+                    height: '42vh',
+                  }}
+                >
+                  <div className="new_study_card_container">
+                    <div className="new_study_card">Create New Study</div>
+                  </div>
+                </Card>
+              </span>
+            </Col>
             {studies?.map((study, index) => {
               return (
                 <Col span={6} key={index}>
