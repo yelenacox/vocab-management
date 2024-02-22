@@ -8,6 +8,7 @@ import { getAll, handlePost } from '../../Manager/FetchManager';
 import { Modal, Form, Row, Col, Card, Button, Skeleton } from 'antd';
 import { AddStudy } from './AddStudy';
 import Background from '../../../../assets/Background.png';
+import { ellipsisString } from '../../Manager/Utilitiy';
 const { Meta } = Card;
 
 export const StudyList = () => {
@@ -24,13 +25,6 @@ export const StudyList = () => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const ellipsisString = str => {
-    if (typeof str == 'string' && str.length > 240) {
-      return str.slice(0, 240) + '...';
-    } else {
-      return str;
-    }
-  };
 
   useEffect(() => {
     setLoading(true);
@@ -102,7 +96,7 @@ export const StudyList = () => {
                           borderRadius: '5px',
                           padding: '5px',
                         }}
-                        description={ellipsisString(study?.description)}
+                        description={ellipsisString(study?.description, '240')}
                       />
                     </Skeleton>
 
