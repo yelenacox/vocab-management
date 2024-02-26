@@ -145,7 +145,7 @@ export const TableDetails = () => {
               <>
                 <div className="initial_div"></div> */}
 
-            {table?.name ? table?.name : table?.id}
+            <h3>{table?.name ? table?.name : table?.id}</h3>
             {/* </>
             ) : tableEdit && nameEdit === false ? (
               <>
