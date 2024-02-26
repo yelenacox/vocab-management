@@ -11,6 +11,13 @@ import { EditDescriptionTable } from './EditDescriptionTable';
 import { EditUrlTable } from './EditUrlTable';
 import { AddVariable } from './AddVariable';
 import { getById } from '../../Manager/FetchManager';
+import { Table } from 'antd';
+
+const columns = [
+  { title: 'Name', dataIndex: 'name' },
+  { title: 'Description', dataIndex: 'description' },
+  { title: 'Data Type', dataIndex: 'data_type' },
+];
 
 export const TableDetails = () => {
   const [tableEdit, setTableEdit] = useState(false);
@@ -36,6 +43,14 @@ export const TableDetails = () => {
     [],
   );
 
+  const dataSource = table?.variables?.map((v, index) => {
+    return {
+      key: index,
+      name: v.name,
+      description: v.description,
+      data_type: v.data_type,
+    };
+  });
   const onEdit = index => {
     setActive(index);
   };
@@ -67,7 +82,7 @@ export const TableDetails = () => {
           <div className="image_container">
             <img className="background_image_results" src={Background} />
           </div>
-          <div className="terminology_sub_nav">
+          {/* <div className="terminology_sub_nav">
             <div className="add_code_link">
               <button
                 className="manage_term_button"
@@ -90,14 +105,14 @@ export const TableDetails = () => {
             ) : (
               ''
             )}
-          </div>
+          </div> */}
           <div className="terminology_details terminology_name">
-            {!tableEdit ? (
+            {/* {!tableEdit ? (
               <>
-                <div className="initial_div"></div>
+                <div className="initial_div"></div> */}
 
-                {table?.name ? table?.name : table?.id}
-              </>
+            {table?.name ? table?.name : table?.id}
+            {/* </>
             ) : tableEdit && nameEdit === false ? (
               <>
                 <div className="edit_div">
@@ -119,7 +134,7 @@ export const TableDetails = () => {
               />
             ) : (
               ''
-            )}
+            )} */}
           </div>
           {table?.filename ? (
             <>
@@ -131,19 +146,43 @@ export const TableDetails = () => {
           ) : (
             ''
           )}
-
+          <div className="terminology_details">
+            {/* {!tableEdit ? (
+                <>
+                  <div className="initial_div"></div> */}
+            {table?.url}
+            {/* </>
+              ) : tableEdit && urlEdit === false ? (
+                <>
+                  <div className="initial_div">
+                    <img
+                      className="small_icon"
+                      onClick={() => setUrlEdit(true)}
+                      src={PencilIcon}
+                    />
+                  </div>
+                  {table?.url}
+                </>
+              ) : tableEdit && urlEdit === true ? (
+                <EditUrlTable
+                  table={table}
+                  setTable={setTable}
+                  setUrlEdit={setUrlEdit}
+                />
+              ) : (
+                ''
+              )} */}
+          </div>
           <div className="terminology_details terminology_desc">
-            {!tableEdit ? (
+            {/* {!tableEdit ? (
               <>
-                <div className="initial_div empty_description"></div>
-                {table?.description ? (
-                  table?.description
-                ) : (
-                  <span className="no_description">
-                    No description provided.
-                  </span>
-                )}
-              </>
+                <div className="initial_div empty_description"></div> */}
+            {table?.description ? (
+              table?.description
+            ) : (
+              <span className="no_description">No description provided.</span>
+            )}
+            {/* </>
             ) : tableEdit && descriptionEdit === false ? (
               <>
                 <div className="initial_div empty_description">
@@ -169,10 +208,12 @@ export const TableDetails = () => {
               />
             ) : (
               ''
-            )}
+            )} */}
           </div>
           <div className="table_container">
-            <table className="table">
+            <Table columns={columns} dataSource={dataSource} />
+
+            {/* <table className="table">
               <thead className="header">
                 <tr className="header_row">
                   <th></th>
@@ -216,39 +257,12 @@ export const TableDetails = () => {
                   </>
                 ))}
               </tbody>
-            </table>
+            </table> */}
             {/* {newCodes?.length > 0 ? (
             <button onClick={handleAddCode}>Save</button>
           ) : (
             ''
           )} */}
-            <div className="terminology_details">
-              {!tableEdit ? (
-                <>
-                  <div className="initial_div"></div>
-                  {table?.url}
-                </>
-              ) : tableEdit && urlEdit === false ? (
-                <>
-                  <div className="initial_div">
-                    <img
-                      className="small_icon"
-                      onClick={() => setUrlEdit(true)}
-                      src={PencilIcon}
-                    />
-                  </div>
-                  {table?.url}
-                </>
-              ) : tableEdit && urlEdit === true ? (
-                <EditUrlTable
-                  table={table}
-                  setTable={setTable}
-                  setUrlEdit={setUrlEdit}
-                />
-              ) : (
-                ''
-              )}
-            </div>
           </div>
         </div>
       )}
