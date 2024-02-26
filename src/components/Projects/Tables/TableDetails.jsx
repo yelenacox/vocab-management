@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import './TableStyling.scss';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Background from '../../../../assets/Background.png';
 import { Spinner } from '../../Manager/Spinner';
 import { TableRow } from './TableRow';
@@ -12,12 +12,6 @@ import { EditUrlTable } from './EditUrlTable';
 import { AddVariable } from './AddVariable';
 import { getById } from '../../Manager/FetchManager';
 import { Table } from 'antd';
-
-const columns = [
-  { title: 'Name', dataIndex: 'name' },
-  { title: 'Description', dataIndex: 'description' },
-  { title: 'Data Type', dataIndex: 'data_type' },
-];
 
 export const TableDetails = () => {
   const [tableEdit, setTableEdit] = useState(false);
@@ -43,14 +37,54 @@ export const TableDetails = () => {
     [],
   );
 
+  const columns = [
+    { title: 'Name', dataIndex: 'name' },
+    { title: 'Description', dataIndex: 'description' },
+    { title: 'Data Type', dataIndex: 'data_type' },
+    { title: 'Enumerations', dataIndex: 'enumeration' },
+  ];
+
   const dataSource = table?.variables?.map((v, index) => {
     return {
       key: index,
       name: v.name,
       description: v.description,
       data_type: v.data_type,
+      enumeration:
+        v.data_type === 'ENUMERATION' ? (
+          <Link to={`/${v.enumerations.reference}`}>View/Edit</Link>
+        ) : (
+          ''
+        ),
     };
   });
+
+  const expandedRowRender = record => {
+    const columns = [
+      {
+        title: 'Min',
+        dataIndex: 'min',
+        key: 'min',
+      },
+      {
+        title: 'Max',
+        dataIndex: 'max',
+        key: 'max',
+      },
+      {
+        title: 'Units',
+        dataIndex: 'units',
+        key: 'units',
+      },
+    ];
+    const data = {
+      min: record.min,
+      max: record.max,
+      units: record.units,
+    };
+    return <Table columns={columns} dataSource={data} pagination={false} />;
+  };
+
   const onEdit = index => {
     setActive(index);
   };
@@ -211,7 +245,24 @@ export const TableDetails = () => {
             )} */}
           </div>
           <div className="table_container">
-            <Table columns={columns} dataSource={dataSource} />
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              expandable={{
+                expandedRowRender: record => (
+                  <p
+                    style={{
+                      marginLeft: 50,
+                    }}
+                  >
+                    min: {record.min} max: {record.max} units:{record.units}
+                  </p>
+                ),
+                rowExpandable: record =>
+                  record.data_type === 'INTEGER' ||
+                  record.data_type === 'QUANTITY',
+              }}
+            />
 
             {/* <table className="table">
               <thead className="header">
