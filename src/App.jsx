@@ -196,14 +196,14 @@ function App() {
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/studies" element={<StudyList />} />
           {/* <Route path="/projects" element={<Projects />} /> */}
-          <Route path="/terminology/:terminologyId" element={<Terminology />} />
+          <Route path="/Terminology/:terminologyId" element={<Terminology />} />
           <Route path="/add_terminology" element={<AddTerminology />} />
-          <Route path="/table/:tableId" element={<TableDetails />} />
+          <Route path="/Table/:tableId" element={<TableDetails />} />
           <Route path="/add_table" element={<AddTable />} />
           <Route path="/upload_table" element={<UploadTable />} />
           <Route path="/DataDictionary/:DDId" element={<DDDetails />} />
           <Route path="/add_DD" element={<AddDD />} />
-          <Route path="/study/:studyId" element={<StudyDetails />} />
+          <Route path="/Study/:studyId" element={<StudyDetails />} />
           <Route path="/add_study" element={<AddStudy />} />
         </Route>
       </Routes>

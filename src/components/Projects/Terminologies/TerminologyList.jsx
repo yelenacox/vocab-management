@@ -65,7 +65,7 @@ export const TerminologyList = () => {
                   <>
                     <tr key={index}>
                       <td className="project_first_cell">
-                        <Link to={`/terminology/${r?.id}`}>
+                        <Link to={`/Terminology/${r?.id}`}>
                           {r?.name ? r?.name : r?.id}
                         </Link>
                       </td>

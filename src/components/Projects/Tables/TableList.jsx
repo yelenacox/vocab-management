@@ -109,7 +109,7 @@ export const TableList = () => {
                   <>
                     <tr key={index}>
                       <td className="project_first_cell">
-                        <Link to={`/table/${r?.id}`}>
+                        <Link to={`/Table/${r?.id}`}>
                           {r?.name ? r?.name : r?.id}
                         </Link>
                       </td>

@@ -93,7 +93,7 @@ export const StudyList = () => {
                         height: '42vh',
                       }}
                       actions={[
-                        <Link to={`/study/${study?.id}`}>
+                        <Link to={`/Study/${study?.id}`}>
                           <button
                             className="manage_term_button"
                             // /                          style={{}}
@@ -144,7 +144,7 @@ export const StudyList = () => {
                   <>
                     <tr key={index}>
                       <td className="project_first_cell">
-                        <Link to={`/study/${r?.id}`}>
+                        <Link to={`/Study/${r?.id}`}>
                           {r?.name ? r?.name : r?.id}
                         </Link>
                       </td>
