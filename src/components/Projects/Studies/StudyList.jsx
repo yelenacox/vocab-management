@@ -9,6 +9,7 @@ import { Modal, Form, Row, Col, Card, Button, Skeleton } from 'antd';
 import { AddStudy } from './AddStudy';
 import Background from '../../../../assets/Background.png';
 import { ellipsisString } from '../../Manager/Utilitiy';
+import { AddNewCard } from '../../Manager/AddNewCard';
 const { Meta } = Card;
 
 export const StudyList = () => {
@@ -58,71 +59,76 @@ export const StudyList = () => {
             </button>{' '}
           </div>
         </div>
-        {/* {loading ? (
+        {loading ? (
           <Spinner />
-        ) : ( */}
-        <div className="cards_container">
-          <Row gutter={[20, 24]}>
-            <Col span={6}>
-              <span onClick={() => setAddStudy(true)}>
-                <Card
-                  hoverable
-                  bordered={true}
-                  style={{
-                    border: '1px solid darkgray',
-                    height: '42vh',
-                  }}
-                >
-                  <div className="new_study_card_container">
-                    <div className="new_study_card">Create New Study</div>
-                  </div>
-                </Card>
-              </span>
-            </Col>
-            {studies?.map((study, index) => {
-              return (
-                <Col span={6} key={index}>
+        ) : (
+          <div className="cards_container">
+            <Row gutter={[20, 24]}>
+              {/* <AddNewCard setAddStudy={setAddStudy} /> */}
+              <Col span={6}>
+                <span onClick={() => setAddStudy(true)}>
                   <Card
-                    // loading={loading}
-                    title={study?.name ? study?.name : study?.id}
+                    hoverable
                     bordered={true}
                     style={{
                       border: '1px solid darkgray',
                       height: '42vh',
                     }}
-                    actions={[
-                      <Link to={`/study/${study?.id}`}>
-                        <button
-                          className="manage_term_button"
-                          // /                          style={{}}
-                        >
-                          Edit
-                        </button>
-                      </Link>,
-                    ]}
                   >
-                    {/* <div className="card_content">
+                    <div className="new_study_card_container">
+                      <div className="new_study_card">Create New Study</div>
+                    </div>
+                  </Card>
+                </span>
+              </Col>
+              {studies?.map((study, index) => {
+                return (
+                  <Col span={6} key={index}>
+                    <Card
+                      // loading={loading}
+                      title={study?.name ? study?.name : study?.id}
+                      bordered={true}
+                      style={{
+                        border: '1px solid darkgray',
+                        height: '42vh',
+                      }}
+                      actions={[
+                        <Link to={`/study/${study?.id}`}>
+                          <button
+                            className="manage_term_button"
+                            // /                          style={{}}
+                          >
+                            Edit
+                          </button>
+                        </Link>,
+                      ]}
+                    >
+                      {/* <div className="card_content">
                       {ellipsisString(study?.description)}
                     </div> */}
-                    <Skeleton loading={loading}>
-                      <Meta
-                        style={{
-                          height: '21vh',
-                          border: '1px lightgray solid',
-                          borderRadius: '5px',
-                          padding: '5px',
-                        }}
-                        description={ellipsisString(study?.description, '240')}
-                      />
-                    </Skeleton>
+                      <Skeleton loading={loading}>
+                        <Meta
+                          style={{
+                            height: '21vh',
+                            border: '1px lightgray solid',
+                            borderRadius: '5px',
+                            padding: '5px',
+                          }}
+                          description={ellipsisString(
+                            study?.description,
+                            '240',
+                          )}
+                        />
+                      </Skeleton>
 
-                    {/* <DeleteStudy study={study} setStudies={setStudies} /> */}
-                  </Card>
-                </Col>
-              );
-            })}
-          </Row>
-        </div>
+                      {/* <DeleteStudy study={study} setStudies={setStudies} /> */}
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
+          </div>
+        )}
 
         {/* <div className="table_container">
           <table className="table">
