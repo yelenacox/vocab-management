@@ -12,6 +12,7 @@ import { EditName } from './EditName';
 import { EditDescription } from './EditDescription';
 import { EditUrl } from './EditUrl';
 import { getById } from '../../Manager/FetchManager';
+import { Table } from 'antd';
 
 export const Terminology = () => {
   const [terminologyEdit, setTerminologyEdit] = useState(false);
@@ -61,6 +62,20 @@ export const Terminology = () => {
     setActive(-1);
   };
 
+  const columns = [
+    { title: 'Code', dataIndex: 'code' },
+    { title: 'Display', dataIndex: 'display' },
+    { title: 'Mapped Terms', dataIndex: 'mapped_terms' },
+  ];
+
+  const dataSource = terminology?.codes?.map((code, index) => {
+    return {
+      key: index,
+      code: code.code,
+      display: code.display,
+    };
+  });
+
   return (
     <>
       {loading ? (
@@ -70,7 +85,7 @@ export const Terminology = () => {
           <div className="image_container">
             <img className="background_image_results" src={Background} />
           </div>
-          <div className="terminology_sub_nav">
+          {/* <div className="terminology_sub_nav">
             <div className="add_code_link">
               <button
                 className="manage_term_button"
@@ -86,7 +101,7 @@ export const Terminology = () => {
               </button>
             </div>
             {/* <div>Terminology</div> */}
-            {terminologyEdit ? (
+          {/* {terminologyEdit ? (
               <div className="add_code_link">
                 <button className="manage_term_button" onClick={handleInputAdd}>
                   Add Code
@@ -95,14 +110,10 @@ export const Terminology = () => {
             ) : (
               <div className="add_code_link"></div>
             )}
-          </div>
+          </div>  */}
           <div className="terminology_details terminology_name">
-            {!terminologyEdit ? (
-              <>
-                <div className="initial_div"></div>
-
-                {terminology?.name ? terminology?.name : terminology?.id}
-              </>
+            <h3> {terminology?.name ? terminology?.name : terminology?.id}</h3>
+            {/* </>
             ) : terminologyEdit && nameEdit === false ? (
               <>
                 <div className="edit_div">
@@ -124,20 +135,45 @@ export const Terminology = () => {
               />
             ) : (
               ''
-            )}
+            )} */}
+          </div>
+          <div className="terminology_details">
+            {/* {!terminologyEdit ? (
+                <>
+                  <div className="initial_div"></div> */}
+            {terminology?.url}
+            {/* </>
+              ) : terminologyEdit && urlEdit === false ? (
+                <>
+                  <div className="initial_div">
+                    <img
+                      className="small_icon"
+                      onClick={() => setUrlEdit(true)}
+                      src={PencilIcon}
+                    />
+                  </div>
+                  {terminology?.url}
+                </>
+              ) : terminologyEdit && urlEdit === true ? (
+                <EditUrl
+                  terminology={terminology}
+                  setTerminology={setTerminology}
+                  setUrlEdit={setUrlEdit}
+                />
+              ) : (
+                ''
+              )} */}
           </div>
           <div className="terminology_details terminology_desc">
-            {!terminologyEdit ? (
+            {/* {!terminologyEdit ? (
               <>
-                <div className="initial_div empty_description"></div>
-                {terminology?.description ? (
-                  terminology?.description
-                ) : (
-                  <span className="no_description">
-                    No description provided.
-                  </span>
-                )}
-              </>
+                <div className="initial_div empty_description"></div> */}
+            {terminology?.description ? (
+              terminology?.description
+            ) : (
+              <span className="no_description">No description provided.</span>
+            )}
+            {/* </>
             ) : terminologyEdit && descriptionEdit === false ? (
               <>
                 <div className="initial_div empty_description">
@@ -163,10 +199,12 @@ export const Terminology = () => {
               />
             ) : (
               ''
-            )}
+            )} */}
           </div>
           <div className="table_container">
-            <table className="table">
+            <Table columns={columns} dataSource={dataSource} />
+
+            {/* <table className="table">
               <thead className="header">
                 <tr className="header_row">
                   <th></th>
@@ -229,39 +267,12 @@ export const Terminology = () => {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table> */}
             {/* {newCodes?.length > 0 ? (
             <button onClick={handleAddCode}>Save</button>
           ) : (
             ''
           )} */}
-            <div className="terminology_details">
-              {!terminologyEdit ? (
-                <>
-                  <div className="initial_div"></div>
-                  {terminology?.url}
-                </>
-              ) : terminologyEdit && urlEdit === false ? (
-                <>
-                  <div className="initial_div">
-                    <img
-                      className="small_icon"
-                      onClick={() => setUrlEdit(true)}
-                      src={PencilIcon}
-                    />
-                  </div>
-                  {terminology?.url}
-                </>
-              ) : terminologyEdit && urlEdit === true ? (
-                <EditUrl
-                  terminology={terminology}
-                  setTerminology={setTerminology}
-                  setUrlEdit={setUrlEdit}
-                />
-              ) : (
-                ''
-              )}
-            </div>
           </div>
         </div>
       )}
