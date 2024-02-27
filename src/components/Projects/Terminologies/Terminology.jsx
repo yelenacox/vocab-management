@@ -32,6 +32,7 @@ export const Terminology = () => {
     setCodeId,
   } = useContext(myContext);
 
+  const [mapping, setMapping] = useState({});
   const [newCodes, setNewCodes] = useState([]);
   const navigate = useNavigate();
 
@@ -40,9 +41,13 @@ export const Terminology = () => {
     getById(vocabUrl, 'Terminology', terminologyId).then(data =>
       setTerminology(data),
     );
+    getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`).then(data =>
+      setMapping(data.codes),
+    );
     setLoading(false);
   }, []);
 
+  console.log('mapping', mapping);
   const handleInputAdd = () => {
     const newCode = { code: '', display: '', id: getCodeId() };
     setNewCodes([...newCodes, newCode]);
@@ -66,6 +71,7 @@ export const Terminology = () => {
     { title: 'Code', dataIndex: 'code' },
     { title: 'Display', dataIndex: 'display' },
     { title: 'Mapped Terms', dataIndex: 'mapped_terms' },
+    { title: '', dataIndex: 'get_mappings' },
   ];
 
   const dataSource = terminology?.codes?.map((code, index) => {
@@ -73,6 +79,22 @@ export const Terminology = () => {
       key: index,
       code: code.code,
       display: code.display,
+      mapped_terms:
+        mapping?.length > 0
+          ? mapping?.map(item =>
+              item.code === code.code ? item.mappings.length : '',
+            )
+          : '',
+      get_mappings:
+        mapping.length > 0 ? (
+          mapping.some(m => m.code === code.code) ? (
+            <button key={index}>Edit Mappings</button>
+          ) : (
+            <button>Get Mappings</button>
+          )
+        ) : (
+          <button>Get Mappings</button>
+        ),
     };
   });
 
