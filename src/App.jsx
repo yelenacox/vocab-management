@@ -60,6 +60,8 @@ function App() {
   const [loadTable, setLoadTable] = useState(false);
   const [addStudy, setAddStudy] = useState(false);
   const [type, setType] = useState();
+  const [editMappings, setEditMappings] = useState(false);
+  const [getMappings, setGetMappings] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -179,6 +181,10 @@ function App() {
         setAddDD,
         type,
         setType,
+        editMappings,
+        setEditMappings,
+        getMappings,
+        setGetMappings,
       }}
     >
       <Routes>
