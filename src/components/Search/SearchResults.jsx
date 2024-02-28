@@ -45,10 +45,10 @@ export const SearchResults = () => {
     return requestSearch(rows, (page - 1) * rows);
   };
 
-  const requestSearch = (rowCount, firstRowdescription) => {
+  const requestSearch = (rowCount, firstRowDescription) => {
     setLoading(true);
     fetch(
-      `${URL}q=${query}&ontology=mondo,hp&rows=${rowCount}&start=${firstRowdescription}`,
+      `${URL}q=${query}&ontology=mondo,hp,maxo,ncit&rows=${rowCount}&start=${firstRowDescription}`,
       {
         method: 'GET',
         headers: {

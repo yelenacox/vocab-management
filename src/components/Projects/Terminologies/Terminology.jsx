@@ -116,7 +116,7 @@ export const Terminology = () => {
           ) : (
             <button
               className="manage_term_button"
-              onClick={() => setGetMappings(true)}
+              onClick={() => setGetMappings(code)}
             >
               Get Mappings
             </button>
@@ -124,7 +124,7 @@ export const Terminology = () => {
         ) : (
           <button
             className="manage_term_button"
-            onClick={() => setGetMappings(true)}
+            onClick={() => setGetMappings(code)}
           >
             Get Mappings
           </button>
@@ -160,24 +160,10 @@ export const Terminology = () => {
             setEditMappings={setEditMappings}
           />
 
-          {/* <Modal
-            open={editMappings}
-            width={'50%'}
-            onOk={
-              () => setEditMappings(false)
-              // })
-            }
-            onCancel={() => {
-              setEditMappings(false);
-            }}
-            maskClosable={true}
-          >
-            {mapping?.length > 0
-              ? mapping?.map((item, index) =>
-                  item.code === code.code ? item.code : '',
-                )
-              : ''}
-          </Modal> */}
+          <GetMappingsModal
+            getMappings={getMappings}
+            setGetMappings={setGetMappings}
+          />
         </div>
       )}
     </>
