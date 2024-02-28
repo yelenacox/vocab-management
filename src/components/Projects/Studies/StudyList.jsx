@@ -50,14 +50,14 @@ export const StudyList = () => {
         </div>
         <div className="projects_sub_nav">
           <h2>My Studies</h2>
-          <div className="menu_buttons_container">
+          {/* <div className="menu_buttons_container">
             <button
               className="manage_term_button"
               onClick={() => setAddStudy(true)}
             >
               Add Study
             </button>{' '}
-          </div>
+          </div> */}
         </div>
         {loading ? (
           <Spinner />

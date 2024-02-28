@@ -11,7 +11,8 @@ import { EditDescriptionTable } from './EditDescriptionTable';
 import { EditUrlTable } from './EditUrlTable';
 import { AddVariable } from './AddVariable';
 import { getById } from '../../Manager/FetchManager';
-import { Table } from 'antd';
+import { Table, Dropdown, Button, Space, Row, Col } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 export const TableDetails = () => {
   const [tableEdit, setTableEdit] = useState(false);
@@ -36,6 +37,27 @@ export const TableDetails = () => {
     },
     [],
   );
+
+  const items = [
+    {
+      label: 'Edit',
+      key: '0',
+    },
+    {
+      label: 'Delete',
+      key: '2',
+      danger: true,
+    },
+  ];
+
+  const handleMenuClick = e => {
+    // message.info('Click on menu item.');
+    console.log('click', e);
+  };
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
 
   const columns = [
     { title: 'Name', dataIndex: 'name' },
@@ -140,36 +162,47 @@ export const TableDetails = () => {
               ''
             )}
           </div> */}
-          <div className="terminology_details terminology_name">
-            {/* {!tableEdit ? (
-              <>
-                <div className="initial_div"></div> */}
-
-            <h3>{table?.name ? table?.name : table?.id}</h3>
-            {/* </>
-            ) : tableEdit && nameEdit === false ? (
-              <>
-                <div className="edit_div">
-                  <div className="initial_div">
-                    <img
-                      className="small_icon"
-                      onClick={() => setNameEdit(true)}
-                      src={PencilIcon}
-                    />
+          <Row gutter={30}>
+            <div className="study_details_container">
+              <Col span={15}>
+                <div className="study_details">
+                  <div className="study_name">
+                    <h2>{table?.name ? table?.name : table?.id}</h2>
                   </div>
-                  <div>{table?.name ? table?.name : table?.id}</div>
+                  <div className="study_desc">
+                    {table?.description ? (
+                      table?.description
+                    ) : (
+                      <span className="no_description">
+                        No description provided.
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </>
-            ) : tableEdit && nameEdit === true ? (
-              <EditNameTable
-                table={table}
-                setTable={setTable}
-                setNameEdit={setNameEdit}
-              />
-            ) : (
-              ''
-            )} */}
-          </div>
+              </Col>
+              <Col span={6}>
+                <div className="study_details_right">
+                  <div className="study_dropdown">
+                    <Dropdown menu={menuProps} style={{ width: '30vw' }}>
+                      <Button>
+                        <Space
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            width: 100,
+                          }}
+                        >
+                          Settings
+                          <DownOutlined />
+                        </Space>
+                      </Button>
+                    </Dropdown>
+                  </div>
+                  {/* <div className="study_url">URL: {study.url}</div> */}
+                </div>
+              </Col>
+            </div>
+          </Row>
           {table?.filename ? (
             <>
               <div className="terminology_details terminology_desc">
@@ -211,11 +244,7 @@ export const TableDetails = () => {
             {/* {!tableEdit ? (
               <>
                 <div className="initial_div empty_description"></div> */}
-            {table?.description ? (
-              table?.description
-            ) : (
-              <span className="no_description">No description provided.</span>
-            )}
+
             {/* </>
             ) : tableEdit && descriptionEdit === false ? (
               <>
