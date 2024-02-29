@@ -105,7 +105,7 @@ export const Terminology = () => {
         mapping.length > 0 ? (
           mapping.some(m => m.code === code.code) ? (
             <button
-              key={index}
+              key={code.code}
               className="manage_term_button"
               onClick={() => {
                 setEditMappings(code);

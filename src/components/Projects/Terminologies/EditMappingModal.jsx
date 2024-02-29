@@ -4,7 +4,7 @@ export const EditMappingsModal = ({ editMappings, setEditMappings }) => {
   return (
     <Modal
       open={!!editMappings}
-      width={'60%'}
+      width={'50%'}
       onOk={() => setEditMappings(null)}
       onCancel={() => {
         setEditMappings(null);
