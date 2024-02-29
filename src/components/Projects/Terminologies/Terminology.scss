@@ -80,3 +80,18 @@
 .code_description_input {
   width: 38vw;
 }
+
+.modal_term_ontology {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  color: $darkBlue;
+}
+
+.modal_search_result {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 10px 6px;
+}

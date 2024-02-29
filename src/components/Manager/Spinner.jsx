@@ -9,3 +9,13 @@ export const Spinner = () => {
     </div>
   );
 };
+
+export const ModalSpinner = () => {
+  return (
+    <div className="loading_screen">
+      <div className="modal_spinner">
+        <Spin />
+      </div>
+    </div>
+  );
+};
