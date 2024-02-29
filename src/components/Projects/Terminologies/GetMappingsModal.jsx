@@ -14,24 +14,18 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
     setPage(page);
   };
 
-  // useEffect(() => {
-  //   setPage(1);
-  //   setCurrent(1);
-  //   descriptionResults(page);
-  // }, []);
-
   useEffect(() => {
-    requestSearch();
-  }, [getMappings]);
+    descriptionResults(page);
+  }, [getMappings, page]);
 
   const descriptionResults = page => {
     return requestSearch((page - 1) * 5);
   };
 
-  const requestSearch = () => {
+  const requestSearch = firstRowDescription => {
     getMappings
       ? fetch(
-          `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit` /*&rows=5&start=${firstRowDescription} */,
+          `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit&rows=5&start=${firstRowDescription}`,
           {
             method: 'GET',
             headers: {
@@ -49,9 +43,11 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
       <Modal
         open={!!getMappings}
         width={'60%'}
-        onOk={() => setGetMappings(null)}
+        onOk={() => {
+          setGetMappings(null), setPage(1), setCurrent(1);
+        }}
         onCancel={() => {
-          setGetMappings(null);
+          setGetMappings(null), setPage(1), setCurrent(1);
         }}
         maskClosable={true}
         destroyOnClose={true}
@@ -97,23 +93,24 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
             )}
           </>
 
-          {/* {loading === false && results?.numFound > 0 ? (
+          {loading === false && results?.numFound > 0 ? (
             <div className="modal_pagination">
               <Pagination
                 defaultCurrent={1}
-                // defaultPageSize={5}
+                defaultPageSize={5}
                 total={results?.numFound}
                 onChange={onChange}
                 current={current}
+                showSizeChanger={false}
                 // onShowSizeChange={onShowSizeChange}
-                // showTotal={(total, range) =>
-                //   `${range[0]}-${range[1]} of ${total} items`
-                // }
+                showTotal={(total, range) =>
+                  `${range[0]}-${range[1]} of ${total} items`
+                }
               />
             </div>
           ) : (
             ''
-          )} */}
+          )}
         </div>
       </Modal>
     </>
