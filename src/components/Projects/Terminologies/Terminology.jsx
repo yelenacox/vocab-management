@@ -44,13 +44,12 @@ export const Terminology = () => {
 
   useEffect(() => {
     setLoading(true);
-    getById(vocabUrl, 'Terminology', terminologyId).then(data =>
-      setTerminology(data),
-    );
+    getById(vocabUrl, 'Terminology', terminologyId)
+      .then(data => setTerminology(data))
+      .then(() => setLoading(false));
     getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`).then(data =>
       setMapping(data.codes),
     );
-    setLoading(false);
   }, []);
 
   useEffect(() => {

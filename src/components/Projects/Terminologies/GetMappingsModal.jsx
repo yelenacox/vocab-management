@@ -1,26 +1,24 @@
-import { Checkbox, Modal, Pagination, Form } from 'antd';
+import { Checkbox, Modal, Pagination } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { ellipsisString } from '../../Manager/Utilitiy';
 import { ModalSpinner } from '../../Manager/Spinner';
+import Link from 'antd/es/typography/Link';
 
 export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
-  const [form] = Form.useForm();
-  const { results, setResults, current, setCurrent, URL } =
-    useContext(myContext);
-  const [page, setPage] = useState(1);
+  const { current, setCurrent, URL } = useContext(myContext);
+  const [page, setPage] = useState(0);
+  const entriesPerPage = 15;
   const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState([]);
   const [selectedCodes, setSelectedCodes] = useState([]);
 
-  const onChange = page => {
-    setCurrent(page);
-    setPage(page);
-  };
-
   useEffect(() => {
-    descriptionResults(page);
-  }, [getMappings, page]);
+    if (!!getMappings) {
+      fetchResults(page);
+    }
+  }, [page, getMappings]);
 
   useEffect(
     () => () => {
@@ -29,87 +27,61 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
     [],
   );
 
-  const checkboxHandler = e => {
-    let isSelected = e?.target?.checked;
-    if (isSelected) {
-      setSelectedCodes([...selectedCodes, e.target.value]);
-    } else {
-      setSelectedCodes(prevData => {
-        return prevData?.filter(code => {
-          return code !== e.target.value;
-        });
-      });
+  const fetchResults = page => {
+    if (!!getMappings) {
+      setLoading(true);
+      const bunch = page * entriesPerPage;
+      fetch(
+        `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit&rows=${entriesPerPage}&start=${bunch}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+        .then(res => res.json())
+        .then(data => {
+          console.log('fetched', data?.response?.docs);
+          let res = data?.response?.docs;
+          if (page > 0 && results.length > 0) {
+            res = results.concat(res);
+          }
+          setResults(res);
+        })
+        .then(() => setLoading(false));
     }
   };
 
-  const handleSubmit = values => {
-    values = selectedCodes?.map(item => {
-      return { code: item.obo_id, display: item.label };
-    });
-    console.log('WHAT IS THIS', values);
-    // handleUpdate(vocabUrl, 'Terminology', values)
-    // .then(data => navigate(`/Terminology/${data?.id}`),
-    // );
-  };
-  const descriptionResults = page => {
-    return requestSearch((page - 1) * 5);
-  };
-
-  const requestSearch = firstRowDescription => {
-    getMappings
-      ? fetch(
-          `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit&rows=5&start=${firstRowDescription}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-          .then(res => res.json())
-          .then(data => setResults(data.response))
-          .then(() => setLoading(false))
-      : '';
-  };
-
-  const checkBoxDisplay = (d, index) => {
-    return (
-      <>
-        <div key={index} className="modal_search_result">
-          <div>
-            <div className="modal_term_ontology">
-              <div>
-                <b>{d.label}</b>
-              </div>
-              <div>{d.obo_id}</div>
-            </div>
-            <div>{ellipsisString(d?.description, '100')}</div>
-            {/* <div>Ontology: {d.ontology_prefix}</div> */}
-          </div>
-        </div>
-      </>
-    );
+  const handleViewMore = e => {
+    e.preventDefault();
+    setPage(page + 1);
   };
 
   return (
     <>
       <Modal
         open={!!getMappings}
-        width={'50%'}
+        closeIcon={false}
+        width={'51%'}
+        styles={{ body: { height: '60vh', overflowY: 'auto' } }}
         onOk={() => {
-          form.validateFields().then(values => {
-            handleSubmit(values);
-            form.resetFields();
-            setGetMappings(null);
-            setPage(1);
-            setCurrent(1);
-          });
-        }}
-        onCancel={() => {
-          form.resetFields();
+          console.log('WHAT IS THIS', selectedCodes);
+
+          setSelectedCodes([]);
           setGetMappings(null);
           setPage(1);
           setCurrent(1);
+          setResults([]);
+          setLoading(true);
+        }}
+        onCancel={() => {
+          setGetMappings(null);
+          setSelectedCodes([]);
+          setPage(1);
+          setCurrent(1);
+          setResults([]);
+          setLoading(true);
         }}
         maskClosable={false}
         destroyOnClose={true}
@@ -122,30 +94,53 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
           <>
             {loading === false ? (
               <>
-                <Form form={form}>
-                  <Form.Item name={['mappings']}>
-                    <div className="modal_search_results">
-                      <div className="modal_search_results_header">
-                        <h3>Search results for: {getMappings?.code}</h3>
-                      </div>
-                      {results?.docs?.length > 0 ? (
-                        <Checkbox.Group
-                          className="mappings_checkbox"
-                          // checked={selectedCodes.includes()}
-                          options={results?.docs.map((d, index) => {
-                            return {
-                              value: d,
-                              label: checkBoxDisplay(d),
-                            };
-                          })}
-                          onChange={checkboxHandler}
-                        />
-                      ) : (
-                        <h3>No results found.</h3>
-                      )}
+                <div className="modal_search_results">
+                  <div className="modal_search_results_header">
+                    <h3>Search results for: {getMappings?.code}</h3>
+                  </div>
+                  {results?.length > 0 ? (
+                    <div>
+                      {results?.map((d, index) => {
+                        return (
+                          <div key={index} className="modal_search_result">
+                            <div>
+                              <div className="modal_term_ontology">
+                                <div>
+                                  <b>{d.label}</b>
+                                </div>
+                                <div>
+                                  <a href={d?.iri} target="_blank">
+                                    {d.obo_id}
+                                  </a>
+                                </div>
+                              </div>
+                              <div>
+                                {ellipsisString(d?.description[0], '100')}
+                              </div>
+                              {/* <div>Ontology: {d.ontology_prefix}</div> */}
+                            </div>
+                            <div className="modal_checkbox">
+                              <Checkbox
+                                key={index}
+                                className="mapping_checkbox"
+                                type="checkbox"
+                                // value={d}
+                                id={d}
+                                // checked={selectedCodes.includes(d)}
+                                // onChange={checkboxHandler}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                      <button onClick={e => handleViewMore(e)}>
+                        View More
+                      </button>
                     </div>
-                  </Form.Item>
-                </Form>
+                  ) : (
+                    <h3>No results found.</h3>
+                  )}
+                </div>
               </>
             ) : (
               <div className="loading_spinner">
@@ -153,25 +148,6 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
               </div>
             )}
           </>
-
-          {loading === false && results?.numFound > 0 ? (
-            <div className="modal_pagination">
-              <Pagination
-                defaultCurrent={1}
-                defaultPageSize={5}
-                total={results?.numFound}
-                onChange={onChange}
-                current={current}
-                showSizeChanger={false}
-                // onShowSizeChange={onShowSizeChange}
-                showTotal={(total, range) =>
-                  `${range[0]}-${range[1]} of ${total} items`
-                }
-              />
-            </div>
-          ) : (
-            ''
-          )}
         </div>
       </Modal>
     </>

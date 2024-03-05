@@ -90,8 +90,16 @@
 
 .modal_search_result {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0 10px 6px;
+  margin: 0 10px 10px 6px;
+}
+
+.modal_checkbox {
+  margin: 0 10px 0 15px;
+}
+
+a {
+  color: $lightBlue;
 }

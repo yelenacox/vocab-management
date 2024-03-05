@@ -23,6 +23,7 @@ import {
   Card,
 } from 'antd';
 import { ellipsisString } from '../../Manager/Utilitiy';
+import useFormItemStatus from 'antd/es/form/hooks/useFormItemStatus';
 const { Meta } = Card;
 
 export const StudyDetails = () => {
@@ -61,8 +62,9 @@ export const StudyDetails = () => {
 
   useEffect(() => {
     setLoading(true);
-    getById(vocabUrl, 'Study', studyId).then(data => setStudy(data));
-    setLoading(false);
+    getById(vocabUrl, 'Study', studyId)
+      .then(data => setStudy(data))
+      .then(() => setLoading(false));
   }, []);
   useEffect(() => {
     setLoading(true);
