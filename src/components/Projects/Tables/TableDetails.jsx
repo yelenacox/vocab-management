@@ -21,14 +21,15 @@ export const TableDetails = () => {
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [active, setActive] = useState(-1);
   const [newVars, setNewVars] = useState([]);
-  const { table, setTable, vocabUrl, loading, setLoading, getVariableId } =
+  const { table, setTable, vocabUrl, getVariableId, loading, setLoading } =
     useContext(myContext);
   const { tableId } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    getById(vocabUrl, 'Table', tableId).then(data => setTable(data));
-    setLoading(false);
+    getById(vocabUrl, 'Table', tableId)
+      .then(data => setTable(data))
+      .then(() => setLoading(false));
   }, []);
 
   useEffect(
@@ -206,7 +207,6 @@ export const TableDetails = () => {
           {table?.filename ? (
             <>
               <div className="terminology_details terminology_desc">
-                <div className="initial_div"></div>
                 File name: {table?.filename}
               </div>
             </>
