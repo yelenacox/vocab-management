@@ -75,7 +75,12 @@ export const Terminology = () => {
     mapping?.length > 0
       ? mapping?.map((item, index) =>
           item.code === code.code ? (
-            <Tooltip title={item.code} key={index}>
+            <Tooltip
+              title={item.mappings.map(code => {
+                return <div>{code.code}</div>;
+              })}
+              key={index}
+            >
               {item.mappings.length}
             </Tooltip>
           ) : (
@@ -157,6 +162,8 @@ export const Terminology = () => {
           />
 
           <GetMappingsModal
+            terminology={terminology}
+            setTerminology={setTerminology}
             getMappings={getMappings}
             setGetMappings={setGetMappings}
           />

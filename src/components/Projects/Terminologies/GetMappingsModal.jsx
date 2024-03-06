@@ -4,10 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { ellipsisString } from '../../Manager/Utilitiy';
 import { ModalSpinner } from '../../Manager/Spinner';
+import { handleUpdate } from '../../Manager/FetchManager';
 
-export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
+export const GetMappingsModal = ({
+  terminology,
+  setTerminology,
+  getMappings,
+  setGetMappings,
+}) => {
   const [form] = Form.useForm();
-  const { current, setCurrent, URL } = useContext(myContext);
+  const { current, setCurrent, URL, vocabUrl } = useContext(myContext);
   const [page, setPage] = useState(0);
   const entriesPerPage = 15;
   const [loading, setLoading] = useState(true);
@@ -27,6 +33,32 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
     },
     [],
   );
+
+  const handleSubmit = values => {
+    const mappingsDTO = () => {
+      let mappings = [];
+      values?.mappings?.forEach(v => mappings.push(JSON.parse(v)));
+      return { mappings: mappings };
+    };
+    fetch(
+      `${vocabUrl}/Terminology/${terminology.id}/mapping/${getMappings.code}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(mappingsDTO()),
+      },
+    )
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('An unknown error occurred.');
+        }
+      })
+      .then(data => setTerminology(data));
+  };
 
   const fetchResults = page => {
     if (!!getMappings) {
@@ -54,6 +86,17 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
         })
         .then(() => setLoading(false));
     }
+  };
+
+  const ontologySystems = {
+    MONDO: 'http://purl.obolibrary.org/obo/mondo.owl',
+    HP: 'http://purl.obolibrary.org/obo/hp.owl',
+    MAXO: 'http://purl.obolibrary.org/obo/maxo.owl',
+    NCIT: 'http://purl.obolibrary.org/obo/ncit.owl',
+  };
+
+  const systemsMatch = ont => {
+    return ontologySystems[ont];
   };
 
   const handleViewMore = e => {
@@ -91,7 +134,7 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
         styles={{ body: { height: '60vh', overflowY: 'auto' } }}
         onOk={() => {
           form.validateFields().then(values => {
-            values?.mappings?.forEach(v => console.log(JSON.parse(v)));
+            handleSubmit(values);
             form.resetFields();
             setGetMappings(null);
             setPage(0);
@@ -129,7 +172,10 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
                                   value: JSON.stringify({
                                     code: d.obo_id,
                                     display: d.label,
-                                    description: d.description[0],
+                                    // description: d.description[0],
+                                    system: systemsMatch(
+                                      d?.obo_id.split(':')[0],
+                                    ),
                                   }),
                                   label: checkBoxDisplay(d),
                                 };
