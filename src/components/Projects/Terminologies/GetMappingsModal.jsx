@@ -14,7 +14,6 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
   const [results, setResults] = useState([]);
   const [totalCount, setTotalCount] = useState();
   const [resultsCount, setResultsCount] = useState();
-  const [selectedCodes, setSelectedCodes] = useState([]);
 
   useEffect(() => {
     if (!!getMappings) {
@@ -64,7 +63,6 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
   const ontologyFilter = d =>
     d.filter(d => d?.obo_id.split(':')[0] === d?.ontology_prefix);
   const checkBoxDisplay = (d, index) => {
-    // if (d?.obo_id.split(':')[0] === d?.ontology_prefix) {
     return (
       <>
         <div key={index} className="modal_search_result">
@@ -83,7 +81,6 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
         </div>
       </>
     );
-    // }
   };
   return (
     <>
@@ -94,9 +91,8 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
         styles={{ body: { height: '60vh', overflowY: 'auto' } }}
         onOk={() => {
           form.validateFields().then(values => {
-            console.log('WHAT THIS BE THO', values);
+            values?.mappings?.forEach(v => console.log(JSON.parse(v)));
             form.resetFields();
-            setSelectedCodes([]);
             setGetMappings(null);
             setPage(0);
             setResults([]);
@@ -106,7 +102,6 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
         onCancel={() => {
           form.resetFields();
           setGetMappings(null);
-          setSelectedCodes([]);
           setPage(0);
           setResults([]);
           setLoading(true);
@@ -124,22 +119,21 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
                   </div>
                   {results?.length > 0 ? (
                     <div className="result_container">
-                      <Form
-                        form={form}
-                        layout="vertical"
-                        initialValues={{ 'mappings': selectedCodes }}
-                      >
-                        <Form.Item name="mappings" valuePropName="value">
+                      <Form form={form} layout="vertical">
+                        <Form.Item name={['mappings']} valuePropName="value">
                           {results?.length > 0 ? (
                             <Checkbox.Group
                               className="mappings_checkbox"
                               options={results?.map((d, index) => {
                                 return {
-                                  value: d.obo_id,
+                                  value: JSON.stringify({
+                                    code: d.obo_id,
+                                    display: d.label,
+                                    description: d.description[0],
+                                  }),
                                   label: checkBoxDisplay(d),
                                 };
                               })}
-                              onChange={value => console.log(value)}
                             />
                           ) : (
                             ''
