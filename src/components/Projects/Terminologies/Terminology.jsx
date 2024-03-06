@@ -159,6 +159,7 @@ export const Terminology = () => {
           <EditMappingsModal
             editMappings={editMappings}
             setEditMappings={setEditMappings}
+            mapping={mapping}
           />
 
           <GetMappingsModal
