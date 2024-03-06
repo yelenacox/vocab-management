@@ -37,8 +37,6 @@ export const TableList = () => {
   }, []);
 
   const handleSubmit = values => {
-    // event.preventDefault();
-    // console.log('NEW TABLE PLEASE', values);
     handlePost(vocabUrl, 'Table', values).then(data =>
       navigate(`/table/${data?.id}`),
     );

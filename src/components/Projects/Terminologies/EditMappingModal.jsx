@@ -1,6 +1,7 @@
 import { Modal } from 'antd';
 
 export const EditMappingsModal = ({ editMappings, setEditMappings }) => {
+  console.log(editMappings);
   return (
     <Modal
       open={!!editMappings}
@@ -12,8 +13,14 @@ export const EditMappingsModal = ({ editMappings, setEditMappings }) => {
       maskClosable={true}
       destroyOnClose={true}
     >
-      <div>Code: {editMappings?.code}</div>
-      <div>Display: {editMappings?.display}</div>
+      {/* {editMappings?.map(item => {
+        return (
+          <>
+            <div>Code: {item.code}</div>
+            <div>Display: {item.display}</div>
+          </>
+        );
+      })} */}
     </Modal>
   );
 };
