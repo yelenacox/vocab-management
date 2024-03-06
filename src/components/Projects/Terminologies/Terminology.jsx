@@ -52,9 +52,6 @@ export const Terminology = () => {
     );
   }, []);
 
-  useEffect(() => {
-    console.log('edit mappings?', editMappings);
-  }, [editMappings]);
   const handleInputAdd = () => {
     const newCode = { code: '', display: '', id: getCodeId() };
     setNewCodes([...newCodes, newCode]);
