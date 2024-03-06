@@ -1,17 +1,19 @@
-import { Checkbox, Modal, Pagination } from 'antd';
+import { Checkbox, Modal, Form, Tooltip } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { ellipsisString } from '../../Manager/Utilitiy';
 import { ModalSpinner } from '../../Manager/Spinner';
-import Link from 'antd/es/typography/Link';
 
 export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
+  const [form] = Form.useForm();
   const { current, setCurrent, URL } = useContext(myContext);
   const [page, setPage] = useState(0);
   const entriesPerPage = 15;
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
+  const [totalCount, setTotalCount] = useState();
+  const [resultsCount, setResultsCount] = useState();
   const [selectedCodes, setSelectedCodes] = useState([]);
 
   useEffect(() => {
@@ -30,9 +32,9 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
   const fetchResults = page => {
     if (!!getMappings) {
       setLoading(true);
-      const bunch = page * entriesPerPage;
+      const pageStart = page * entriesPerPage;
       fetch(
-        `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit&rows=${entriesPerPage}&start=${bunch}`,
+        `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit&rows=${entriesPerPage}&start=${pageStart}`,
         {
           method: 'GET',
           headers: {
@@ -42,12 +44,14 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
       )
         .then(res => res.json())
         .then(data => {
-          console.log('fetched', data?.response?.docs);
-          let res = data?.response?.docs;
+          let res = ontologyFilter(data?.response?.docs);
           if (page > 0 && results.length > 0) {
             res = results.concat(res);
+          } else {
+            setTotalCount(data.response.numFound);
           }
           setResults(res);
+          setResultsCount(results.length + res.length);
         })
         .then(() => setLoading(false));
     }
@@ -57,7 +61,30 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
     e.preventDefault();
     setPage(page + 1);
   };
-
+  const ontologyFilter = d =>
+    d.filter(d => d?.obo_id.split(':')[0] === d?.ontology_prefix);
+  const checkBoxDisplay = (d, index) => {
+    // if (d?.obo_id.split(':')[0] === d?.ontology_prefix) {
+    return (
+      <>
+        <div key={index} className="modal_search_result">
+          <div>
+            <div className="modal_term_ontology">
+              <div>
+                <b>{d.label}</b>
+              </div>
+              <div>
+                <a href={d.iri}>{d.obo_id}</a>
+              </div>
+            </div>
+            <div>{ellipsisString(d?.description[0], '100')}</div>
+            {/* <div>Ontology: {d.ontology_prefix}</div> */}
+          </div>
+        </div>
+      </>
+    );
+    // }
+  };
   return (
     <>
       <Modal
@@ -66,20 +93,21 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
         width={'51%'}
         styles={{ body: { height: '60vh', overflowY: 'auto' } }}
         onOk={() => {
-          console.log('WHAT IS THIS', selectedCodes);
-
-          setSelectedCodes([]);
-          setGetMappings(null);
-          setPage(1);
-          setCurrent(1);
-          setResults([]);
-          setLoading(true);
+          form.validateFields().then(values => {
+            console.log('WHAT THIS BE THO', values);
+            form.resetFields();
+            setSelectedCodes([]);
+            setGetMappings(null);
+            setPage(0);
+            setResults([]);
+            setLoading(true);
+          });
         }}
         onCancel={() => {
+          form.resetFields();
           setGetMappings(null);
           setSelectedCodes([]);
-          setPage(1);
-          setCurrent(1);
+          setPage(0);
           setResults([]);
           setLoading(true);
         }}
@@ -87,10 +115,6 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
         destroyOnClose={true}
       >
         <div className="results_modal_container">
-          <div className="search_modal_container">
-            <div className="search_modal_results"></div>
-          </div>
-
           <>
             {loading === false ? (
               <>
@@ -99,43 +123,44 @@ export const GetMappingsModal = ({ getMappings, setGetMappings }) => {
                     <h3>Search results for: {getMappings?.code}</h3>
                   </div>
                   {results?.length > 0 ? (
-                    <div>
-                      {results?.map((d, index) => {
-                        return (
-                          <div key={index} className="modal_search_result">
-                            <div>
-                              <div className="modal_term_ontology">
-                                <div>
-                                  <b>{d.label}</b>
-                                </div>
-                                <div>
-                                  <a href={d?.iri} target="_blank">
-                                    {d.obo_id}
-                                  </a>
-                                </div>
-                              </div>
-                              <div>
-                                {ellipsisString(d?.description[0], '100')}
-                              </div>
-                              {/* <div>Ontology: {d.ontology_prefix}</div> */}
-                            </div>
-                            <div className="modal_checkbox">
-                              <Checkbox
-                                key={index}
-                                className="mapping_checkbox"
-                                type="checkbox"
-                                // value={d}
-                                id={d}
-                                // checked={selectedCodes.includes(d)}
-                                // onChange={checkboxHandler}
-                              />
-                            </div>
-                          </div>
-                        );
-                      })}
-                      <button onClick={e => handleViewMore(e)}>
-                        View More
-                      </button>
+                    <div className="result_container">
+                      <Form
+                        form={form}
+                        layout="vertical"
+                        initialValues={{ 'mappings': selectedCodes }}
+                      >
+                        <Form.Item name="mappings" valuePropName="value">
+                          {results?.length > 0 ? (
+                            <Checkbox.Group
+                              className="mappings_checkbox"
+                              options={results?.map((d, index) => {
+                                return {
+                                  value: d.obo_id,
+                                  label: checkBoxDisplay(d),
+                                };
+                              })}
+                              onChange={value => console.log(value)}
+                            />
+                          ) : (
+                            ''
+                          )}
+                        </Form.Item>
+                      </Form>
+                      <div>
+                        <Tooltip
+                          placement="bottom"
+                          title="Redundant entries have been removed"
+                        >
+                          Displaying {resultsCount}
+                          &nbsp;of&nbsp;{totalCount}
+                        </Tooltip>
+                        <span
+                          className="view_more_link"
+                          onClick={e => handleViewMore(e)}
+                        >
+                          View More
+                        </span>
+                      </div>
                     </div>
                   ) : (
                     <h3>No results found.</h3>
