@@ -48,7 +48,7 @@ export const Terminology = () => {
       .then(data => setTerminology(data))
       .then(() => setLoading(false));
     getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`).then(data =>
-      setMapping(data.codes),
+      setMapping(data.codes).then(() => setLoading(false)),
     );
   }, []);
 
