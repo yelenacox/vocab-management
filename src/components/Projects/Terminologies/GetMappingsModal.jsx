@@ -13,7 +13,7 @@ export const GetMappingsModal = ({
   setGetMappings,
 }) => {
   const [form] = Form.useForm();
-  const { current, setCurrent, URL, vocabUrl } = useContext(myContext);
+  const { URL, vocabUrl } = useContext(myContext);
   const [page, setPage] = useState(0);
   const entriesPerPage = 15;
   const [loading, setLoading] = useState(true);
@@ -82,7 +82,7 @@ export const GetMappingsModal = ({
             setTotalCount(data.response.numFound);
           }
           setResults(res);
-          setResultsCount(results.length + res.length);
+          setResultsCount(res.length);
         })
         .then(() => setLoading(false));
     }
@@ -105,6 +105,7 @@ export const GetMappingsModal = ({
   };
   const ontologyFilter = d =>
     d.filter(d => d?.obo_id.split(':')[0] === d?.ontology_prefix);
+
   const checkBoxDisplay = (d, index) => {
     return (
       <>
@@ -115,7 +116,9 @@ export const GetMappingsModal = ({
                 <b>{d.label}</b>
               </div>
               <div>
-                <a href={d.iri}>{d.obo_id}</a>
+                <a href={d.iri} target="_blank">
+                  {d.obo_id}
+                </a>
               </div>
             </div>
             <div>{ellipsisString(d?.description[0], '100')}</div>
@@ -132,6 +135,7 @@ export const GetMappingsModal = ({
         closeIcon={false}
         width={'51%'}
         styles={{ body: { height: '60vh', overflowY: 'auto' } }}
+        okText="Save"
         onOk={() => {
           form.validateFields().then(values => {
             handleSubmit(values);
@@ -165,22 +169,24 @@ export const GetMappingsModal = ({
                       <Form form={form} layout="vertical">
                         <Form.Item name={['mappings']} valuePropName="value">
                           {results?.length > 0 ? (
-                            <Checkbox.Group
-                              className="mappings_checkbox"
-                              options={results?.map((d, index) => {
-                                return {
-                                  value: JSON.stringify({
-                                    code: d.obo_id,
-                                    display: d.label,
-                                    // description: d.description[0],
-                                    system: systemsMatch(
-                                      d?.obo_id.split(':')[0],
-                                    ),
-                                  }),
-                                  label: checkBoxDisplay(d),
-                                };
-                              })}
-                            />
+                            <div style={{ display: 'inline-block' }}>
+                              <Checkbox.Group
+                                className="mappings_checkbox"
+                                options={results?.map((d, index) => {
+                                  return {
+                                    value: JSON.stringify({
+                                      code: d.obo_id,
+                                      display: d.label,
+                                      // description: d.description[0],
+                                      system: systemsMatch(
+                                        d?.obo_id.split(':')[0],
+                                      ),
+                                    }),
+                                    label: checkBoxDisplay(d),
+                                  };
+                                })}
+                              />
+                            </div>
                           ) : (
                             ''
                           )}

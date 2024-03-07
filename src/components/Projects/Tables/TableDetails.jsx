@@ -21,10 +21,9 @@ export const TableDetails = () => {
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [active, setActive] = useState(-1);
   const [newVars, setNewVars] = useState([]);
-  const { table, setTable, vocabUrl, getVariableId, loading, setLoading } =
-    useContext(myContext);
+  const { table, setTable, vocabUrl, getVariableId } = useContext(myContext);
   const { tableId } = useParams();
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
     getById(vocabUrl, 'Table', tableId)
