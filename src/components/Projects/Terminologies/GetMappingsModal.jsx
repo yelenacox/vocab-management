@@ -1,5 +1,5 @@
 import { Checkbox, Modal, Form, Tooltip } from 'antd';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { ellipsisString } from '../../Manager/Utilitiy';
@@ -21,6 +21,7 @@ export const GetMappingsModal = ({
   const [totalCount, setTotalCount] = useState();
   const [resultsCount, setResultsCount] = useState();
 
+  let ref = useRef();
   useEffect(() => {
     if (!!getMappings) {
       fetchResults(page);
@@ -109,7 +110,7 @@ export const GetMappingsModal = ({
   const checkBoxDisplay = (d, index) => {
     return (
       <>
-        <div key={index} className="modal_search_result">
+        <div key={index} className="modal_search_result" id="scrollbar">
           <div>
             <div className="modal_term_ontology">
               <div>
@@ -128,6 +129,7 @@ export const GetMappingsModal = ({
       </>
     );
   };
+
   return (
     <>
       <Modal
@@ -167,7 +169,16 @@ export const GetMappingsModal = ({
                   {results?.length > 0 ? (
                     <div className="result_container">
                       <Form form={form} layout="vertical">
-                        <Form.Item name={['mappings']} valuePropName="value">
+                        <Form.Item
+                          name={['mappings']}
+                          valuePropName="value"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please make a selection.',
+                            },
+                          ]}
+                        >
                           {results?.length > 0 ? (
                             <Checkbox.Group
                               className="mappings_checkbox"

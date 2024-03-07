@@ -24,6 +24,13 @@ export const OntologySearch = () => {
               type="text"
               placeholder="Search"
               ref={ref}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  if (ref.current.value) {
+                    navigate(`/search/${ref.current.value}`);
+                  }
+                }
+              }}
               onChange={e => {
                 e.target.value === ''
                   ? setButtonDisabled(true)

@@ -78,6 +78,15 @@ export const SearchResults = () => {
                 placeholder="Search"
                 defaultValue={query}
                 ref={ref}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    if (ref.current.value) {
+                      setPage(1),
+                        setCurrent(1),
+                        navigate(`/search/${ref.current.value}`);
+                    }
+                  }
+                }}
                 onChange={e => {
                   e.target.value === ''
                     ? setButtonDisabled(true)
