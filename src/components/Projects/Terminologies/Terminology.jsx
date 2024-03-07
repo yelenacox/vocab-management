@@ -47,9 +47,9 @@ export const Terminology = () => {
     getById(vocabUrl, 'Terminology', terminologyId)
       .then(data => setTerminology(data))
       .then(() => setLoading(false));
-    getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`).then(data =>
-      setMapping(data.codes).then(() => setLoading(false)),
-    );
+    getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`)
+      .then(data => setMapping(data.codes))
+      .then(() => setLoading(false));
   }, []);
 
   const handleInputAdd = () => {
