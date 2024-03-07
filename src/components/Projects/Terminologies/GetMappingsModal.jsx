@@ -169,24 +169,22 @@ export const GetMappingsModal = ({
                       <Form form={form} layout="vertical">
                         <Form.Item name={['mappings']} valuePropName="value">
                           {results?.length > 0 ? (
-                            <div style={{ display: 'inline-block' }}>
-                              <Checkbox.Group
-                                className="mappings_checkbox"
-                                options={results?.map((d, index) => {
-                                  return {
-                                    value: JSON.stringify({
-                                      code: d.obo_id,
-                                      display: d.label,
-                                      // description: d.description[0],
-                                      system: systemsMatch(
-                                        d?.obo_id.split(':')[0],
-                                      ),
-                                    }),
-                                    label: checkBoxDisplay(d),
-                                  };
-                                })}
-                              />
-                            </div>
+                            <Checkbox.Group
+                              className="mappings_checkbox"
+                              options={results?.map((d, index) => {
+                                return {
+                                  value: JSON.stringify({
+                                    code: d.obo_id,
+                                    display: d.label,
+                                    // description: d.description[0],
+                                    system: systemsMatch(
+                                      d?.obo_id.split(':')[0],
+                                    ),
+                                  }),
+                                  label: checkBoxDisplay(d),
+                                };
+                              })}
+                            />
                           ) : (
                             ''
                           )}
