@@ -24,24 +24,17 @@ export const GetMappingsModal = ({
   let ref = useRef();
   const modalRef = useRef();
 
-  const getRef = page => {
-    // const current = codeId;
-    // setCodeId(codeId + 1);
-    // return current;
-  };
   useEffect(() => {
     if (!!getMappings) {
       fetchResults(page);
     }
   }, [page, getMappings]);
+
   useEffect(() => {
     if (results && page > 0) {
-      console.log('scroll here', ref.current.offsetTop);
       const container = ref.current.closest('.ant-modal-body');
       const scrollTop = ref.current.offsetTop - container.offsetTop;
-      container.scrollTop = scrollTop; // Assuming '.modal-content' is the class of the scrollable container
-
-      // modalRef.scrollTo(0, ref.current?.offsetTop);
+      container.scrollTop = scrollTop;
     }
   }, [results]);
 
@@ -126,7 +119,8 @@ export const GetMappingsModal = ({
     d.filter(d => d?.obo_id.split(':')[0] === d?.ontology_prefix);
 
   const checkBoxDisplay = (d, index) => {
-    index === page * entriesPerPage && console.log('found', index);
+    console.log(index);
+    index === resultsCount - 1 && console.log('found', index);
     return (
       <>
         <div
@@ -233,12 +227,16 @@ export const GetMappingsModal = ({
                           Displaying {resultsCount}
                           &nbsp;of&nbsp;{totalCount}
                         </Tooltip>
-                        <span
-                          className="view_more_link"
-                          onClick={e => handleViewMore(e)}
-                        >
-                          View More
-                        </span>
+                        {resultsCount !== totalCount ? (
+                          <span
+                            className="view_more_link"
+                            onClick={e => handleViewMore(e)}
+                          >
+                            View More
+                          </span>
+                        ) : (
+                          ''
+                        )}
                       </div>
                     </div>
                   ) : (
