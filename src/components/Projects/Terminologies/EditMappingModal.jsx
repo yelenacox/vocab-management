@@ -11,7 +11,7 @@ export const EditMappingsModal = ({
         if (m?.code === editMappings?.code) {
           return m?.mappings?.map((item, innerIndex) => (
             <>
-              <div className="mappings_container">
+              <div key={innerIndex} className="mappings_container">
                 <div key={innerIndex}>Code: {item.code}</div>
                 <div>Display: {item.display}</div>
               </div>

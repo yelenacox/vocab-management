@@ -167,6 +167,8 @@ export const Terminology = () => {
             setTerminology={setTerminology}
             getMappings={getMappings}
             setGetMappings={setGetMappings}
+            setMapping={setMapping}
+            terminologyId={terminologyId}
           />
         </div>
       )}
