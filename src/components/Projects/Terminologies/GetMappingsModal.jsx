@@ -22,11 +22,28 @@ export const GetMappingsModal = ({
   const [resultsCount, setResultsCount] = useState();
 
   let ref = useRef();
+  const modalRef = useRef();
+
+  const getRef = page => {
+    // const current = codeId;
+    // setCodeId(codeId + 1);
+    // return current;
+  };
   useEffect(() => {
     if (!!getMappings) {
       fetchResults(page);
     }
   }, [page, getMappings]);
+  useEffect(() => {
+    if (results && page > 0) {
+      console.log('scroll here', ref.current.offsetTop);
+      const container = ref.current.closest('.ant-modal-body');
+      const scrollTop = ref.current.offsetTop - container.offsetTop;
+      container.scrollTop = scrollTop; // Assuming '.modal-content' is the class of the scrollable container
+
+      // modalRef.scrollTo(0, ref.current?.offsetTop);
+    }
+  }, [results]);
 
   useEffect(
     () => () => {
@@ -62,31 +79,32 @@ export const GetMappingsModal = ({
   };
 
   const fetchResults = page => {
-    if (!!getMappings) {
-      setLoading(true);
-      const pageStart = page * entriesPerPage;
-      fetch(
-        `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit&rows=${entriesPerPage}&start=${pageStart}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-        .then(res => res.json())
-        .then(data => {
-          let res = ontologyFilter(data?.response?.docs);
-          if (page > 0 && results.length > 0) {
-            res = results.concat(res);
-          } else {
-            setTotalCount(data.response.numFound);
-          }
-          setResults(res);
-          setResultsCount(res.length);
-        })
-        .then(() => setLoading(false));
+    if (!!!getMappings) {
+      return undefined;
     }
+    setLoading(true);
+    const pageStart = page * entriesPerPage;
+    return fetch(
+      `${URL}q=${getMappings?.code}&ontology=mondo,hp,maxo,ncit&rows=${entriesPerPage}&start=${pageStart}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+      .then(res => res.json())
+      .then(data => {
+        let res = ontologyFilter(data?.response?.docs);
+        if (page > 0 && results.length > 0) {
+          res = results.concat(res);
+        } else {
+          setTotalCount(data.response.numFound);
+        }
+        setResults(res);
+        setResultsCount(res.length);
+      })
+      .then(() => setLoading(false));
   };
 
   const ontologySystems = {
@@ -108,9 +126,15 @@ export const GetMappingsModal = ({
     d.filter(d => d?.obo_id.split(':')[0] === d?.ontology_prefix);
 
   const checkBoxDisplay = (d, index) => {
+    index === page * entriesPerPage && console.log('found', index);
     return (
       <>
-        <div key={index} className="modal_search_result" id="scrollbar">
+        <div
+          key={index}
+          ref={index === page * entriesPerPage ? ref : undefined}
+          className="modal_search_result"
+          id="scrollbar"
+        >
           <div>
             <div className="modal_term_ontology">
               <div>
@@ -162,7 +186,7 @@ export const GetMappingsModal = ({
           <>
             {loading === false ? (
               <>
-                <div className="modal_search_results">
+                <div className="modal_search_results" ref={modalRef}>
                   <div className="modal_search_results_header">
                     <h3>Search results for: {getMappings?.code}</h3>
                   </div>
@@ -192,7 +216,7 @@ export const GetMappingsModal = ({
                                       d?.obo_id.split(':')[0],
                                     ),
                                   }),
-                                  label: checkBoxDisplay(d),
+                                  label: checkBoxDisplay(d, index),
                                 };
                               })}
                             />
