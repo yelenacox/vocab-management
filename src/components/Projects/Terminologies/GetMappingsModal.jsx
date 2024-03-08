@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { myContext } from '../../../App';
 import { ellipsisString } from '../../Manager/Utilitiy';
 import { ModalSpinner } from '../../Manager/Spinner';
-import { handleUpdate } from '../../Manager/FetchManager';
+import { getById, handleUpdate } from '../../Manager/FetchManager';
 
 export const GetMappingsModal = ({
   terminology,
   setTerminology,
   getMappings,
   setGetMappings,
+  setMapping,
+  terminologyId,
 }) => {
   const [form] = Form.useForm();
   const { URL, vocabUrl } = useContext(myContext);
@@ -20,6 +22,7 @@ export const GetMappingsModal = ({
   const [results, setResults] = useState([]);
   const [totalCount, setTotalCount] = useState();
   const [resultsCount, setResultsCount] = useState();
+  const [lastCount, setLastCount] = useState(0); //save last count as count of the results before you fetch data again
 
   let ref = useRef();
   const modalRef = useRef();
@@ -35,6 +38,9 @@ export const GetMappingsModal = ({
       const container = ref.current.closest('.ant-modal-body');
       const scrollTop = ref.current.offsetTop - container.offsetTop;
       container.scrollTop = scrollTop;
+      // container.scrollIntoView({
+      //   behavior: 'smooth',
+      // });
     }
   }, [results]);
 
@@ -68,7 +74,10 @@ export const GetMappingsModal = ({
           throw new Error('An unknown error occurred.');
         }
       })
-      .then(data => setTerminology(data));
+      .then(data =>
+        getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`),
+      )
+      .then(data => setMapping(data.codes));
   };
 
   const fetchResults = page => {
@@ -119,13 +128,13 @@ export const GetMappingsModal = ({
     d.filter(d => d?.obo_id.split(':')[0] === d?.ontology_prefix);
 
   const checkBoxDisplay = (d, index) => {
-    console.log(index);
-    index === resultsCount - 1 && console.log('found', index);
+    index === lastCount + 1;
     return (
       <>
         <div
           key={index}
-          ref={index === page * entriesPerPage ? ref : undefined}
+          // prettier-ignore
+          ref={index === lastCount + 1 ? ref : undefined}
           className="modal_search_result"
           id="scrollbar"
         >
@@ -230,7 +239,10 @@ export const GetMappingsModal = ({
                         {resultsCount !== totalCount ? (
                           <span
                             className="view_more_link"
-                            onClick={e => handleViewMore(e)}
+                            onClick={e => {
+                              handleViewMore(e);
+                              setLastCount(resultsCount);
+                            }}
                           >
                             View More
                           </span>
