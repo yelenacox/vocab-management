@@ -25,7 +25,6 @@ export const GetMappingsModal = ({
   const [lastCount, setLastCount] = useState(0); //save last count as count of the results before you fetch data again
 
   let ref = useRef();
-  const modalRef = useRef();
 
   useEffect(() => {
     if (!!getMappings) {
@@ -189,7 +188,7 @@ export const GetMappingsModal = ({
           <>
             {loading === false ? (
               <>
-                <div className="modal_search_results" ref={modalRef}>
+                <div className="modal_search_results">
                   <div className="modal_search_results_header">
                     <h3>Search results for: {getMappings?.code}</h3>
                   </div>
