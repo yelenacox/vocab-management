@@ -1,11 +1,73 @@
 import { Checkbox, Modal, Form } from 'antd';
+import { useContext, useEffect, useState } from 'react';
+import { myContext } from '../../../App';
+import { ModalSpinner } from '../../Manager/Spinner';
 
 export const EditMappingsModal = ({
   editMappings,
   setEditMappings,
   mapping,
+  terminologyId,
 }) => {
   const [form] = Form.useForm();
+  const [termMappings, setTermMappings] = useState([]);
+  const [options, setOptions] = useState([]);
+  const { vocabUrl } = useContext(myContext);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log('EM', editMappings);
+    fetchMappings();
+  }, [editMappings]);
+
+  const clearData = () => {
+    setTermMappings([]);
+    setOptions([]);
+  };
+  const fetchMappings = () => {
+    if (editMappings) {
+      setLoading(true);
+      return fetch(
+        `${vocabUrl}/Terminology/${terminologyId}/mapping/${editMappings.code}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error('An unknown error occurred.');
+          }
+        })
+        .then(data => {
+          if (data.mappings.length < 1) {
+            return undefined;
+          }
+          const mappings = [];
+          const options = [];
+          data.mappings.forEach((m, index) => {
+            const val = JSON.stringify({
+              code: m.code,
+              display: m.display,
+              // description: d.description[0],
+              system: m?.system,
+            });
+            mappings.push(val);
+            options.push({ value: val, label: editMappingsLabel(m, index) });
+          });
+          setTermMappings(mappings);
+          setOptions(options);
+        })
+        .then(() => setLoading(false));
+    }
+  };
+
+  // console.log('MPPINGS', termMappings);
+  // console.log('options', options);
 
   const editMappingsLabel = (item, index) => {
     return (
@@ -23,13 +85,8 @@ export const EditMappingsModal = ({
               </div>
             </div>
             {/* <div>{ellipsisString(item?.description[0], '100')}</div> */}
-            {/* <div>Ontology: {d.ontology_prefix}</div> */}
           </div>
         </div>
-        {/* <div key={innerIndex} className="mappings_container">
-                   <div key={innerIndex}>Code: {item.code}</div>
-                   <div>Display: {item.display}</div>
-                 </div> */}
       </>
     );
   };
@@ -42,85 +99,37 @@ export const EditMappingsModal = ({
       okText="Save"
       onOk={() => {
         form.validateFields().then(values => {
-          handleSubmit(values);
+          // handleSubmit(values);
+          clearData();
           form.resetFields();
           setEditMappings(null);
         });
       }}
       onCancel={() => {
+        clearData();
         form.resetFields();
         setEditMappings(null);
       }}
       maskClosable={true}
-      destroyOnClose={true}
     >
-      <Form form={form} layout="vertical">
-        <Form.Item
-          name={['mappings']}
-          valuePropName="value"
-          rules={[{ required: true, message: 'Please make a selection.' }]}
-        >
-          {mapping.length > 0
-            ? mapping.map((m, index) => {
-                if (m?.code === editMappings?.code) {
-                  return (
-                    <Checkbox.Group
-                      className="mappings_checkbox"
-                      options={m?.mappings?.map((item, index) => {
-                        return {
-                          value: JSON.stringify({
-                            code: item.code,
-                            display: item.display,
-                            // description: d.description[0],
-                            system: item?.system,
-                          }),
-                          label: editMappingsLabel(item, index),
-                        };
-                      })}
-                    />
-                  );
-                }
-              })
-            : ''}
-        </Form.Item>
-      </Form>
+      {loading ? (
+        <ModalSpinner />
+      ) : (
+        <Form form={form} layout="vertical" preserve={false}>
+          <Form.Item
+            name={['mappings']}
+            valuePropName="value"
+            rules={[{ required: true, message: 'Please make a selection.' }]}
+            initialValue={termMappings}
+          >
+            <Checkbox.Group
+              className="mappings_checkbox"
+              options={options}
+              defaultValue={termMappings}
+            />
+          </Form.Item>
+        </Form>
+      )}
     </Modal>
   );
 };
-
-//  <Checkbox.Group
-//       className="mappings_checkbox"
-//       options={m?.mappings?.map((m, index) => {
-//         return {
-//           value: {
-//             code: m?.code,
-//             display: m?.display,
-//             system: m?.system,
-//           },
-//           label: (
-//             <>
-//               <div key={index} className="modal_search_result">
-//                 <div>
-//                   <div className="modal_term_ontology">
-//                     <div>
-//                       <b>{m.display}</b>
-//                     </div>
-//                     <div>
-//                       {/* <a href={item.iri} target="_blank"> */}
-//                       {m.code}
-//                       {/* </a> */}
-//                     </div>
-//                   </div>
-//                   {/* <div>{ellipsisString(item?.description[0], '100')}</div> */}
-//                   {/* <div>Ontology: {d.ontology_prefix}</div> */}
-//                 </div>
-//               </div>
-//               {/* <div key={innerIndex} className="mappings_container">
-//                 <div key={innerIndex}>Code: {item.code}</div>
-//                 <div>Display: {item.display}</div>
-//               </div> */}
-//             </>
-//           ),
-//         };
-//       })}
-//     />

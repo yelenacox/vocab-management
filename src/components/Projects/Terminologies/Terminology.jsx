@@ -44,9 +44,9 @@ export const Terminology = () => {
 
   useEffect(() => {
     setLoading(true);
-    getById(vocabUrl, 'Terminology', terminologyId)
-      .then(data => setTerminology(data))
-      .then(() => setLoading(false));
+    getById(vocabUrl, 'Terminology', terminologyId).then(data =>
+      setTerminology(data),
+    );
     getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`)
       .then(data => setMapping(data.codes))
       .then(() => setLoading(false));
@@ -160,6 +160,7 @@ export const Terminology = () => {
             editMappings={editMappings}
             setEditMappings={setEditMappings}
             mapping={mapping}
+            terminologyId={terminologyId}
           />
 
           <GetMappingsModal
