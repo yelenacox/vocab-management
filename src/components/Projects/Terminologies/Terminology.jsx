@@ -74,7 +74,7 @@ export const Terminology = () => {
   const matchCode = code =>
     mapping?.length > 0
       ? mapping?.map((item, index) =>
-          item.code === code.code ? (
+          item.code === code.code && item?.mappings?.length > 0 ? (
             <Tooltip
               title={item.mappings.map(code => {
                 return <div>{code.code}</div>;
@@ -104,7 +104,7 @@ export const Terminology = () => {
       mapped_terms: matchCode(code),
       get_mappings:
         mapping.length > 0 ? (
-          mapping.some(m => m.code === code.code) ? (
+          mapping.some(m => m.code === code.code && m?.mappings?.length > 0) ? (
             <button
               key={code.code}
               className="manage_term_button"
@@ -161,6 +161,8 @@ export const Terminology = () => {
             setEditMappings={setEditMappings}
             mapping={mapping}
             terminologyId={terminologyId}
+            setMapping={setMapping}
+            mnapping={mapping}
           />
 
           <GetMappingsModal
