@@ -66,17 +66,8 @@ export const EditMappingsModal = ({
     }
   };
 
-  const getOptions = () => {
-    if (termMappings.length < 1) {
-      return undefined;
-    }
-    return termMappings.map((t, index) => {
-      return { value: t, label: editMappingsLabel(t, index) };
-    });
-  };
-
-  console.log('MPPINGS', termMappings);
-  console.log('options', options);
+  // console.log('MPPINGS', termMappings);
+  // console.log('options', options);
 
   const editMappingsLabel = (item, index) => {
     return (
@@ -108,7 +99,7 @@ export const EditMappingsModal = ({
       okText="Save"
       onOk={() => {
         form.validateFields().then(values => {
-          handleSubmit(values);
+          // handleSubmit(values);
           clearData();
           form.resetFields();
           setEditMappings(null);
@@ -120,19 +111,22 @@ export const EditMappingsModal = ({
         setEditMappings(null);
       }}
       maskClosable={true}
-      destroyOnClose={true}
     >
       {loading ? (
         <ModalSpinner />
       ) : (
-        <Form form={form} layout="vertical">
+        <Form form={form} layout="vertical" preserve={false}>
           <Form.Item
             name={['mappings']}
             valuePropName="value"
             rules={[{ required: true, message: 'Please make a selection.' }]}
             initialValue={termMappings}
           >
-            <Checkbox.Group className="mappings_checkbox" options={options} />
+            <Checkbox.Group
+              className="mappings_checkbox"
+              options={options}
+              defaultValue={termMappings}
+            />
           </Form.Item>
         </Form>
       )}
