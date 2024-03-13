@@ -1,4 +1,4 @@
-import { Checkbox, Modal, Form } from 'antd';
+import { Checkbox, Modal, Form, Button } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../../App';
 import { ModalSpinner } from '../../Manager/Spinner';
@@ -6,8 +6,9 @@ import { ModalSpinner } from '../../Manager/Spinner';
 export const EditMappingsModal = ({
   editMappings,
   setEditMappings,
-  mapping,
   terminologyId,
+  setMapping,
+  mapping,
 }) => {
   const [form] = Form.useForm();
   const [termMappings, setTermMappings] = useState([]);
@@ -15,15 +16,16 @@ export const EditMappingsModal = ({
   const { vocabUrl } = useContext(myContext);
   const [loading, setLoading] = useState(false);
 
+  console.log(mapping);
   useEffect(() => {
-    console.log('EM', editMappings);
     fetchMappings();
-  }, [editMappings]);
+  }, [editMappings, mapping]);
 
   const clearData = () => {
     setTermMappings([]);
     setOptions([]);
   };
+
   const fetchMappings = () => {
     if (editMappings) {
       setLoading(true);
@@ -66,7 +68,35 @@ export const EditMappingsModal = ({
     }
   };
 
-  // console.log('MPPINGS', termMappings);
+  const updateMappings = values => {
+    const mappingsDTO = () => {
+      let mappings = [];
+      values?.mappings?.forEach(v => mappings.push(JSON.parse(v)));
+      return { mappings: mappings };
+    };
+
+    fetch(
+      `${vocabUrl}/Terminology/${terminologyId}/mapping/${editMappings.code}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(mappingsDTO()),
+      },
+    )
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('An unknown error occurred.');
+        }
+      })
+      .then(() => getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`))
+      .then(data => setMapping(data.codes));
+  };
+
+  // console.log('MAPPINGS', termMappings);
   // console.log('options', options);
 
   const editMappingsLabel = (item, index) => {
@@ -99,7 +129,8 @@ export const EditMappingsModal = ({
       okText="Save"
       onOk={() => {
         form.validateFields().then(values => {
-          // handleSubmit(values);
+          console.log('VALUEUUEUS', values);
+          updateMappings(values);
           clearData();
           form.resetFields();
           setEditMappings(null);
@@ -111,6 +142,16 @@ export const EditMappingsModal = ({
         setEditMappings(null);
       }}
       maskClosable={true}
+      footer={(_, { OkBtn /*CancelBtn*/ }) => (
+        <>
+          <div className="footer_buttons">
+            {' '}
+            <Button danger>Reset</Button>
+            {/* <CancelBtn /> */}
+            <OkBtn />
+          </div>
+        </>
+      )}
     >
       {loading ? (
         <ModalSpinner />
@@ -119,7 +160,7 @@ export const EditMappingsModal = ({
           <Form.Item
             name={['mappings']}
             valuePropName="value"
-            rules={[{ required: true, message: 'Please make a selection.' }]}
+            // rules={[{ required: true, message: 'Please make a selection.' }]}
             initialValue={termMappings}
           >
             <Checkbox.Group
