@@ -108,9 +108,7 @@ export const Terminology = () => {
             <button
               key={code.code}
               className="manage_term_button"
-              onClick={() => {
-                setEditMappings(code);
-              }}
+              onClick={() => setEditMappings(code)}
             >
               Edit Mappings
             </button>
