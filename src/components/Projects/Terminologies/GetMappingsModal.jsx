@@ -73,9 +73,6 @@ export const GetMappingsModal = ({
           throw new Error('An unknown error occurred.');
         }
       })
-      .then(data =>
-        getById(vocabUrl, 'Terminology', `${terminologyId}/mapping`),
-      )
       .then(data => setMapping(data.codes));
   };
 
