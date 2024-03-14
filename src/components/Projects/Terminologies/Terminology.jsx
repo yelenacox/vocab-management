@@ -103,7 +103,7 @@ export const Terminology = () => {
       display: code.display,
       mapped_terms: matchCode(code),
       get_mappings:
-        mapping.length > 0 ? (
+        mapping?.length > 0 ? (
           mapping.some(m => m.code === code.code && m?.mappings?.length > 0) ? (
             <button
               key={code.code}

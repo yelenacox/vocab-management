@@ -154,14 +154,17 @@ export const EditMappingsModal = ({
       styles={{ body: { height: '60vh', overflowY: 'auto' } }}
       okText="Save"
       onOk={() => {
-        form.validateFields().then(values => {
-          console.log('VALUEUUEUS', values);
-          updateMappings(values);
-          clearData();
-          form.resetFields();
-          setEditMappings(null);
-          setReset(false);
-        });
+        form
+          .validateFields()
+          .then(values => {
+            console.log('VALUEUUEUS', values);
+            updateMappings(values);
+            clearData();
+            form.resetFields();
+            setEditMappings(null);
+            setReset(false);
+          })
+          .then(data => setMapping(data));
       }}
       onCancel={() => {
         clearData();
@@ -170,6 +173,7 @@ export const EditMappingsModal = ({
         setReset(false);
       }}
       maskClosable={true}
+      destroyOnClose={true}
       footer={(_, { OkBtn /*CancelBtn*/ }) => (
         <>
           <div className="footer_buttons">

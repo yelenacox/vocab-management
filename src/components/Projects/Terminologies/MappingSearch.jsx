@@ -145,7 +145,7 @@ export const MappingSearch = ({
                 </div>
                 {results?.length > 0 ? (
                   <div className="result_container">
-                    <Form form={form} layout="vertical">
+                    <Form form={form} layout="vertical" preserve={false}>
                       <Form.Item
                         name={['mappings']}
                         valuePropName="value"
